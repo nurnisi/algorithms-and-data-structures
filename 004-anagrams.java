@@ -11,8 +11,8 @@ public class anagrams {
       char char1 = str1.charAt(i);
       char char2 = str2.charAt(i);
 
-      container[char1 - 65] += 1;
-      contaienr[char2 - 65] -= 1;
+      container[char1 - 97] += 1;
+      contaienr[char2 - 97] -= 1;
     }
 
     for(int i : container)
