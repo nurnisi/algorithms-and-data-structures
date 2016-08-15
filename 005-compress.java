@@ -14,6 +14,9 @@ public class compress {
       result += (s.charAt(i) + (j - i));
       i = j++;
     }
+
+    if(result.length() > s.length) return s;
+    return result;
   }
 
 }
