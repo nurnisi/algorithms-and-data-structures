@@ -55,7 +55,7 @@ public class Stack {
    if(runner != null) curr = curr.next;
 
    while(curr != null) {
-     if(curr.value != stack.pop()) return false;
+     if(curr.value != stack.pop().intValue()) return false;
      curr = curr.next;
    }
 
