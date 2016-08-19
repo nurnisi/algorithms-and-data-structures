@@ -1,3 +1,4 @@
+//by me
 public class Stack {
   private class Node {
     int value;
@@ -39,3 +40,24 @@ public class Stack {
     return true;
   }
 }
+//by sam
+ public boolean palindrome(Node head) {
+   Stack<Integer> stack = new Stack<Integer>();
+   Node curr = head;
+   Node runner = head;
+
+   while(runner != null && runner.next != null) {
+     stack.push(curr.value);
+     curr = curr.next;
+     runner = runner.next.next;
+   }
+
+   if(runner != null) curr = curr.next;
+
+   while(curr != null) {
+     if(curr.value != stack.pop()) return false;
+     curr = curr.next;
+   }
+
+   return true;
+ }
