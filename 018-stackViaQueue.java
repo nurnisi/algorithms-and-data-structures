@@ -54,7 +54,7 @@ public class Stack {
 
   public int pop() {
     if(primary.isEmpty()) throw new NullPointerException();
-    Integer value;
+    Integer value = null;
     while(!primary.isEmpty) {
       value = primary.remove();
       if(!primary.isEmpty()) secondary.add(value);
