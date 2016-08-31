@@ -46,3 +46,6 @@ private static Stack<Nodes> pathTo(Node tree, Node n) {
 
   return null;
 }
+
+//time complexity = O(n)
+//space complexity = O(n)
