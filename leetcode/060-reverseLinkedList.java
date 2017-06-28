@@ -1,3 +1,4 @@
+//stack
 public static ListNode reverseList(ListNode head) {
     if (head == null) return head;
     Deque<ListNode> stack = new LinkedList<>();
