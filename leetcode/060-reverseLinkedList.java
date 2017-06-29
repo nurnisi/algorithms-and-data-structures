@@ -15,3 +15,5 @@ public static ListNode reverseList(ListNode head) {
 
     return newHead;
 }
+
+//recursion
