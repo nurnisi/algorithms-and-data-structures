@@ -14,3 +14,14 @@ public static boolean palindromePermutation(String str) {
 
     return true;
 }
+
+//with int
+public static  boolean palindromePermutationWithInt(String str) {
+    int i = 0;
+    str = str.toLowerCase();
+    for (char ch : str.toCharArray())
+        if (ch != ' ')
+            i ^= (1 << (ch - 'a'));
+
+    return i == 0 || (i & (i - 1)) == 0;
+}
