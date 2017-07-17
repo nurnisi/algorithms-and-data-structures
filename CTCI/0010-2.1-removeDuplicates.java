@@ -16,21 +16,6 @@ public static ListNode removeDuplicates(ListNode head) {
     return head;
 }
 
-//from book
-public static void removeDuplicates(ListNode n) {
-  Set<Integer> set = new HashSet<>();
-  ListNode prev = null;
-  while (n != null) {
-    if (set.contains(n.val)) {
-      prev.next = n.next;
-    } else {
-      set.add(n.val);
-      prev = n;
-    }
-    n = n.next;
-  }
-}
-
 //recursive
 static Set<Integer> set = new HashSet<>();
 
@@ -74,4 +59,32 @@ public static void removeDuplicatesWithoutBuffer(ListNode head) {
         check = check.next;
         prev = check;
     }
+}
+
+//from book
+public static void removeDuplicates(ListNode n) {
+  Set<Integer> set = new HashSet<>();
+  ListNode prev = null;
+  while (n != null) {
+    if (set.contains(n.val)) {
+      prev.next = n.next;
+    } else {
+      set.add(n.val);
+      prev = n;
+    }
+    n = n.next;
+  }
+}
+
+//from book without buffer
+public static void removeDuplicatesWithoutBuffer(ListNode n) {
+  ListNode current = n;
+  while(current != null) {
+    ListNode runner  = current;
+    while(runner.next != null) {
+      if (runner.next.val == current.val) runner.next = runner.next.next;
+      else runner = runner.next
+    }
+    current = current.next;
+  }
 }
