@@ -1,16 +1,17 @@
 public static ListNode removeDuplicates(ListNode head) {
-        if (head == null) return head;
+    if (head == null) return head;
 
-        Set<ListNode> set = new HashSet<>();
-        ListNode newHead = head, runner = head.next;
-        set.add(newHead);
-        while (runner != null) {
-            if (!set.contains(runner)) {
-                set.add(runner);
-                newHead.next = runner;
-            }
-            runner = runner.next;
+    Set<Integer> set = new HashSet<>();
+    set.add(head.val);
+    ListNode prev = head, runner = head.next;
+    while (runner != null) {
+        if (!set.contains(runner.val)) {
+            set.add(runner.val);
+            prev = runner;
         }
-
-        return newHead;
+        else prev.next = runner.next;
+        runner = prev.next;
     }
+
+    return head;
+}
