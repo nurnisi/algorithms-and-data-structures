@@ -17,6 +17,8 @@ public static ListNode removeDuplicates(ListNode head) {
 }
 
 //recursive
+static Set<Integer> set = new HashSet<>();
+
 public static ListNode removeDuplicatesRecursive(ListNode head) {
     if (head == null) return head;
     set.add(head.val);
