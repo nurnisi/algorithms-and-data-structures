@@ -39,3 +39,24 @@ private static void helper(ListNode prev, ListNode runner) {
         helper(prev, runner);
     }
 }
+
+//without buffer
+public static void removeDuplicatesWithoutBuffer(ListNode head) {
+    if (head == null) return;
+
+    ListNode check = head, prev = head, runner;
+    while (check != null && check.next != null) {
+        runner = check.next;
+        while (runner != null) {
+            if (runner.val == check.val) {
+                prev.next = runner.next;
+                runner = runner.next;
+            } else {
+                runner = runner.next;
+                prev = prev.next;
+            }
+        }
+        check = check.next;
+        prev = check;
+    }
+}
