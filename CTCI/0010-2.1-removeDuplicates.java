@@ -16,6 +16,21 @@ public static ListNode removeDuplicates(ListNode head) {
     return head;
 }
 
+//from book
+public static void removeDuplicates(ListNode n) {
+  Set<Integer> set = new HashSet<>();
+  ListNode prev = null;
+  while (n != null) {
+    if (set.contains(n.val)) {
+      prev.next = n.next;
+    } else {
+      set.add(n.val);
+      prev = n;
+    }
+    n = n.next;
+  }
+}
+
 //recursive
 static Set<Integer> set = new HashSet<>();
 
