@@ -20,3 +20,24 @@ public static ListNode partition(ListNode n, int partition) {
 
     return head;
 }
+
+
+//without buffer - in place
+public static void partitionWithoutBuffer(ListNode n, int partition) {
+    while (n != null && n.next != null) {
+        if (n.val >= partition) {
+            ListNode runner = n.next;
+            while (runner != null) {
+                if (runner.val < partition) {
+                    int temp = runner.val;
+                    runner.val = n.val;
+                    n.val = temp;
+                    break;
+                }
+                runner = runner.next;
+            }
+            if (runner == null) return;
+        }
+        n = n.next;
+    }
+}
