@@ -22,3 +22,23 @@ public static ListNode sumLists(ListNode list1, ListNode list2) {
 
     return head;
 }
+
+//recursive
+public static ListNode sumListsRecursive(ListNode list1, ListNode list2, int c) {
+    if (list1 == null && list2 == null && c == 0) return null;
+
+    int sum = c;
+    if (list1 != null) sum += list1.val;
+    if (list2 != null) sum += list2.val;
+    ListNode res = new ListNode(sum % 10);
+
+    if (list1 != null || list2 != null) {
+        res.next = sumListsRecursive(
+                            list1 != null ? list1.next : null,
+                            list2 != null ? list2.next : null,
+                            sum / 10);
+
+    }
+
+    return res;
+}
