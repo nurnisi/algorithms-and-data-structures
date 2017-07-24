@@ -40,3 +40,34 @@ public static boolean isEqual(ListNode one, ListNode two) {
     }
     return one == null && two == null;
 }
+
+//recursive solution ctci
+public class Result {
+  ListNode node;
+  boolean bool;
+}
+
+public static boolean isPalindromeRecursive(ListNode head) {
+  int length = 0;
+  ListNode temp = head;
+  while (temp != null) {
+    length++;
+    temp = temp.next;
+  }
+  Result res = isPalindromeRecursive(head, length);
+  return res.bool;
+}
+
+public static Result isPalindromeRecursive(ListNode head, int length) {
+  if (head == null || length == 0) return Result(head, true);
+  else if (length == 1) return Result(head.next, true);
+
+  Result res = isPalindromeRecursive(ListNode head.next, length - 2);
+
+  if (!res.bool || res.node == null) return res;
+
+  res.result = (head.val == res.node.val);
+  res.node = res.node.next;
+
+  return res;
+}
