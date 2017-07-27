@@ -42,3 +42,27 @@ public class StackMin {
     return top == null;
   }
 }
+
+//stack with min ctci
+public class StackWithMin extends Stack {
+  Stack mins;
+  public StackWithMin() {
+    mins = new Stack();
+  }
+
+  public void push(int value) {
+    if (value <= mins.min()) mins.push(value);
+    super.push(value);
+  }
+
+  public int pop() {
+    int value = super.pop();
+    if (value == min()) mins.pop();
+    return value;
+  }
+
+  public int min() {
+    if (mins.isEmpty) return Integer.MAX_VALUE;
+    else return mins.peek();
+  }
+}
