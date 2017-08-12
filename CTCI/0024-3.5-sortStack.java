@@ -15,3 +15,14 @@ public static Stack sortStack(Stack stack) {
   }
   return temp;
 }
+
+//CTCI
+public static Stack sortStack(Stack stack) {
+  Stack temp = new Stack();
+  while (!stack.isEmpty()) {
+    int item = stack.pop();
+    while (!temp.isEmpty() && item > temp.peek()) stack.push(temp.pop());
+    temp.push(item);
+  }
+  return temp;
+}
