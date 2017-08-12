@@ -44,3 +44,33 @@ public class MyQueue {
 }
 
 public class Stack { ... }
+
+//CTCI with method called shiftStacks
+public class MyQueue<Generic> {
+  Stack<Generic> newest, oldest;
+
+  public MyQueue<Generic>() {
+    Stack<Generic> newest = new Stack<>();
+    Stack<Generic> oldest = new Stack<>();
+  }
+
+  public void push(Generic item) {
+    newest.push(item);
+  }
+
+  public Generic pop() {
+    shiftStacks();
+    return oldest.pop();
+  }
+
+  public Generic peek() {
+    shiftStacks();
+    return oldest.peek();
+  }
+
+  private void shiftStacks() {
+    if (oldest.isEmpty()) {
+      while (!newest.isEmpty()) oldest.push(newest.pop());
+    }
+  }
+}
