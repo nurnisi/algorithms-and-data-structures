@@ -8,3 +8,25 @@ public static String binaryToString(double num) {
   }
   return res;
 }
+
+//CTCI
+public static String binaryToString(double num) {
+  if (num >= 1 || num <= 0) return "ERROR";
+
+  StringBuilder binary = new StringBuilder();
+  binary.append(".");
+  while (num > 0) {
+    if (binary.length() >= 32) return "ERROR";
+
+    double m = num * 2;
+    if (m > 1) {
+      binary.append(1);
+      num = m - 1;
+    } else {
+      binary.append(0);
+      num = m;
+    }
+  }
+
+  return binary.toString();
+}
