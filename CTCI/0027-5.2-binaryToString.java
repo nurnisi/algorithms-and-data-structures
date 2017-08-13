@@ -30,3 +30,24 @@ public static String binaryToString(double num) {
 
   return binary.toString();
 }
+
+//CTCI 2
+public static String binaryToString(double num) {
+  if (num >= 1 || num <= 0) return "ERROR";
+
+  StringBuilder binary = new StringBuilder();
+  binary.append(".");
+  double fraction = 0.5;
+
+  while (num > 0) {
+    if (binary.length() >= 32) return "ERROR";
+
+    if (num >= fraction) {
+      num -= fraction;
+      binary.append(1);
+    } else binary.append(0);
+    frac /= 2;
+  }
+
+  return binary.toString();
+}
