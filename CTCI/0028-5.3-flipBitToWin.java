@@ -21,3 +21,47 @@ public static int flipBitToWin(int num) {
     }
     return max;
 }
+
+//CTCI: brute force
+static int longestSequence(int n) {
+    if (n == -1) return Integer.BYTES * 8;
+    List<Integer> sequences = getAlternatingSequences(n);
+    return findLongestSequence(sequences);
+}
+
+static List<Integer> getAlternatingSequences(int n) {
+    List<Integer> sequences = new ArrayList<>();
+
+    int searchingFor = 0, counter = 0;
+    for (int i = 0; i < Integer.BYTES * 8; i++) {
+        if ((n & 1) != searchingFor) {
+            sequences.add(counter);
+            searchingFor = n & 1;
+            counter = 0;
+        }
+        counter++;
+        n >>= 1;
+    }
+    sequences.add(counter);
+
+    return sequences;
+}
+
+static int findLongestSequence(List<Integer> sequences) {
+    int maxSeq = 1;
+
+    for (int i = 0; i < sequences.size(); i += 2) {
+        int zeroSeq = sequences.get(i);
+        int onesSeqLeft = i - 1 >= 0 ? sequences.get(i - 1) : 0;
+        int onesSeqRight = i + 1 < sequences.size() ? sequences.get(i + 1) : 0;
+
+        int thisSeq = 0;
+        if (zeroSeq == 1) thisSeq = onesSeqLeft + onesSeqRight + 1;
+        else if (zeroSeq > 1) thisSeq = 1 + Math.max(onesSeqLeft, onesSeqRight);
+        else if (zeroSeq == 0) thisSeq = Math.max(onesSeqLeft, onesSeqRight);
+
+        maxSeq = Math.max(maxSeq, thisSeq);
+    }
+
+    return maxSeq;
+}
