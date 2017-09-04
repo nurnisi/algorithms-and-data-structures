@@ -1,0 +1,1 @@
+n & (n - 1) == 0 //checks if n is power of 2
