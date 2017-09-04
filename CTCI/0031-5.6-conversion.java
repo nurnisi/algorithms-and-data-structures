@@ -7,3 +7,12 @@ static int conversion(int num1, int num2) {
     }
     return res;
 }
+
+//CTCI: 1
+static int conversion(int num1, int num2) {
+    int count = 0;
+    for (int c = num1 ^ num2; c != 0; c >>= 1) {
+        count += c & 1;
+    }
+    return count;
+}
