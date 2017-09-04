@@ -65,3 +65,20 @@ static int findLongestSequence(List<Integer> sequences) {
 
     return maxSeq;
 }
+
+//CTCI: space efficient
+static int flipBit(int n) {
+    if (~n == 0) return Integer.BYTES * 8;
+
+    int current = 0, previous = 0, max = 1;
+    while (n != 0) {
+        if ((n & 1) == 1) current++;
+        else {
+            previous = (n & 2) == 0 ? 0 : current;
+            current = 0;
+        }
+        max = Math.max(current + previous + 1, max);
+        n >>>= 1;
+    }
+    return max;
+}
