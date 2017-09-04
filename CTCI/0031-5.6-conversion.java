@@ -16,3 +16,12 @@ static int conversion(int num1, int num2) {
     }
     return count;
 }
+
+//CTCI: 2
+static int conversion(int num1, int num2) {
+    int count = 0;
+    for (int c = num1 ^ num2; c != 0; c = c & (c - 1)) {
+        count++;
+    }
+    return count;
+}
