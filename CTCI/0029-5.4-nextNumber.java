@@ -75,7 +75,7 @@ static int getPrev(int num) {
     return num;
 }
 
-//CTCI: 
+//CTCI: getNextArithmetic
 static int getNextArithmetic(int num) {
     int c = num, c0 = 0, c1 = 0;
     while ((c & 1) == 0 && c != 0) {
@@ -91,4 +91,22 @@ static int getNextArithmetic(int num) {
     if (c0 + c1 == 31 || c0 + c1 == 0) return -1;
 
     return num + (1 << c0) + (1 << (c1 - 1)) - 1;
+}
+
+//CTCI: getPrevArithmetic
+static int getPrevArithmetic(int num) {
+    int c = num, c0 = 0, c1 = 0;
+    while ((c & 1) == 1 && c!= 0) {
+        c1++;
+        c >>= 1;
+    }
+
+    if (c == 0) return - 1;
+
+    while ((c & 1) == 0 && c != 0) {
+        c0++;
+        c >>= 1;
+    }
+
+    return num - (1 << c1) - (1 << (c0 - 1)) + 1;
 }
