@@ -51,3 +51,26 @@ static int getNext(int num) {
 
     return num;
 }
+
+//CTCI: getPrev
+static int getPrev(int num) {
+    int c = num, c0 = 0, c1 = 0;
+    while ((c & 1) == 1 && c != 0) {
+        c1++;
+        c >>= 1;
+    }
+
+    if (c == 0) return -1;
+
+    while ((c & 1) == 0 && c != 0) {
+        c0++;
+        c >>= 1;
+    }
+
+    int p = c0 + c1;
+    num &= ((~0) << (p + 1));
+    int mask = (1 << (c1 + 1)) - 1;
+    num |= mask << (c0 - 1);
+
+    return num;
+}
