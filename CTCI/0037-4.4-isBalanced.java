@@ -31,3 +31,19 @@ int checkHeight(TreeNode root) {
     if (height_diff > 1) return Integer.MIN_VALUE;
     else return Math.max(left_height - right_height) + 1;
 }
+
+//byte-by-byte solution
+boolean isBalanced(TreeNode root) {
+    return getHeight(root) > -1;
+}
+
+int getHeight(TreeNode root) {
+    if (root == null) return 0;
+
+    int h1 = getHeight(root.left);
+    int h2 = getHeight(root.right);
+
+    if (h1 == -1 || h2 == -1) return -1;
+    if (Math.abs(h1 - h2) > 1) return -1;
+    return h1 > h2 ? h1 + 1 : h2 + 1;
+}
