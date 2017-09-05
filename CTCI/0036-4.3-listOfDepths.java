@@ -20,3 +20,26 @@ List<LinkedList<TreeNode>> listOfDepths(TreeNode root) {
 
     return list;
 }
+
+//CTCI: DFS
+List<LinkedList<TreeNode>> listOfDepths(TreeNode root) {
+    List<LinkedList<TreeNode>> lists = new ArrayList<>();
+    listOfDepths(root, lists, 0);
+    return lists;
+}
+
+void listOfDepths(TreeNode root, List<LinkedList<TreeNode>> lists, int level) {
+    if (root == null) return;
+
+    LinkedList<TreeNode> list = null;
+    if (lists.size() == level) {
+        list = new LinkedList<>();
+        lists.add(list);
+    } else {
+        list = lists.get(level);
+    }
+    
+    list.add(root);
+    listOfDepths(root.left, lists, level + 1);
+    listOfDepths(root.right, lists, level + 1);
+}
