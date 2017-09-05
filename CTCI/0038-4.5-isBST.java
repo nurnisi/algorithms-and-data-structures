@@ -30,3 +30,17 @@ boolean isBST(TreeNode node) {
 
     return true;
 }
+
+//3
+boolean isBST(TreeNode root) {
+    return isBST(root, null, null);
+}
+
+boolean isBST(TreeNode node, Integer min, Integer max) {
+    if (node == null) return true;
+
+    if ((min != null && node.value <= min) || (max != null && node.value > max))
+        return false;
+
+    return isBST(node.left, min, node.value) && isBST(node.right, node.value, max);
+}
