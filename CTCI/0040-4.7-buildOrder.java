@@ -18,6 +18,9 @@ private void topologicalSort(Vertex<T> vertex, Deque<Vertex<T>> stack, Set<Verte
     stack.push(vertex);
 }
 
+// CTCI: Solution 2 - topological sort - DFS
+
+
 // CTCI: Solution 1
 public class Project {
     private List<Project> children = new ArrayList<>();
