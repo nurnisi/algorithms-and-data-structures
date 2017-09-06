@@ -19,7 +19,33 @@ private void topologicalSort(Vertex<T> vertex, Deque<Vertex<T>> stack, Set<Verte
 }
 
 // CTCI: Solution 2 - topological sort - DFS
+Deque<Project> findBuildOrder(String[] projects, String[][] dependencies) {
+    Graph graph = buildGraph(projects, dependencies);
+    return orderProjects(graph.getProjects());
+}
 
+Deque<Project> orderProjects(List<Project> projects) {
+    Deque<Project> stack = new LinkedList<>();
+    Set<Project> visited = new HashSet<>();
+    Set<Project> visiting = new HashSet<>();
+
+    for (Project project : projects) {
+        if (!visited.contains(project)) visit(project, stack, visited, visiting);
+    }
+
+    return stack;
+}
+
+void visit(Project project, Deque<Project> stack, Set<Project> visited, Set<Project> visiting) {
+    if (visiting.contains(project)) throw new RuntimeException("Graph is not acyclic");
+    if (!visited.contains(project)) {
+        visiting.add(project);
+        for (Project child: project.getChildren) visit(child, stack, visited, visiting);
+        visiting.remove(project);
+        visited.add(project);
+        stack.push(project);
+    }
+}
 
 // CTCI: Solution 1
 public class Project {
