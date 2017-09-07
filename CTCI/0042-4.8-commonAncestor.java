@@ -83,3 +83,39 @@ boolean covers(TreeNode node1, TreeNode node2) {
     if (node1 == node2) return true;
     return covers(node1.left, node2) || covers(node1.right, node2);
 }
+
+// Solution 4: optimized
+class Result {
+    public TreeNode node;
+    public boolean isAncestor;
+    public Result(TreeNode node, boolean isAncestor) {
+        this.node = node;
+        this.isAncestor = isAncestor;
+    }
+}
+
+TreeNode commonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    Result r = commonAncestorHelper(TreeNode root, TreeNode p, TreeNode q);
+    if (r.isAncestor) return r.node;
+    return null;
+}
+
+Result commonAncestorHelper(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null) return new Result(null, false);
+    if (root == p && root == q) return new Result(root, true);
+
+    Result left = commonAncestorHelper(root.left, p, q);
+    if (left.isAncestor) return left;
+
+    Result right = commonAncestorHelper(root.right, p, q);
+    if (right.isAncestor) return right;
+
+    if (left.node != null && right.node != null) return new Result(root, true);
+    else if (root == p || root == q) {
+        boolean isAncestor = left.node != null || right.node != null;
+        return new Result(root, isAncestor);
+    } else {
+        TreeNode node = left.node != null ? left.node : right.node;
+        return new Result(node, false);
+    }
+}
