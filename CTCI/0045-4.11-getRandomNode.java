@@ -39,3 +39,33 @@ class TreeNode {
         else return right.getRandomNode();
     }
 }
+
+// optimized
+class Tree {
+    TreeNode root = null;
+
+    public int size() { return root != null ? root.size() : 0; }
+
+    public void insert(int data) {
+        if (root == null) root = new TreeNode(data);
+        else root.insert(data);
+    }
+
+    public TreeNode getRandomNode() {
+        if (root == null) return null;
+
+        Random random = new Random();
+        int i = random.nextInt(size());
+        return root.getIthNode(i);
+    }
+}
+
+class TreeNode {
+    // Same as above
+    public TreeNode getIthNode(i) {
+        int leftSize = left != null ? left.size() : 0;
+        if (i < leftSize) return left.getIthNode(i);
+        else if (i == leftSize) return this;
+        else right.getIthNode(i - ()leftSize + 1);
+    } 
+}
