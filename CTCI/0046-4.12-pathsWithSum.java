@@ -24,3 +24,34 @@ int countPathsWithSumFromNode(TreeNode node, int targetSum, int currentSum) {
 
     return totalPaths;
 }
+
+// optimized
+int countPathsWithSum(TreeNode root, int targetSum) {
+    return countPathsWithSum(root, targetSum, 0, new HashMap<Integer, Integer>());
+}
+
+int countPathsWithSum(TreeNode node, int targetSum, int runningSum, 
+                      HashMap<Integer, Integer> pathCount) {
+    if (node == null) return 0;
+
+    // count paths ending at current node
+    runningSum += node.data;
+    int sum = runningSum - targetSum;
+    int totalPaths = pathCount.getOrDefault(sum, 0);
+
+    // if running sum equals target sum, then one additional path starts at root
+    if (runningSum == targetSum) totalPaths++;
+
+    incrementHashMap(pathCount, runningSum, 1);
+    totalPaths += countPathsWithSum(node.left, targetSum, runningSum, pathCount);
+    totalPaths += countPathsWithSum(node.right, targetSum, runningSum, pathCount);
+    incrementHashMap(pathCount, runningSum, -1);
+
+    return totalPaths;
+}
+
+void incrementHashMap(HashMap<Integer, Integer> map, int key, int delta) {
+    int newCount = map.getOrDefault(key, 0) + delta;
+    if (newCount == 0) map.remove(key);
+    else map.put(key, newCount);
+}
