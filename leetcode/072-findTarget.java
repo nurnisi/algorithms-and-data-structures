@@ -56,3 +56,18 @@ private void inorder(TreeNode node, List<Integer> nums) {
     nums.add(node.val);
     inorder(node.right, nums);
 }
+
+// leetcoode: 3
+public boolean findTarget(TreeNode root, int k) {
+    return dfs(root, root, k);
+}
+
+private boolean dfs(TreeNode root, TreeNode curr, int k) {
+    return search(root, curr, k - curr.val) || dfs(root, curr.left, k) || dfs(root, curr.right, k);
+}
+
+private boolean search(TreeNode root, TreeNode curr, int value) {
+    return (root.val == value && root != curr) ||
+           (root.val < value && search(root.left, curr, value)) ||
+           (root.val > value && search(root.right, curr, value));
+}
