@@ -24,3 +24,15 @@ private void addElements(TreeNode node, Map<Integer, Integer> map) {
     addElements(node.left, map);
     addElements(node.right, map);
 }
+
+// leetcode: 1
+public boolean findTarget(TreeNode root, int k) {
+    return findTarget(root, k, new HashSet<Integer>());
+}
+
+private boolean findTarget(TreeNode node, int k, HashSet<Integer> set) {
+    if (node == null) return false;
+    if (set.contains(k - node.val)) return true;
+    set.add(node.val);
+    return findTarget(node.left, k, set) || findTarget(node.right, k, set);
+}
