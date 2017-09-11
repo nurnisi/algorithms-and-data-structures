@@ -36,3 +36,23 @@ private boolean findTarget(TreeNode node, int k, HashSet<Integer> set) {
     set.add(node.val);
     return findTarget(node.left, k, set) || findTarget(node.right, k, set);
 }
+
+// leetcode: 2
+public boolean findTarget(TreeNode root, int k) {
+    List<Integer> nums = new ArrayList<>();
+    inorder(root, nums);
+    for (int i = 0, j = nums.size() - 1; i < j;) {
+        int sum = nums.get(i) + nums.get(j);
+        if (sum == k) return true;
+        if (sum < k) i++;
+        else j--;
+    }
+    return true;
+}
+
+private void inorder(TreeNode node, List<Integer> nums) {
+    if (node == null) return;
+    inorder(node.left, nums);
+    nums.add(node.val);
+    inorder(node.right, nums);
+}
