@@ -114,3 +114,74 @@ public class main {
         return countInversions(matrix) % 2 == 0 ? true : false;
     }
 }
+
+// Count Inversions in an array | Set 1 (Using Merge Sort)
+
+// http://www.geeksforgeeks.org/counting-inversions/
+
+import java.io.*;
+import java.util.*;
+
+public class main {
+
+    public static void main(String[] args) {
+        int[] arr = {1, 20, 6, 4 ,5};
+        System.out.println(mergeSort(arr));
+    }
+
+    /* This method sorts the input array and returns the
+    number of inversions in the array */
+    static int mergeSort(int[] arr) {
+        int[] temp = new int[arr.length];
+        return mergeSort(arr, temp, 0, arr.length - 1);
+    }
+
+    /* An auxiliary recursive method that sorts the input array and
+    returns the number of inversions in the array. */
+    static int mergeSort(int[] arr, int[] temp, int left, int right) {
+        int invCount = 0;
+        if (right > left) {
+            int mid = (left + right) / 2;
+
+            invCount += mergeSort(arr, temp, left, mid);
+            invCount += mergeSort(arr, temp, mid + 1, right);
+
+            invCount += merge(arr, temp, left, mid + 1, right);
+        }
+
+        return invCount;
+    }
+
+    /* This method merges two sorted arrays and returns inversion count in
+    the arrays.*/
+    static int merge(int[] arr, int[] temp, int left, int mid, int right) {
+        int invCount = 0;
+        int i = left;   /* i is index for left subarray*/
+        int j = mid;    /* j is index for right subarray*/
+        int k = left;   /* k is index for resultant merged subarray*/
+
+        while ((i <= mid - 1) && j <= right) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+
+                invCount += (mid - i);
+            }
+        }
+
+        while (i <= mid - 1) {
+            temp[k++] = arr[i++];
+        }
+
+        while (j <= right) {
+            temp[k++] = arr[j++];
+        }
+
+        for (i = left; i <= right; i++) {
+            arr[i] = temp[i];
+        }
+
+        return invCount;
+    }
+}
