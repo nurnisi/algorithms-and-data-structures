@@ -1,3 +1,4 @@
+//greedy
 import java.io.*;
 import java.util.*;
 
@@ -78,6 +79,41 @@ public class main {
         }
 
         System.out.println("Oh, my keyboard!");
+    }
+
+}
+
+//short
+import java.io.*;
+import java.util.*;
+
+public class main {
+
+    static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        game();
+    }
+
+    static void game() {
+        int levels = sc.nextInt();
+        boolean[] res = new boolean[levels];
+
+        int x = sc.nextInt();
+        for (int i = 0; i < x; i++)
+            res[sc.nextInt() - 1] = true;
+
+        int y = sc.nextInt();
+        for (int i = 0; i < y; i++)
+            res[sc.nextInt() - 1] = true;
+
+        for (int i = 0; i < res.length; i++)
+            if (!res[i]) {
+                System.out.println("Oh, my keyboard!");
+                return;
+            }
+
+        System.out.println("I become the guy.");
     }
 
 }
