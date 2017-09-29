@@ -27,3 +27,11 @@ public class main {
     }
 
 }
+
+//easy implementation
+static void designTutorial() {
+    int n = sc.nextInt();
+
+    if (n % 2 == 0) System.out.println((n - 8) + " " + 8);
+    else System.out.println((n - 9) + " " + 9);
+}
