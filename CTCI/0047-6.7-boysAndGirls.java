@@ -1,4 +1,4 @@
-static double boysAndGirls(int families) {
+static double boysAndGirls(int n) {
     int girls = 0;
     int boys = 0;
     for (int i = 0; i < n; i++) {
