@@ -19,6 +19,7 @@
         else System.out.println(counter + 1);
     }
 
+
     static void a() {
         int n = sc.nextInt();
 
@@ -37,6 +38,7 @@
         sb.append(arr[0]);
         System.out.println(sb.toString());
     }
+
 
     static void c() {
         int n = sc.nextInt();
@@ -60,6 +62,7 @@
         if (b == 0) return a;
         return gcd(b, a % b);
     }
+    
 
     static void d() {
         String s1 = sc.nextLine();
