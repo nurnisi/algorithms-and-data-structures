@@ -33,16 +33,46 @@
         int n = sc.nextInt();
         int k = sc.nextInt();
 
-        long max = Integer.MIN_VALUE;
-        long min = Integer.MAX_VALUE;
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            int curr = sc.nextInt();
-            max = Math.max(max, curr);
-            min = Math.min(min, curr);
+            arr[i] = sc.nextInt();
         }
 
-        if (k == 1) System.out.println(min);
-        else System.out.println(max);
+        if (k >= 3) {
+            int max = arr[0];
+            for (int i = 1; i < n; i++) {
+                max = Math.max(max, arr[i]);
+            }
+            System.out.println(max);
+            return;
+        } else if (k == 2) {
+            int[] pref = new int[n];
+            int[] suf = new int[n];
+
+            pref[0] = arr[0];
+            for (int i = 1; i < n; i++) {
+                pref[i] = Math.min(pref[i - 1], arr[i]);
+            }
+
+            suf[n - 1] = arr[n - 1];
+            for (int i = n - 2; i >= 0; --i) {
+                suf[i] = Math.min(arr[i], suf[i + 1]);
+            }
+            int ans = Integer.MIN_VALUE;
+            for (int i = 0; i < n - 1; i++) {
+                int max = Math.max(pref[i], suf[i + 1]);
+                ans = Math.max(ans, max);
+            }
+            System.out.println(ans);
+            return;
+        } else if (k == 1) {
+            int min = arr[0];
+            for (int i = 1; i < n; i++) {
+                min = Math.min(min, arr[i]);
+            }
+            System.out.println(min);
+            return;
+        }
     }
 
     
