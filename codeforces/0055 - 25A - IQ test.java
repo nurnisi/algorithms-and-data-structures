@@ -34,4 +34,22 @@ public class main {
             }
         }
     }
+
+    static void test() {
+        int n = sc.nextInt();
+
+        int evens = 0, lastEven = 0, lastOdd = 0;
+
+        for (int i = 1; i <= n; i++) {
+            int cur = sc.nextInt();
+            if (cur % 2 == 0) {
+                evens++;
+                lastEven = i;
+            }
+            else lastOdd = i;
+        }
+
+        if (evens == 1) System.out.println(lastEven);
+        else System.out.println(lastOdd);
+    }
 }
