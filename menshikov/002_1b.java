@@ -5,7 +5,50 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b1();
+        b1recursion();
+    }
+
+    static int n;
+    static long sum;
+
+    static int[] arr;
+    static char[] sign;
+
+    static boolean finished = false;
+
+    static void b1recursion() {
+        n = sc.nextInt();
+        sum = sc.nextInt();
+
+        arr = new int[n];
+        sign = new char[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        recursion(n - 1, 0);
+        if (!finished) System.out.print("No solution");
+    }
+
+    static void recursion(int k, long cursum) {
+        if (finished) return;
+        if (k == 0) {
+            cursum += arr[k];
+            if (cursum == sum) {
+                finished = true;
+                for (int i = 0; i < n; i++) {
+                    System.out.print(arr[i]);
+                    if (i + 1 != n) System.out.print(sign[i + 1]);
+                }
+            }
+            return;
+        } else {
+            sign[k] = '-';
+            recursion(k - 1, cursum - arr[k]);
+            sign[k] = '+';
+            recursion(k - 1, cursum + arr[k]);
+        }
     }
 
     static void b1() {
