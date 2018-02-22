@@ -5,7 +5,7 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b1recursion();
+        b1();
     }
 
     static int n;
@@ -41,6 +41,7 @@ public class main {
                     System.out.print(arr[i]);
                     if (i + 1 != n) System.out.print(sign[i + 1]);
                 }
+                System.out.println("=" + cursum);
             }
             return;
         } else {
@@ -94,5 +95,6 @@ public class main {
             System.out.print(arr[i]);
             if (i + 1 != n) System.out.print(sign[i + 1]);
         }
+        System.out.println("=" + cursum);
     }
 }
