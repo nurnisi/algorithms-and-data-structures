@@ -5,7 +5,7 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        c1();
+        c1modified();
     }
 
     static void c1modified() {
