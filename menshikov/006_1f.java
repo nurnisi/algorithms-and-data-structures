@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class main {
@@ -5,7 +6,31 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        f1_2();
+        f1_3();
+    }
+
+    static void f1_3() {
+        int[] arr = new int[5];
+
+        for (int i = 0; i < 5; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int pairs = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (int i = 0; i < 5; i++) {
+            for (int j = i + 1; j < 5; j++) if (arr[i] == arr[j]) pairs++;
+            min = Math.min(min, arr[i]);
+            max = Math.max(max, arr[i]);
+        }
+
+        if (pairs == 10) System.out.println("Impossible");
+        else if (pairs == 6) System.out.println("Four of a Kind");
+        else if (pairs == 4) System.out.println("Full House");
+        else if (pairs == 3) System.out.println("Three of a Kind");
+        else if (pairs == 2) System.out.println("Two Pairs");
+        else if (pairs == 1) System.out.println("One Pair");
+        else if (max - min == 4) System.out.println("Straight");
+        else System.out.println("Nothing");
     }
 
     static void f1_2() {
