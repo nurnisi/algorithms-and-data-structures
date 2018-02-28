@@ -5,7 +5,30 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b2_3();
+        b2_4();
+    }
+
+    static void b2_4() {
+        char[] arr = sc.nextLine().toCharArray();
+
+        recursion_4(0, arr);
+    }
+
+    static void recursion_4(int cur, char[] arr) {
+        if (cur == arr.length) System.out.println(String.valueOf(arr));
+        else {
+            for (int i = cur; i < arr.length; i++) {
+                swap(arr, cur, i);
+                recursion_4(cur + 1, arr);
+                swap(arr, cur, i);
+            }
+        }
+    }
+
+    static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     static void b2_3() {
