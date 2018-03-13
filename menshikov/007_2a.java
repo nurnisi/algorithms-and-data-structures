@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class main {
@@ -5,103 +6,112 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b2_4();
+        a2_3();
     }
 
-    static void b2_4() {
-        char[] arr = sc.nextLine().toCharArray();
+    static void a2_3() {
+        List<Integer> primes = getPrimes(1009);
 
-        recursion_4(0, arr);
-    }
+        int n = sc.nextInt(), m = sc.nextInt();
 
-    static void recursion_4(int cur, char[] arr) {
-        if (cur == arr.length) System.out.println(String.valueOf(arr));
-        else {
-            for (int i = cur; i < arr.length; i++) {
-                swap(arr, cur, i);
-                recursion_4(cur + 1, arr);
-                swap(arr, cur, i);
+        int sqrt = (int) Math.sqrt(n);
+        boolean globCheck = true;
+
+        while (n <= m) {
+            int i = 0;
+            boolean check = true;
+            while (primes.get(i) <= sqrt) {
+                if (n % primes.get(i) == 0) {
+                    check = false;
+                    break;
+                }
+                i++;
             }
+            if (check) {
+                globCheck = false;
+                System.out.println(n);
+            }
+            n++;
+            if ((int) Math.pow(sqrt + 1, 2) == n) sqrt++;
         }
+        if (globCheck) System.out.println("Absent");
     }
 
-    static void swap(char[] arr, int i, int j) {
-        char temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
+    static List<Integer> getPrimes(int m) {
+        int[] arr = new int[m + 1];
+        arr[0] = 1;
+        arr[1] = 1;
 
-    static void b2_3() {
-        String s = sc.nextLine();
-        char[] rez = new char[8];
-        boolean[] used = new boolean[8];
-
-        recursion_3(0, s, s.length(), rez, used);
-    }
-
-    static void recursion_3(int cur, String s, int len, char[] rez, boolean[] used) {
-        if (cur == len) {
-            for (int i = 0; i < len; i++) System.out.print(rez[i]);
-            System.out.println();
-        } else {
-            for (int i = 0; i < len; i++) {
-                if (!used[i]) {
-                    rez[i] = s.charAt(cur);
-                    used[i] = !used[i];
-                    recursion_3(cur + 1, s, len, rez, used);
-                    used[i] = !used[i];
+        int i = 2;
+        while (i < arr.length) {
+            if (arr[i] == 0) {
+                int j = i * 2;
+                while (j < arr.length) {
+                    arr[j] = 1;
+                    j += i;
                 }
             }
+            i++;
         }
+
+        List<Integer> primes = new ArrayList<>();
+        for (int j = 0; j < arr.length; j++)
+            if (arr[j] == 0)
+                primes.add(j);
+
+        return primes;
     }
 
-    static void b2_2() {
-        String s = sc.nextLine();
-        char[] rez = new char[8];
-        boolean[] used = new boolean[8];
+    static void a2_2() {
+        List<Integer> primes = new ArrayList<>();
+        for (int i = 2; i <= 1009; i++)
+            if (isPrime(i))
+                primes.add(i);
 
-        recursion_2(0, s, s.length(), rez, used);
-    }
+        int n = sc.nextInt(), m = sc.nextInt();
 
-    static void recursion_2(int cur, String s, int len, char[] rez, boolean[] used) {
-        if (cur == len) {
-            for (int i = 0; i < len; i++) System.out.print(rez[i]);
-            System.out.println();
-        } else {
-            for (int i = 0; i < len; i++) {
-                if (!used[i]) {
-                    rez[cur] = s.charAt(i);
-                    used[i] = !used[i];
-                    recursion_2(cur + 1, s, len, rez, used);
-                    used[i] = !used[i];
+        int sqrt = (int) Math.sqrt(n);
+        boolean globCheck = true;
+
+        while (n <= m) {
+            int i = 0;
+            boolean check = true;
+            while (primes.get(i) <= sqrt) {
+                if (n % primes.get(i) == 0) {
+                    check = false;
+                    break;
                 }
+                i++;
             }
+            if (check) {
+                globCheck = false;
+                System.out.println(n);
+            }
+            n++;
+            if ((int) Math.pow(sqrt + 1, 2) == n) sqrt++;
         }
+        if (globCheck) System.out.println("Absent");
     }
 
-    static void b2() {
-        String s = sc.nextLine();
-        Queue<Character> queue = new LinkedList<>();
-        for (char ch : s.toCharArray()) {
-            queue.add(ch);
+    static void a2() {
+        int n = sc.nextInt(), m = sc.nextInt();
+        boolean check = false;
+        while (n < m + 1) {
+            if (isPrime(n)) {
+                System.out.println(n);
+                check = true;
+            }
+            n++;
         }
-        recursion(queue, new StringBuilder());
+        if (!check) System.out.println("Absent");
     }
 
-    static void recursion(Queue<Character> queue, StringBuilder sb) {
-        if (queue.isEmpty()) {
-            System.out.println(sb.toString());
-            return;
+    static boolean isPrime(int i) {
+        int n = 2;
+        while (n * n <= i) {
+            if (i % n == 0) return false;
+            n++;
         }
-        int size = queue.size();
-        for (int i = 0; i < size; i++) {
-            char ch = queue.poll();
-            sb.append(ch);
-
-            recursion(queue, sb);
-
-            queue.add(ch);
-            sb.deleteCharAt(sb.length() - 1);
-        }
+        return true;
     }
 }
