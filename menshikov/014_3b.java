@@ -5,7 +5,36 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b3();
+        b3_2();
+    }
+
+    static void b3_2() {
+        char[] arr = sc.nextLine().toCharArray();
+
+        recursion(arr, new boolean[arr.length], new char[arr.length], 0, new HashSet<>());
+    }
+
+    static void recursion(char[] arr, boolean[] used, char[] res, int n, Set<String> set) {
+        if (n == arr.length) {
+            String s = String.valueOf(res);
+            if (!set.contains(s)) {
+                set.add(s);
+                System.out.println(s);
+            }
+        } else {
+            for (int i = 0; i < used.length; i++) {
+                if (!used[i]) {
+                    res[n] = arr[i];
+                    used[i] = true;
+                    ++n;
+
+                    recursion(arr, used, res, n, set);
+
+                    --n;
+                    used[i] = false;
+                }
+            }
+        }
     }
 
     static void b3() {
