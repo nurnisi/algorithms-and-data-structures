@@ -5,7 +5,35 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b3_2();
+        b3_3();
+    }
+
+    static void b3_3() {
+        char[] arr = sc.nextLine().toCharArray();
+
+        recursion(0, arr, new HashSet<>());
+    }
+
+    static void recursion(int cur, char[] arr, Set<String> set) {
+        if (cur == arr.length) {
+            String s = String.valueOf(arr);
+            if (!set.contains(s)) {
+                set.add(s);
+                System.out.println(s);
+            }
+        } else {
+            for (int i = cur; i < arr.length; i++) {
+                swap(arr, cur, i);
+                recursion(cur + 1, arr, set);
+                swap(arr, cur, i);
+            }
+        }
+    }
+
+    static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     static void b3_2() {
@@ -26,11 +54,9 @@ public class main {
                 if (!used[i]) {
                     res[n] = arr[i];
                     used[i] = true;
-                    ++n;
 
-                    recursion(arr, used, res, n, set);
+                    recursion(arr, used, res, n + 1, set);
 
-                    --n;
                     used[i] = false;
                 }
             }
@@ -65,11 +91,5 @@ public class main {
                 sb.deleteCharAt(sb.length() - 1);
             }
         }
-    }
-
-    static void swap(char[] arr, int i, int j) {
-        char temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
     }
 }
