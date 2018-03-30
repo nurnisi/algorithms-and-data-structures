@@ -5,9 +5,41 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        d3_2();
+        d3_3();
     }
 
+    //can not pass some tests
+    static void d3_3() {
+        int a = sc.nextInt(),
+                b = sc.nextInt(),
+                c = sc.nextInt(),
+                d = sc.nextInt();
+
+        int widthO = a > b ? a : b,
+                heightO = a < b ? a : b,
+                widthK = c > d ? c : d,
+                heightK = c < d ? c : d;
+
+        if (heightO > heightK) System.out.println("Impossible");
+        else {
+            if (widthO <= widthK) System.out.println("Possible");
+            else {
+                double angle = 2 * Math.atan2(heightO, widthO);
+
+                double BO = Math.sqrt(Math.pow(heightO, 2) + Math.pow(widthO, 2)) / 2;
+                double AB = Math.sqrt(Math.pow(heightK / 2, 2) + Math.pow(BO, 2));
+                double AOB = Math.atan2(AB, heightK / 2);
+                double CD = Math.sqrt(Math.pow(widthK / 2, 2) + Math.pow(BO, 2));
+                double COD = Math.atan2(CD, widthK / 2);
+                double BOC = 90 - AOB - COD;
+
+                if (angle <= BOC) System.out.println("Possible");
+                else System.out.println("Impossible");
+            }
+        }
+    }
+
+    //can not pass some tests
     static void d3_2() {
         int a = sc.nextInt(),
                 b = sc.nextInt(),
