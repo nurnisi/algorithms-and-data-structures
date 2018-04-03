@@ -5,7 +5,34 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        f3();
+        f3_2();
+    }
+
+    static void f3_2() {
+        int n = sc.nextInt();
+
+        int[][] res = new int[n][n];
+        int cur = 1;
+        for (int c = 0; c < n * 2 - 1; c++) {
+            if (c % 2 == 0) {
+                for (int i = n - 1; i >= 0; i--) {
+                    int j = c - i;
+                    if (j >= 0 && j < n) res[i][j] = cur++;
+                }
+            } else {
+                for (int i = 0; i < n; i++) {
+                    int j = c - i;
+                    if (j >= 0 && j < n) res[i][j] = cur++;
+                }
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(res[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     static void f3() {
