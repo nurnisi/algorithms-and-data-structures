@@ -3,13 +3,32 @@ import java.util.*;
 public class leetcode {
 
     public static void main(String[] args) {
-        floodFill(new int[][]{{1,1,1}
-                             ,{1,1,0}
-                             ,{1,0,1}},0,0,2);
+        floodFill(new int[][]{{0,0,0}
+                             ,{0,1,1}},1,1,1);
+    }
+
+    //iterative: DFS
+    public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        int color = image[sr][sc];
+        if (color == newColor) return image;
+        Stack<int[]> stack = new Stack<>();
+        stack.add(new int[]{sr,sc});
+
+        while (!stack.isEmpty()) {
+            int[] cur = stack.pop();
+            if (image[cur[0]][cur[1]] == color) {
+                image[cur[0]][cur[1]] = newColor;
+                if (cur[0] - 1 >= 0) stack.add(new int[]{cur[0] - 1, cur[1]});
+                if (cur[0] + 1 < image.length) stack.add(new int[]{cur[0] + 1, cur[1]});
+                if (cur[1] - 1 >= 0) stack.add(new int[]{cur[0], cur[1] - 1});
+                if (cur[1] + 1 < image[0].length) stack.add(new int[]{cur[0], cur[1] + 1});
+            }
+        }
+        return image;
     }
 
     //recursive: DFS
-    public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+    public static int[][] floodFill3(int[][] image, int sr, int sc, int newColor) {
         if (image[sr][sc] == newColor) return image;
         dfs(image, sr, sc, newColor, image[sr][sc]);
         return image;
