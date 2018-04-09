@@ -22,8 +22,8 @@ public class main {
             if (s.isEmpty()) System.out.println(String.valueOf(arr));
         } else {
             for (char ch : brackets) {
-                arr[cur] = ch;arr[cur] = ch;
-                if (ch == '(' || ch == '[') {
+                arr[cur] = ch;
+                if ((ch == '(' || ch == '[') && s.size() <= N / 2) {
                     s.add(ch);
                     rec(cur + 1, N, arr, brackets, s);
                     s.pop();
