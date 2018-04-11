@@ -5,7 +5,88 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        e5();
+        e5_2();
+    }
+
+    static int vLen = 0;
+
+    static void e5_2() {
+        int ii = sc.nextInt(), jj = sc.nextInt();
+        String s = sc.next();
+        int[] value = new int[6000];
+
+        for (int i = 0; i < s.length(); i++) {
+            int num = s.charAt(i) - '0';
+            mul(value, ii);
+            add(value, num < 10 ? num : num - 7);
+        }
+
+        int i = 0;
+        int[] res = new int[6000];
+        do {
+            res[i++] = div(value, jj);
+        } while(vLen > 0);
+
+        for (int j = i - 1; j >= 0; j--) {
+            System.out.print((char) (res[j] < 10 ? res[j] + '0' : res[j] + '7'));
+        }
+    }
+
+    static int div(int[] value, int jj) {
+        int rem = 0;
+        boolean check = true;
+        for (int i = vLen - 1; i >= 0; i--) {
+            rem = rem * 10 + value[i];
+            value[i] = rem / jj;
+            if (value[i] == 0 && check) vLen--;
+            else check = false;
+            rem = rem % jj;
+        }
+        return rem;
+    }
+
+    static void mul(int[] value, int ii) {
+        int c = 0;
+        for (int i = 0; i < vLen; i++) {
+            c = value[i] * ii + c;
+            value[i] = c % 10;
+            c /= 10;
+        }
+        while (c > 0) {
+            value[vLen++] = c % 10;
+            c /= 10;
+        }
+    }
+
+    static void add(int[] value, int n) {
+        int i = 0;
+        while (n > 0) {
+            n += value[i];
+            value[i++] = n % 10;
+            n /= 10;
+        }
+        vLen = Math.max(vLen, i);
+    }
+
+    //not suitable for long numbers
+    static void e5_2_1() {
+        int ii = sc.nextInt(), jj = sc.nextInt();
+        String s = sc.next();
+        int value = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            int num = s.charAt(i) - '0';
+            value = value * ii + (num < 10 ? num : num - 7);
+        }
+
+        int numLen = 0;
+        int[] res = new int[6000];
+        do {
+            res[numLen++] = value % jj;
+            value /= jj;
+        } while(value != 0);
+
+        for (int i = numLen - 1; i >= 0; i--) System.out.print((char) (res[i] < 10 ? res[i] + '0' : res[i] + '7'));
     }
 
     //my solution: partial
