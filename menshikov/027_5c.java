@@ -5,7 +5,35 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        c5_3();
+        c5_3_1();
+    }
+
+    //with one 2D array, additionally check oddity is optimized
+    static void c5_3_1() {
+        int N = sc.nextInt(), K = sc.nextInt();
+
+        int[][] A = new int[N + 2][N + 2];
+        for (int i = 1; i < N + 1; i++)
+            for (int j = 1; j < N + 1; j++)
+                A[i][j] = sc.nextInt();
+
+        long[][] M = new long[N + 2][N + 2];
+        M[1][1] = A[1][1];
+
+        for (int k = 1; k < K; k++)
+            for (int i = 1; i < N + 1; i++)
+                for (int j = 1; j < N + 1; j++)
+                    if ((k & 1) == ((i + j) & 1)) {
+                        long max = Math.max(Math.max(M[i - 1][j], M[i + 1][j]), Math.max(M[i][j - 1], M[i][j + 1]));
+                        M[i][j] = max == 0 ? 0 : (max + A[i][j]);
+                    }
+
+        long max = Long.MIN_VALUE;
+        for (int i = 1; i < N + 1; i++)
+            for (int j = 1; j < N + 1; j++)
+                max = Math.max(M[i][j], max);
+
+        System.out.println(max);
     }
 
     //with one 2D array
