@@ -5,9 +5,48 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        e5_2();
+        e5_4();
     }
 
+    //book: solution 2
+    static void e5_4() {
+        int ii = sc.nextInt(), jj = sc.nextInt();
+        String s = sc.next();
+        int[] value = new int[6000];
+
+        for (int i = 0; i < s.length(); i++) {
+            int num = s.charAt(i) - '0';
+            mul2(value, ii, jj);
+            add2(value, num < 10 ? num : num - 7, jj);
+        }
+
+        for (int i = vLen - 1; i >= 0; i--) System.out.print((char) (value[i] < 10 ? value[i] + '0' : value[i] + '7'));
+    }
+
+    static void mul2(int[] value, int ii, int jj) {
+        int c = 0;
+        for (int i = 0; i < vLen; i++) {
+            c = value[i] * ii + c;
+            value[i] = c % jj;
+            c /= jj;
+        }
+        while (c > 0) {
+            value[vLen++] = c % jj;
+            c /= jj;
+        }
+    }
+
+    static void add2(int[] value, int n, int jj) {
+        int i = 0;
+        while (n > 0) {
+            n += value[i];
+            value[i++] = n % jj;
+            n /= jj;
+        }
+        vLen = Math.max(vLen, i);
+    }
+
+    //book: solution 1
     static int vLen = 0;
 
     static void e5_2() {
@@ -27,9 +66,7 @@ public class main {
             res[i++] = div(value, jj);
         } while(vLen > 0);
 
-        for (int j = i - 1; j >= 0; j--) {
-            System.out.print((char) (res[j] < 10 ? res[j] + '0' : res[j] + '7'));
-        }
+        for (int j = i - 1; j >= 0; j--) System.out.print((char) (res[j] < 10 ? res[j] + '0' : res[j] + '7'));
     }
 
     static int div(int[] value, int jj) {
