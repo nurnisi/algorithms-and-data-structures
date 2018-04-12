@@ -5,11 +5,11 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        e5_4();
+        e5_3();
     }
 
     //book: solution 2
-    static void e5_4() {
+    static void e5_3() {
         int ii = sc.nextInt(), jj = sc.nextInt();
         String s = sc.next();
         int[] value = new int[6000];
