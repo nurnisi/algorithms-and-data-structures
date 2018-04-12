@@ -5,7 +5,31 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        f5();
+        f5_1();
+    }
+
+    static void f5_1() {
+        int bDay = sc.nextInt(), bMonth = sc.nextInt(),
+                thisDay = sc.nextInt(), thisMon = sc.nextInt(), thisYear = sc.nextInt();
+
+        int[] days = new int[] {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int res = 0, monthDays;
+        while (thisDay != bDay || thisMon != bMonth) {
+            if (thisMon == 2 && (thisYear % 400 == 0 || (thisYear % 4 == 0 && thisYear % 100 != 0))) monthDays = 29;
+            else monthDays = days[thisMon];
+
+            if (thisMon == 12 && thisDay == 31) {
+                thisYear++;
+                thisMon = 1;
+                thisDay = 1;
+            } else if (thisDay == monthDays) {
+                thisMon++;
+                thisDay = 1;
+            } else thisDay++;
+            res++;
+        }
+
+        System.out.println(res);
     }
 
     static void f5() {
