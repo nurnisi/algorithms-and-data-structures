@@ -6,7 +6,36 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        a6();
+        a6_2();
+    }
+
+    static void a6_2() {
+        int N = sc.nextInt();
+        int[] lefts = new int[N],
+              rights = new int[N];
+
+        for (int i = 0; i < N; i++) {
+            lefts[i] = sc.nextInt();
+            rights[i] = sc.nextInt();
+        }
+
+        Arrays.sort(lefts);
+        Arrays.sort(rights);
+
+        int res = 0;
+        res += rights[0] - lefts[0];
+        for (int i = 1; i < N; i++) {
+            if (lefts[i - 1] <= lefts[i]
+                    && lefts[i] <= rights[i - 1]
+                    && rights[i - 1] <= rights[i])
+                res += rights[i] - rights[i - 1];
+            else if (lefts[i - 1] <= rights[i -1]
+                    && rights[i - 1] < lefts[i]
+                    && lefts[i] <= rights[i])
+                res += rights[i] - lefts[i];
+        }
+
+        System.out.println(res);
     }
 
     static void a6() {
