@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class main {
@@ -5,7 +6,36 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b6_2();
+        b6_3();
+    }
+
+    //solution with 2 arrays
+    static void b6_3() {
+        int N = sc.nextInt(), max = 0;
+        int[] inputs = new int[N];
+        for (int i = 0; i < N; i++) {
+            inputs[i] = sc.nextInt();
+            max += inputs[i];
+        }
+        boolean[] B1 = new boolean[max + 1],
+                  B2 = new boolean[max + 1];
+        B1[0] = true;
+        for (int L = 1; L <= inputs.length; L++) {
+            for (int S = 0; S < B1.length; S++) {
+                B2[S] = B1[S];
+                if (S - inputs[L - 1] >= 0) B2[S] = B1[S] || B1[S - inputs[L - 1]];
+            }
+            boolean[] temp = B1;
+            B1 = B2;
+            B2 = temp;
+        }
+
+        int res = 0;
+        for (int i = 0; i < B1.length; i++)
+            if (B1[i])
+                res++;
+
+        System.out.println(res);
     }
 
     //solution with 2D array
