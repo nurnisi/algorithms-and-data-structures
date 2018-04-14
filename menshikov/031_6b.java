@@ -6,7 +6,53 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        b6_3();
+        b6_5();
+    }
+
+    //same as b6_4, but counts the result while reading inputs
+    static void b6_5() {
+        int N = sc.nextInt();
+
+        boolean[] B = new boolean[N * 100 + 1];
+        B[0] = true;
+        for (int L = 0; L < N; L++) {
+            int a = sc.nextInt();
+            for (int S = B.length - 1; S >= a; S--) {
+                if (B[S - a]) B[S] = true;
+            }
+        }
+
+        int res = 0;
+        for (int i = 0; i < B.length; i++)
+            if (B[i])
+                res++;
+
+        System.out.println(res);
+    }
+
+    //solution with 1 array, also with some minor optimizations
+    static void b6_4() {
+        int N = sc.nextInt(), max = 0;
+        int[] inputs = new int[N];
+        for (int i = 0; i < N; i++) {
+            inputs[i] = sc.nextInt();
+            max += inputs[i];
+        }
+
+        boolean[] B = new boolean[max + 1];
+        B[0] = true;
+        for (int L = 0; L < inputs.length; L++) {
+            for (int S = max; S >= inputs[L]; S--) {
+                if (B[S - inputs[L]]) B[S] = true;
+            }
+        }
+
+        int res = 0;
+        for (int i = 0; i < B.length; i++)
+            if (B[i])
+                res++;
+
+        System.out.println(res);
     }
 
     //solution with 2 arrays
