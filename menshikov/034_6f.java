@@ -7,7 +7,53 @@ public class acmp {
     static Scanner sc;
 
     public static void main(String[] args) throws IOException {
-        f6();
+        f6_2();
+    }
+
+    static void f6_2() throws IOException {
+        sc = new Scanner(new File("input.txt"));
+        pw = new PrintWriter(new File("output.txt"));
+
+        int N = sc.nextInt();
+        char[][] arr = new char[N + 2][N + 2];
+
+        for (int i = 0; i < N + 2; i++)
+            for (int j = 0; j < N + 2; j++)
+                arr[i][j] = '#';
+
+        for (int i = 1; i < N + 1; i++) {
+            String line = sc.next();
+            for (int j = 1; j < N + 1; j++)
+                arr[i][j] = line.charAt(j - 1);
+        }
+
+        recursivePaint(1, 1, arr);
+        recursivePaint(N, N, arr);
+
+        int walls = -4;
+        for (int i = 1; i < N + 1; i++) {
+            for (int j = 1; j < N + 1; j++) {
+                if (arr[i][j] == '$') {
+                    if (arr[i - 1][j] == '#') walls++;
+                    if (arr[i + 1][j] == '#') walls++;
+                    if (arr[i][j - 1] == '#') walls++;
+                    if (arr[i][j + 1] == '#') walls++;
+                }
+            }
+        }
+
+        pw.println(walls * 9);
+        pw.close();
+    }
+
+    static void recursivePaint(int i, int j, char[][] arr) {
+        if (arr[i][j] == '.') {
+            arr[i][j] = '$';
+            recursivePaint(i - 1, j, arr);
+            recursivePaint(i + 1, j, arr);
+            recursivePaint(i, j - 1, arr);
+            recursivePaint(i, j + 1, arr);
+        }
     }
 
     static void f6() throws IOException {
