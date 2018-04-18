@@ -7,7 +7,26 @@ public class acmp {
     static Scanner sc;
 
     public static void main(String[] args) throws IOException {
-        a7_3_stern_brokot_tree();
+        a7_4_stern_brokot_tree_from_book();
+    }
+
+    static void a7_4_stern_brokot_tree_from_book() throws IOException {
+        sc = new Scanner(new File("input.txt"));
+        pw = new PrintWriter(new File("output.txt"));
+
+        N = sc.nextInt();
+
+        rec(0, 1, 1, 1);
+        for (String s: list) pw.println(s);
+        pw.close();
+    }
+
+    static void rec(int nl, int dl, int nr, int dr) {
+        if (dl + dr <= N) {
+            rec(nl, dl, nl + nr, dl + dr);
+            list.add((nl + nr) + "/" + (dl + dr));
+            rec(nl + nr, dl + dr, nr, dr);
+        }
     }
 
     static int N;
