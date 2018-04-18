@@ -7,7 +7,25 @@ public class acmp {
     static Scanner sc;
 
     public static void main(String[] args) throws IOException {
-        a7();
+        a7_2_farey();
+    }
+
+    static void a7_2_farey() throws IOException {
+        sc = new Scanner(new File("input.txt"));
+        pw = new PrintWriter(new File("output.txt"));
+
+        int N = sc.nextInt();
+        int a = 0, b = 1, c = 1, d = N;
+        while (c != 1 || d != 1) {
+            int k = (N + b) / d, tempC = c, tempD = d;
+            c = k * c - a;
+            d = k * d - b;
+            a = tempC;
+            b = tempD;
+            pw.println(a + "/" + b);
+        }
+
+        pw.close();
     }
 
     static void a7() throws IOException {
