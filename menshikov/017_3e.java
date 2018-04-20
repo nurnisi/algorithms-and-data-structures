@@ -5,7 +5,63 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        e3();
+        e3_3();
+    }
+
+    static void e3_3() {
+        String s1 = sc.nextLine(), s2 = sc.nextLine();
+
+        int len1 = s1.length(), len2 = s2.length();
+
+        int[] n1 = new int[len1];
+        for (int i = 0; i < len1; i++) n1[i] = s1.charAt(len1 - 1 - i) - '0';
+
+        int[] n2 = new int[len2];
+        for (int i = 0; i < len2; i++) n2[i] = s2.charAt(len2 - 1 - i) - '0';
+
+        int[] n3 = new int[5001];
+        int i3 = 0, carry;
+        for (int i1 = 0; i1 < len1; i1++) {
+            for (int i2 = 0; i2 < len2; i2++) {
+                carry = n1[i1] * n2[i2];
+                i3 = i1 + i2;
+                while (carry > 0) {
+                    carry += n3[i3];
+                    n3[i3++] = carry % 10;
+                    carry /= 10;
+                }
+            }
+        }
+
+        if (n3[i3] == 0) i3--;
+        for (; i3 >= 0; i3--) System.out.print(n3[i3]);
+    }
+
+    static void e3_2() {
+        String s1 = sc.nextLine(), s2 = sc.nextLine();
+
+        int len1 = s1.length(), len2 = s2.length();
+
+        int[] n1 = new int[len1];
+        for (int i = 0; i < len1; i++) n1[i] = s1.charAt(len1 - 1 - i) - '0';
+
+        int[] n2 = new int[len2];
+        for (int i = 0; i < len2; i++) n2[i] = s2.charAt(len2 - 1 - i) - '0';
+
+        int[] n3 = new int[5001];
+        int i3 = 0, carry;
+        for (int i1 = 0; i1 < len1; i1++) {
+            i3 = i1;
+            carry = 0;
+            for (int i2 = 0; i2 < len2; i2++, i3++) {
+                carry = carry + n3[i3] + n2[i2] * n1[i1];
+                n3[i3] = carry % 10;
+                carry /= 10;
+            }
+            n3[i3] = carry;
+        }
+        if (n3[i3] == 0) i3--;
+        for (; i3 >= 0; i3--) System.out.print(n3[i3]);
     }
 
     static void e3() {

@@ -5,10 +5,10 @@ public class main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        c1();
+        a1();
     }
 
-    static void c1() {
+    static void a1() {
         int n = sc.nextInt(), m = sc.nextInt();
         boolean check = true;
         while (n <= m) {
