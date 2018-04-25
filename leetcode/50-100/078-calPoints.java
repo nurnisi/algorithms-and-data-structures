@@ -8,6 +8,24 @@ public class leetcode {
 
     public static int calPoints(String[] ops) {
         Stack<Integer> stack = new Stack<>();
+
+        for (String s : ops) {
+            if (s.equals("C")) stack.pop();
+            else if (s.equals("D")) stack.add(stack.peek() * 2);
+            else if (s.equals("+")) {
+                int top = stack.pop(), newTop = stack.peek() + top;
+                stack.add(top);
+                stack.add(newTop);
+            } else stack.add(Integer.valueOf(s));
+        }
+
+        int ans = 0;
+        for (int i : stack) ans += i;
+        return ans;
+    }
+
+    public static int calPoints2(String[] ops) {
+        Stack<Integer> stack = new Stack<>();
         int sum = 0;
         for (String s : ops) {
             char ch = s.charAt(0);
@@ -23,7 +41,6 @@ public class leetcode {
                 stack.add(first);
                 stack.add(first + second);
             } else {
-
                 int n = Integer.valueOf(s);
                 sum += n;
                 stack.add(n);
