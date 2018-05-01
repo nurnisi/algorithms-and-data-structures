@@ -4,10 +4,79 @@ import java.math.BigInteger;
 public class leetcode {
 
     public static void main(String[] args) {
-        System.out.println(rotateString("abcde", "cdeab"));
+        System.out.println(rotateString("abcde", "cdeba"));
     }
 
+    //using KMP
     public static boolean rotateString(String A, String B) {
+        int N = A.length();
+        if (N != B.length()) return false;
+        if (N == 0) return true;
+
+        //compute temp array
+        int[] temp = new int[N];
+        char[] arrB = B.toCharArray();
+        int index = 0;
+        for (int i = 1; i < N;) {
+            if (arrB[i] == arrB[index]) temp[i++] = ++index;
+            else {
+                if (index != 0) index = temp[index - 1];
+                else temp[i++] = 0;
+            }
+        }
+
+        int i = 0, j = 0;
+        char[] A2 = (A + A).toCharArray();
+        while (i < A2.length && j < N) {
+            if (A2[i] == arrB[j]) {
+                i++;
+                j++;
+            } else {
+                if (j != 0) j = temp[j - 1];
+                else i++;
+            }
+        }
+        if (j == arrB.length) return true;
+        return false;
+    }
+
+    public static boolean KMP(String A, String B) {
+        char[] text = A.toCharArray();
+        char[] pattern = B.toCharArray();
+
+        int[] temp = computeTemporaryArray(pattern);
+        int i = 0, j = 0;
+        while (i < text.length && j < pattern.length) {
+            if (text[i] == pattern[j]) {
+                i++;
+                j++;
+            } else {
+                if (j != 0) j = temp[j - 1];
+                else i++;
+            }
+        }
+        if (j == pattern.length) return true;
+        return false;
+    }
+
+    public static int[] computeTemporaryArray(char[] pattern) {
+        int[] temp = new int[pattern.length];
+        int index = 0;
+        for (int i = 1; i < pattern.length;) {
+            if (pattern[i] == pattern[index])
+                temp[i++] = ++index;
+            else {
+                if (index != 0)
+                    index = temp[index - 1];
+                else
+                    temp[i++] = 0;
+            }
+        }
+        return temp;
+    }
+
+
+    public static boolean rotateString5(String A, String B) {
         if (A.equals(B)) return true;
 
         int MOD = 1_000_000_007;
