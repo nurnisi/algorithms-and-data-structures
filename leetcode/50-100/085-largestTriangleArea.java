@@ -1,7 +1,25 @@
 public class leetcode {
 
     public static void main(String[] args) {
-        System.out.println(largestTriangleArea(new int[][]{{1,0},{0,0},{0,1}}));
+        System.out.println(largestTriangleArea(new int[][]{{-35,19},{40,19},{27,-20},{35,-3},{44,20},{22,-21},{35,33},{-19,42},{11,47},{11,37}}));
+    }
+
+    //solution by Heron's formula
+    //s = (a + b + c) / 2
+    //Area = Math.sqrt(s * (s-a) * (s-b) * (s-c))
+    public static double areaByHeronsFormula(int[] p1, int[] p2, int[] p3) {
+        double  d1 = getDistance(p1, p2),
+                d2 = getDistance(p2, p3),
+                d3 = getDistance(p1, p3),
+                s = (d1 + d2 + d3) / 2,
+                check = s * (s - d1) * (s - d2) * (s - d3);
+        if (check > 0) return Math.sqrt(check);
+        return 0;
+    }
+
+    public static double getDistance(int[] a, int[] b) {
+        int x1 = a[0], y1 = a[1], x2 = b[0], y2 = b[1];
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 
     //solution by shoelace formula
@@ -12,12 +30,12 @@ public class leetcode {
         for (int i = 0; i < N; i++)
             for (int j = i+1; j < N; j++)
                 for (int k = j+1; k < N; k++)
-                    ans = Math.max(ans, area(points[i], points[j], points[k]));
+                    ans = Math.max(ans, areaByHeronsFormula(points[i], points[j], points[k]));
 
         return ans;
     }
 
-    public static double area(int[] p1, int[] p2, int[] p3) {
+    public static double areaBySholaceFormula(int[] p1, int[] p2, int[] p3) {
         return 0.5 * Math.abs(p1[0]*p2[1] + p2[0]*p3[1] + p3[0]*p1[1]
                             - p2[0]*p1[1] - p3[0]*p2[1] - p1[0]*p3[1]);
     }
