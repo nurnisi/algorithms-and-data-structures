@@ -4,6 +4,19 @@ public class leetcode {
         System.out.println(largestTriangleArea(new int[][]{{-35,19},{40,19},{27,-20},{35,-3},{44,20},{22,-21},{35,33},{-19,42},{11,47},{11,37}}));
     }
 
+    //solution by Law of Cosines
+    //angleC = Math.acos((a*a + b*b - c*c) / 2*a*b)
+    //Area = 0.5 * a * b * Math.sin(angleC)
+    public static double areaByLawOfCosines(int[] p1, int[] p2, int[] p3) {
+        double  a = getDistance(p1, p2),
+                b = getDistance(p2, p3),
+                c = getDistance(p1, p3),
+                acos = (a*a + b*b - c*c) / (2*a*b),
+                angleC = 0;
+        if (acos > -1 && acos < 1) angleC = Math.acos(acos);
+        return 0.5 * a * b * Math.sin(angleC);
+    }
+
     //solution by Heron's formula
     //s = (a + b + c) / 2
     //Area = Math.sqrt(s * (s-a) * (s-b) * (s-c))
@@ -30,7 +43,7 @@ public class leetcode {
         for (int i = 0; i < N; i++)
             for (int j = i+1; j < N; j++)
                 for (int k = j+1; k < N; k++)
-                    ans = Math.max(ans, areaByHeronsFormula(points[i], points[j], points[k]));
+                    ans = Math.max(ans, areaByLawOfCosines(points[i], points[j], points[k]));
 
         return ans;
     }
