@@ -4,9 +4,28 @@ public class leetcode {
         System.out.println(largestTriangleArea(new int[][]{{1,0},{0,0},{0,1}}));
     }
 
+    //solution by shoelace formula
+    //Area = 1/2 * Math.abs(x1*y2 + x2*y3 + x3*y1 - x2*y1 - x3*y2 - x1*y3)
+    public static double largestTriangleArea(int[][] points) {
+        int N = points.length;
+        double ans = 0;
+        for (int i = 0; i < N; i++)
+            for (int j = i+1; j < N; j++)
+                for (int k = j+1; k < N; k++)
+                    ans = Math.max(ans, area(points[i], points[j], points[k]));
+
+        return ans;
+    }
+
+    public static double area(int[] p1, int[] p2, int[] p3) {
+        return 0.5 * Math.abs(p1[0]*p2[1] + p2[0]*p3[1] + p3[0]*p1[1]
+                            - p2[0]*p1[1] - p3[0]*p2[1] - p1[0]*p3[1]);
+    }
+
+    //my solution - failing tests
     static double maxArea = Double.MIN_VALUE;
 
-    public static double largestTriangleArea(int[][] points) {
+    public static double largestTriangleArea2(int[][] points) {
         double[][] d = getDistances(points);
         areaRecursively(new int[3], 0, d, 0);
         return maxArea;
