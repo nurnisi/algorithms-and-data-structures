@@ -6,7 +6,32 @@ public class leetcode {
         System.out.println(letterCasePermutation("a12b"));
     }
 
+    //solution by BFS
     public static List<String> letterCasePermutation(String S) {
+        if (S == null) return new LinkedList<>();
+
+        Queue<String> queue = new LinkedList<>();
+        queue.add(S);
+        for (int i = 0; i < S.length(); i++) {
+            if (Character.isDigit(S.charAt(i))) continue;
+            int size = queue.size();
+            for (int j = 0; j < size; j++) {
+                String cur = queue.poll();
+                char[] arr = cur.toCharArray();
+
+                arr[i] = Character.toUpperCase(arr[i]);
+                queue.add(String.valueOf(arr));
+
+                arr[i] = Character.toLowerCase(arr[i]);
+                queue.add(String.valueOf(arr));
+            }
+        }
+
+        return new LinkedList<>(queue);
+    }
+
+    //solution by loop
+    public static List<String> letterCasePermutation3(String S) {
         List<String> list = new ArrayList<>(Arrays.asList(S));
         for (int i = 0; i < S.length(); i++) {
             for (int j = 0, size = list.size(); S.charAt(i) > '9' && j < size; j++) {
