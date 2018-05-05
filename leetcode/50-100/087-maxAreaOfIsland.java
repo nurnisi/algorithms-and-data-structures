@@ -8,9 +8,35 @@ public class leetcode {
                                                        {0,1,1,1,0,1}}));
     }
 
-    static int row, col;
+    //leetcode solution: more understandable DFS recursive
+    static int[][] grid;
+    static boolean[][] visited;
 
     public static int maxAreaOfIsland(int[][] grid) {
+        int max = 0;
+        leetcode.grid = grid;
+        visited = new boolean[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++)
+            for (int j = 0; j < grid[0].length; j++)
+                max = Math.max(helper(i, j), max);
+
+        return max;
+    }
+
+    public static int helper(int i, int j) {
+        if (i < 0 || i >= grid.length ||
+            j < 0 || j >= grid[0].length ||
+            grid[i][j] == 0 || visited[i][j]) return 0;
+
+        visited[i][j] = true;
+        return 1 + helper(i - 1, j) + helper(i + 1, j)
+                 + helper(i, j - 1) + helper(i, j + 1);
+    }
+
+    //my solution: DFS recursive
+    static int row, col;
+
+    public static int maxAreaOfIsland2(int[][] grid) {
         int max = 0;
         row = grid.length; col = grid[0].length;
         boolean[][] visited = new boolean[row][col];
