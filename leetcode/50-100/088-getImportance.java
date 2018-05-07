@@ -6,6 +6,22 @@ public class leetcode {
 
     }
 
+    //leetcode solution: DFS recursive
+    Map<Integer, Employee> map;
+    public int getImportance(List<Employee> employees, int id) {
+        map = new HashMap<>();
+        for (Employee e : employees) map.put(e.id, e);
+        return dfs(id);
+    }
+
+    public int dfs(int eid) {
+        Employee emp = map.get(eid);
+        int ans = emp.importance;
+        for (int i : emp.subordinates)
+            ans += dfs(i);
+        return ans;
+    }
+
     class Employee {
         // It's the unique id of each node;
         // unique id of this employee
@@ -16,7 +32,8 @@ public class leetcode {
         public List<Integer> subordinates;
     }
 
-    public int getImportance(List<Employee> employees, int id) {
+    //my solution: DFS iterative
+    public int getImportance2(List<Employee> employees, int id) {
         Map<Integer, Employee> map = new HashMap<>();
         for (Employee e : employees) map.put(e.id, e);
 
