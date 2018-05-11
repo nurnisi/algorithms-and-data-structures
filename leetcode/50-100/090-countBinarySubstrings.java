@@ -6,6 +6,7 @@ public class leetcode {
         System.out.println(countBinarySubstrings("00110011"));
     }
 
+    //check
     //without auxiliary space
     public static int countBinarySubstrings(String s) {
         int cur = 1, prev = 0, ans = 0;
