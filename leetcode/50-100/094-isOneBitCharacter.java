@@ -7,6 +7,12 @@ public class leetcode {
     }
 
     public static boolean isOneBitCharacter(int[] bits) {
+        int i = bits.length - 2;
+        while (i >= 0 && bits[i] > 0) i--;
+        return (bits.length - i) % 2 == 0;
+    }
+
+    public static boolean isOneBitCharacter3(int[] bits) {
         int i = 0;
         while (i < bits.length - 1)
             i += bits[i] + 1;
