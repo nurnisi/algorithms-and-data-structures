@@ -6,6 +6,17 @@ public class leetcode {
 
     }
 
+    //without helper
+    public TreeNode convertBST(TreeNode root) {
+        if (root != null) {
+            convertBST(root.right);
+            sum += root.val;
+            root.val = sum;
+            convertBST(root.left);
+        }
+        return root;
+    }
+
     //Definition for a binary tree node.
     public class TreeNode {
         int val;
@@ -14,7 +25,7 @@ public class leetcode {
         TreeNode(int x) { val = x; }
     }
 
-    public TreeNode convertBST(TreeNode root) {
+    public TreeNode convertBST2(TreeNode root) {
         helper(root);
         return root;
     }
