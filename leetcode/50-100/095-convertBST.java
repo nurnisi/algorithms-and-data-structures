@@ -6,8 +6,27 @@ public class leetcode {
 
     }
 
-    //without helper
+    //iterative
     public TreeNode convertBST(TreeNode root) {
+        int sum = 0;
+        TreeNode node = root;
+        Stack<TreeNode> stack = new Stack<>();
+        while (!stack.isEmpty() || node != null) {
+            while (node != null) {
+                stack.add(node);
+                node = node.right;
+            }
+            node = stack.pop();
+            sum += node.val;
+            node.val = sum;
+
+            node = node.left;
+        }
+        return root;
+    }
+
+    //without helper
+    public TreeNode convertBST3(TreeNode root) {
         if (root != null) {
             convertBST(root.right);
             sum += root.val;
