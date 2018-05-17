@@ -3,11 +3,29 @@ import java.util.*;
 public class leetcode {
 
     public static void main(String[] args) {
-        floodFill(new int[][]{{0,0,0}
-                             ,{0,0,0}},0,0,2);
+        floodFill(new int[][]{{1,1,1}
+                             ,{1,1,0}
+                             ,{1,0,1}},0,0,2);
     }
 
+    //recursive: DFS
     public static int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image[sr][sc] == newColor) return image;
+        dfs(image, sr, sc, newColor, image[sr][sc]);
+        return image;
+    }
+
+    public static void dfs(int[][] image, int sr, int sc, int newColor, int color) {
+        if (sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length || image[sr][sc] != color) return;
+        image[sr][sc] = newColor;
+        dfs(image, sr + 1, sc, newColor, color);
+        dfs(image, sr - 1, sc, newColor, color);
+        dfs(image, sr, sc + 1, newColor, color);
+        dfs(image, sr, sc - 1, newColor, color);
+    }
+
+    //iterative: BFS
+    public static int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
         boolean[][] visited = new boolean[image.length][image[0].length];
         int[] dr = new int[]{-1,1,0,0};
         int[] dc = new int[]{0,0,-1,1};
