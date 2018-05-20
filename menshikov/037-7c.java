@@ -10,6 +10,22 @@ public class acmp {
         c7();
     }
 
+    static void c7() throws  IOException {
+        sc = new Scanner(new File("input.txt"));
+        pw = new PrintWriter(new File("output.txt"));
+
+        long N = sc.nextLong();
+        int div = 2;
+        while (N > 1) {
+            div ^= 11;
+            N = (long) Math.ceil(N / (double) div);
+        }
+        if (div == 9) pw.println("Stan wins.");
+        else pw.println("Ollie wins.");
+
+        pw.close();
+    }
+
     static int len = 0;
     static long N;
     static long[] nums = new long[7000];
