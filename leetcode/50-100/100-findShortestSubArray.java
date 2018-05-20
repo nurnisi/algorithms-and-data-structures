@@ -7,6 +7,28 @@ public class leetcode {
     }
 
     public static int findShortestSubArray(int[] nums) {
+        Map<Integer, Integer> left = new HashMap<>(),
+                right = new HashMap<>(),
+                count = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
+            if (left.get(x) == null) left.put(x, i);
+            right.put(x, i);
+            count.put(x, count.getOrDefault(x, 0) + 1);
+        }
+
+        int ans = nums.length,
+                degree = Collections.max(count.values());
+        for (int x : count.keySet()) {
+            if (count.get(x) == degree) {
+                ans = Math.min(ans, right.get(x) - left.get(x) + 1);
+            }
+        }
+        return ans;
+    }
+
+    public static int findShortestSubArray2(int[] nums) {
         Map<Integer, int[]> map = new HashMap<>();
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
