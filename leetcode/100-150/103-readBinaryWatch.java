@@ -3,13 +3,24 @@ import java.util.*;
 public class leetcode {
 
     public static void main(String[] args) {
-        System.out.println(readBinaryWatch(0));
+        System.out.println(readBinaryWatch(1));
         System.out.println(res.size());
     }
 
+    //iterative
+    public static List<String> readBinaryWatch(int num) {
+        List<String> res = new ArrayList<>();
+        for (int h = 0; h < 12; h++)
+            for (int m = 0; m < 60; m++)
+                if (Integer.bitCount((h << 6) + m) == num)
+                    res.add(String.format("%d:%02d", h, m));
+        return res;
+    }
+
+    //my solution: DFS permutation
     static int num;
     static List<String> res = new ArrayList<>();
-    public static List<String> readBinaryWatch(int num) {
+    public static List<String> readBinaryWatch2(int num) {
         leetcode.num = num;
         helper(0, 0, 0);
         return res;
