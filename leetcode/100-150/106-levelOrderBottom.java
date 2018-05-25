@@ -13,8 +13,24 @@ public class leetcode {
         TreeNode(int x) { val = x; }
     }
 
-    //little improvement
+    //DFS
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        helper(res, root, 0);
+        return res;
+    }
+
+    public void helper(List<List<Integer>> res, TreeNode node, int level) {
+        if (node == null) return;
+        if (level >= res.size()) res.add(0, new ArrayList<>());
+        helper(res, node.left, level + 1);
+        helper(res, node.right, level + 1);
+        res.get(res.size() - level - 1).add(node.val);
+    }
+
+    //BFS
+    //little improvement
+    public List<List<Integer>> levelOrderBottom3(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) return res;
 
@@ -36,6 +52,7 @@ public class leetcode {
         return res;
     }
 
+    //my solution: BFS
     public List<List<Integer>> levelOrderBottom2(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) return res;
