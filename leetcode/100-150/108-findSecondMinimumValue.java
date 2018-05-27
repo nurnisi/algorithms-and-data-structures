@@ -5,8 +5,26 @@ public class leetcode {
     public static void main(String[] args) {
 
     }
-
+    //3
+    int min, ans = Integer.MAX_VALUE;
     public int findSecondMinimumValue(TreeNode root) {
+        min = root.val;
+        dfs(root);
+        return ans != Integer.MAX_VALUE ? ans : -1;
+    }
+
+    public void dfs(TreeNode node) {
+        if (node != null) {
+            if (min < node.val && node.val < ans) ans = node.val;
+            else if (min == node.val) {
+                dfs(node.left);
+                dfs(node.right);
+            }
+        }
+    }
+
+    //2
+    public int findSecondMinimumValue3(TreeNode root) {
         Set<Integer> set = new TreeSet<>();
         dfs(root, set);
 
@@ -34,6 +52,7 @@ public class leetcode {
         TreeNode(int x) { val = x; }
     }
 
+    //1
     public int findSecondMinimumValue2(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
