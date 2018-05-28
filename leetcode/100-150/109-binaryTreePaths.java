@@ -10,6 +10,19 @@ public class leetcode {
         System.out.println(binaryTreePaths(root));
     }
 
+    //2
+    public static List<String> binaryTreePaths(TreeNode root) {
+        List<String> list = new ArrayList<>();
+        if (root != null) helper(root, "", list);
+        return list;
+    }
+
+    public static void helper(TreeNode node, String s, List<String> list) {
+        if (node.left == null && node.right == null) list.add(s + node.val);
+        if (node.left != null) helper(node.left, s + node.val + "->", list);
+        if (node.right != null) helper(node.right, s + node.val + "->", list);
+    }
+
     public static class TreeNode {
         int val;
         TreeNode left;
@@ -17,7 +30,8 @@ public class leetcode {
         TreeNode(int x) { val = x; }
     }
 
-    public static List<String> binaryTreePaths(TreeNode root) {
+    //1
+    public static List<String> binaryTreePaths2(TreeNode root) {
         List<String> list = new ArrayList<>();
         if (root != null) helper(root, new ArrayList<>(), list);
         return list;
