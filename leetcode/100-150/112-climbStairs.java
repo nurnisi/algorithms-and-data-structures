@@ -6,8 +6,15 @@ public class leetcode {
         System.out.println(climbStairs(6));
     }
 
-    //Binets Method: uses matrix multiplication to obtain the n^​th Fibonacci Number
+    //Fibonacci formula
     public static int climbStairs(int n) {
+        double sqrt5 = Math.sqrt(5);
+        double fibn = Math.pow((1+sqrt5)/2, n+1) - Math.pow((1-sqrt5)/2, n+1);
+        return (int)(fibn/sqrt5);
+    }
+
+    //Binets Method: uses matrix multiplication to obtain the n^​th Fibonacci Number
+    public static int climbStairs7(int n) {
         int[][] q = {{1,1},{1,0}};
         int[][] res = pow(q, n);
         return res[0][0];
