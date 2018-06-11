@@ -33,3 +33,21 @@
         }
         return res;
     }
+
+    //time limit exceeded
+    public int findLHS3(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            boolean flag = false;
+            for (int j = 0; j < nums.length; j++) {
+                if (nums[j] == nums[i]) count++;
+                else if (nums[j] == nums[i] + 1) {
+                    count++;
+                    flag = true;
+                }
+            }
+            if (flag) res = Math.max(res, count);
+        }
+        return res;
+    }
