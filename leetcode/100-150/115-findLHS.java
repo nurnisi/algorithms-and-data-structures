@@ -87,7 +87,7 @@
     }
 
     //using single loop
-    public int findLHS(int[] nums) {
+    public int findLHS6(int[] nums) {
         Map<Integer,Integer> map = new HashMap<>();
         int res = 0;
         for (int num : nums) {
