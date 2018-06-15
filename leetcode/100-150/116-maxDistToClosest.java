@@ -16,7 +16,7 @@
         return res;
     }
 
-    public static int maxDistToClosest(int[] seats) {
+    public static int maxDistToClosest2(int[] seats) {
         int N = seats.length;
         int[] left = new int[N], right = new int[N];
         Arrays.fill(left, N);
@@ -39,7 +39,7 @@
         return ans;
     }
 
-    public int maxDistToClosest(int[] seats) {
+    public int maxDistToClosest3(int[] seats) {
         int N = seats.length, prev = -1, future = 0, ans = 0;
         for (int i = 0; i < N; i++) {
             if (seats[i] == 1) prev = i;

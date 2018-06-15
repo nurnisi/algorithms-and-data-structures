@@ -35,7 +35,7 @@ def maxDistToClosest2(self, seats):
         if seats[i] == 0: ans = max(ans, min(left[i], right[i]))
     return ans
 
-def maxDistToClosest3(self, seats):
+def maxDistToClosest2_2(self, seats):
     N = len(seats)
     left, right = [N] * N, [N] * N
     
@@ -49,3 +49,18 @@ def maxDistToClosest3(self, seats):
     
     return max(min(left[i], right[i])
             for i, seat in enumerate(seats) if not seat)
+
+def maxDistToClosest3(self, seats):
+    N = len(seats)
+    prev, future = -1, 0
+    ans = 0
+
+    for i in range(N):
+        if seats[i] == 1: prev = i
+        else:
+            while future < N and seats[future] == 0 or future < i: future+=1
+            left = N if prev == -1 else i - prev
+            right = N if future == N else future - i
+            ans = max(ans, min(left,right))
+
+    return ans
