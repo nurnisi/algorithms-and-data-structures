@@ -18,6 +18,7 @@ def maxDistToClosest(self, seats):
     :rtype: int
     """
 
+
 def maxDistToClosest2(self, seats):
     N = len(seats)
     left, right = [N] * N, [N] * N
@@ -35,6 +36,7 @@ def maxDistToClosest2(self, seats):
         if seats[i] == 0: ans = max(ans, min(left[i], right[i]))
     return ans
 
+
 def maxDistToClosest2_2(self, seats):
     N = len(seats)
     left, right = [N] * N, [N] * N
@@ -49,6 +51,7 @@ def maxDistToClosest2_2(self, seats):
     
     return max(min(left[i], right[i])
             for i, seat in enumerate(seats) if not seat)
+
 
 def maxDistToClosest3(self, seats):
     N = len(seats)
@@ -66,7 +69,7 @@ def maxDistToClosest3(self, seats):
     return ans
 
 
-def maxDistToClosest(self, seats):
+def maxDistToClosest4(self, seats):
     people = (i for i, seat in enumerate(seats) if seat)
     prev, future = None, next(people)
     
@@ -83,3 +86,14 @@ def maxDistToClosest(self, seats):
             ans = max(ans, min(left, right))
             
     return ans
+
+
+from itertools import groupby
+def maxDistToClosest5(self, seats):
+    ans = 0
+    for seat, group in groupby(seats):
+        if not seat:
+            K = len(list(group))
+            ans = max(ans, (K + 1)/2)
+
+    return int(max(ans, seats.index(1), seats[::-1].index(1)))
