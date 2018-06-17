@@ -20,3 +20,7 @@
         return (n==1); 
     }
 
+    public boolean isPowerOfTwo5(int n) {
+        return n>0 && (n==1 || (n%2==0 && isPowerOfTwo5(n/2)));
+    }
+
