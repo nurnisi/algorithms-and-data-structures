@@ -15,3 +15,8 @@
         return n>0 && Integer.bitCount()==1;
     }
 
+    public boolean isPowerOfTwo4(int n) {
+        while (n!=0 && n%2==0) n/=2;
+        return (n==1); 
+    }
+
