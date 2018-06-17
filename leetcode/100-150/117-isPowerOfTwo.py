@@ -11,3 +11,6 @@ def isPowerOfTwo3(self, n):
 def isPowerOfTwo4(self, n):
     return n>0 and (n==1 or (n%2==0 and isPowerOfTwo(self, n/2)))
 print(isPowerOfTwo(None, 16))
+
+def isPowerOfTwo5(self, n):
+    return n>0 and 1073741824%n==0
