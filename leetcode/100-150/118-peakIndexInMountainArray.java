@@ -4,7 +4,7 @@
         return i;
     }
 
-    public int peakIndexInMountainArray(int[] A) {
+    public int peakIndexInMountainArray2(int[] A) {
         int lo = 0, hi = A.length - 1;
         while (lo < hi) {
             int mi = lo + (hi-lo)/2;
