@@ -10,3 +10,11 @@
     public boolean isPowerOfThree3(int n) {
         return Integer.toString(n, 3).matches("^10*$");
     }
+
+    public boolean isPowerOfThree4(int n) {
+        return (Math.log10(n) / Math.log10(3)) % 1 == 0;
+    }
+
+    public boolean isPowerOfThree4(int n) {
+        return (Math.log10(n) / Math.log10(3) + epsilon) % 1 <= 2 * epsilon;
+    }
