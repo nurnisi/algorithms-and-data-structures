@@ -18,3 +18,7 @@
     public boolean isPowerOfThree4(int n) {
         return (Math.log10(n) / Math.log10(3) + epsilon) % 1 <= 2 * epsilon;
     }
+
+    public boolean isPowerOfThree5(int n) {
+        return n>0 && 1162261467%n==0; 
+    }
