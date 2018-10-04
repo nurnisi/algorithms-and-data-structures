@@ -39,3 +39,18 @@ def projectionArea2(grid):
         y += maxy
 
     return z + x + y
+
+def projectionArea3(grid):
+    N = len(grid)
+    ans = 0
+
+    for i in range(N):
+        max_row, max_col = 0, 0
+        for j in range(N):
+            if grid[i][j]: ans += 1
+            max_row = max(max_row, grid[i][j])
+            max_col = max(max_col, grid[j][i])
+        ans += max_row + max_col
+        
+    return ans
+
