@@ -31,4 +31,9 @@ def sortArrayByParity2(A):
         
     return A
 
-print(sortArrayByParity2([3,5,6,4]))
+def sortArrayByParity3(A):
+    A.sort(key = lambda x : x % 2)
+    return A
+
+
+print(sortArrayByParity3([3,5,6,4]))
