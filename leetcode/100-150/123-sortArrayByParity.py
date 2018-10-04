@@ -35,5 +35,9 @@ def sortArrayByParity3(A):
     A.sort(key = lambda x : x % 2)
     return A
 
+def sortArrayByParity4(A):
+    return ([x for x in A if x % 2 == 0] + 
+            [x for x in A if x % 2 == 1])
+
 
 print(sortArrayByParity3([3,5,6,4]))
