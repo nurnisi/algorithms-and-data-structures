@@ -27,3 +27,9 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return slow
+
+    def middleNode3(self, head):
+        A = [head]
+        while A[-1].next:
+            A.append(A[-1].next)
+        return A[(int) (len(A) / 2)]
