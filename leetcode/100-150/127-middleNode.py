@@ -16,3 +16,14 @@ class Solution:
             fast = fast.next.next
         
         return slow
+
+    def middleNode2(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        slow = fast = head
+        while (fast and fast.next):
+            slow = slow.next
+            fast = fast.next.next
+        return slow
