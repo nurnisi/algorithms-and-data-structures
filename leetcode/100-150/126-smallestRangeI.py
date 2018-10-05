@@ -21,4 +21,12 @@ def smallestRangeI2(A, K):
     else: 
         return 0
 
-print(smallestRangeI2(A = [1,3,6], K = 3))
+def smallestRangeI3(A, K):
+    """
+    :type A: List[int]
+    :type K: int
+    :rtype: int
+    """
+    return max(0, max(A) - min(A) - 2 * K)
+
+print(smallestRangeI3(A = [1,3,6], K = 3))
