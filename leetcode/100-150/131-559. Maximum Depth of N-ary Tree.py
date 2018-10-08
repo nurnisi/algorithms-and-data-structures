@@ -29,3 +29,12 @@ m = Node(2, [])
 r = Node(4, []) 
 root = Node(1, [l, m, r])
 print(maxDepth(root))
+
+def maxDepth2(self, root):
+    if root == None:
+        return 0
+    elif root.children == []:
+        return 1
+    else:
+        heights = [self.maxDepth2(c) for c in root.children]
+        return max(heights) + 1
