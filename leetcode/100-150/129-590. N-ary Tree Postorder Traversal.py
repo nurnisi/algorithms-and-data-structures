@@ -27,7 +27,7 @@ class Solution(object):
         list.append(root.val)
         
 
-    def postorder(self, root):
+    def postorder2(self, root):
         """
         :type root: Node
         :rtype: List[int]
