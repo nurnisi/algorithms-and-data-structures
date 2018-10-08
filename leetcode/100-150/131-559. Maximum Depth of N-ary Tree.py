@@ -38,3 +38,17 @@ def maxDepth2(self, root):
     else:
         heights = [self.maxDepth2(c) for c in root.children]
         return max(heights) + 1
+
+def maxDepth3(self, root):
+    stack = []
+    if root is not None:
+        stack.append((1, root))
+    
+    depth = 0
+    while stack != []:
+        curDepth, root = stack.pop()
+        depth = max(depth, curDepth)
+        for c in root.children:
+            stack.append((curDepth + 1, c))
+
+    return depth
