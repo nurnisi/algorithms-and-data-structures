@@ -1,3 +1,4 @@
+#590. N-ary Tree Postorder Traversal
 """
 # Definition for a Node.
 """
@@ -25,3 +26,21 @@ class Solution(object):
 
         list.append(root.val)
         
+
+    def postorder(self, root):
+        """
+        :type root: Node
+        :rtype: List[int]
+        """
+        if root == None:
+            return []
+        stack, list = [], []
+        stack.append(root)
+        while len(stack) != 0:
+            node = stack.pop()
+            for i in node.children:
+                if i != None:
+                    stack.append(i)
+            list.append(node.val)
+        list.reverse()
+        return list
