@@ -1,6 +1,5 @@
 #589. N-ary Tree Preorder Traversal
 
-
 # Definition for a Node.
 class Node(object):
     def __init__(self, val, children):
@@ -24,3 +23,17 @@ class Solution(object):
         list.append(root.val)
         for node in root.children:
             Solution.helper(self, node, list)
+
+    def preorder2(self, root):
+        if root == None:
+            return []
+        
+        stack, list = [], []
+        stack.append(root)
+        while len(stack) != 0:
+            node = stack.pop()
+            list.append(node.val)
+            for i in reversed(node.children):
+                stack.append(i)
+
+        return list
