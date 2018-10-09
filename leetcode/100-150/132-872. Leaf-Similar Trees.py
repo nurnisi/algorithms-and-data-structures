@@ -57,3 +57,23 @@ class Solution(object):
             if node.left is None and node.right is None: list2.append(node.val)
 
         return list1 == list2
+
+    def leafSimilar3(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+        list1, list2 = [], []
+        if root1 is not None: self.helper3(root1, list1)
+        if root2 is not None: self.helper3(root2, list2)
+        return list1 == list2
+
+    def helper3(self, root, list):
+        stack = []
+        stack.append(root)
+        while stack != []:
+            node = stack.pop()
+            if node.left is not None: stack.append(node.left)
+            if node.right is not None: stack.append(node.right)
+            if node.left is None and node.right is None: list.append(node.val)
