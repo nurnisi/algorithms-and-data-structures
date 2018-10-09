@@ -6,6 +6,8 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
+from collections import deque
+
 class Solution(object):
     def leafSimilar(self, root1, root2):
         """
@@ -27,3 +29,31 @@ class Solution(object):
             self.helper(root.left, list)
         if root.right is not None:
             self.helper(root.right, list)
+
+    
+    def leafSimilar2(self, root1, root2):
+        """
+        :type root1: TreeNode
+        :type root2: TreeNode
+        :rtype: bool
+        """
+        list1, list2 = [], []
+        stack = [] 
+
+        stack.append(root1)
+        while stack != []:
+            node = stack.pop()
+            if node is None: break
+            if node.left is not None: stack.append(node.left)
+            if node.right is not None: stack.append(node.right)
+            if node.left is None and node.right is None: list1.append(node.val)
+
+        stack.append(root2) 
+        while stack != []:
+            node = stack.pop()
+            if node is None: break
+            if node.left is not None: stack.append(node.left)
+            if node.right is not None: stack.append(node.right)
+            if node.left is None and node.right is None: list2.append(node.val)
+
+        return list1 == list2
