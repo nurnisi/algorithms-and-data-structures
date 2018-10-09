@@ -28,3 +28,10 @@ class Solution:
             count[word] = count.get(word, 0) + 1
 
         return [word for word in count if count[word] == 1]
+
+    def uncommonFromSentences3(self, A, B):
+        count = {}
+        for word in A.split() + B.split():
+            count[word] = count.get(word) + 1
+
+        return [word for word in count if count[word] == 1]
