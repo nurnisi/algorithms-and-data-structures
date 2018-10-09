@@ -1,4 +1,6 @@
 #884. Uncommon Words from Two Sentences
+import collections
+
 class Solution:
     def uncommonFromSentences(self, A, B):
         """
@@ -35,3 +37,12 @@ class Solution:
             count[word] = count.get(word) + 1
 
         return [word for word in count if count[word] == 1]
+
+    def uncommonFromSentences4(self, A, B):
+        count = collections.Counter(A.split())
+        count += collections.Counter(B.split())
+        # or
+        # count = collections.Counter(A.split() + B.split())
+
+        return [word for word in count if count[word] == 1]
+
