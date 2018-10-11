@@ -1,3 +1,4 @@
+# 917. Reverse Only Letters
 def reverseOnlyLetters(S):
     def isLetter(c):
         if (ord(c) >= 65 and ord(c) < 91) or (ord(c) >= 97 and ord(c) < 123):
@@ -19,4 +20,15 @@ def reverseOnlyLetters(S):
     return ''.join(A)
             
 print(reverseOnlyLetters("a-bC-dEf-ghIj"))
+
+def reverseOnlyLetters2(S):
+    letter = [c for c in S if c.isalpha()]
+    ans = []
+    for c in S:
+        if c.isalpha():
+            ans.append(letter.pop())
+        else:
+            ans.append(c)
+    
+    return ''.join(ans)
         
