@@ -20,3 +20,20 @@ class Solution(object):
                     area += 2
                 
         return area
+
+    def surfaceArea2(self, grid):
+        N = len(grid)
+        area = 0
+        for i in range(N):
+            for j in range(N):
+                if grid[i][j]:
+                    area += 2
+                    for ni, nj in ((i-1, j), (i, j+1), (i+1, j), (i, j-1)):
+                        nval = 0
+                        if 0 <= ni < N and 0 <= nj < N:
+                            nval = grid[ni][nj]
+                        area += max(grid[i][j] - nval, 0)
+
+        return area
+                        
+                        
