@@ -20,3 +20,14 @@ class Solution(object):
     def isMonotonic2(self, A):
         return (all(A[i] <= A[i+1] for i in range(len(A)-1)) or 
                 all(A[i] >= A[i+1] for i in range(len(A)-1)))
+
+    def isMonotonic3(self, A):
+        store = 0
+        for i in range(len(A)-1):
+            c = cmp(A[i], A[i+1])
+            if c:
+                if c != store != 0:
+                    return False
+                store = c
+        return True
+        
