@@ -31,4 +31,20 @@ def reverseOnlyLetters2(S):
             ans.append(c)
     
     return ''.join(ans)
+
+
+def reverseOnlyLetters3(S):
+    ans = []
+    j = len(S) - 1
+    for i, c in enumerate(S):
+        if c.isalpha():
+            while not S[j].isalpha():
+                j -= 1
+            ans.append(S[j])
+            j -= 1
+        else:
+            ans.append(c)
+        
+    return ''.join(ans)
+
         
