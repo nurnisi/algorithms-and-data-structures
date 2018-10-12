@@ -18,4 +18,12 @@ class Solution(object):
             if i in hmap:
                 return [i, j]
 
+    def fairCandySwap2(self, A, B):
+        sumA, sumB = sum(A), sum(B)
+        setB = set(B)
+        for i in A:
+            j = i + (sumB - sumA) / 2
+            if j in setB:
+                return [i, j]
+
         
