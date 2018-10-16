@@ -37,9 +37,9 @@ class Solution(object):
             return None
         
         if root.val > p.val and root.val > q.val:
-            return self.lowestCommonAncestor(root.left, p, q)
+            return self.lowestCommonAncestor2(root.left, p, q)
         elif root.val < p.val and root.val < q.val:
-            return self.lowestCommonAncestor(root.right, p, q)
+            return self.lowestCommonAncestor2(root.right, p, q)
         return root
 
     def lowestCommonAncestor3(self, root, p, q):
@@ -63,6 +63,11 @@ class Solution(object):
         while not a <= root.val <= b:
             root = (root.left, root.right)[a > root.val]
         return root
+
+    def lowestCommonAncestor6(self, root, p, q):
+        next = p.val < root.val > q.val and root.left or \
+               p.val > root.val < q.val and root.right
+        return self.lowestCommonAncestor6(next, p, q) if next else root
 
     
                 
