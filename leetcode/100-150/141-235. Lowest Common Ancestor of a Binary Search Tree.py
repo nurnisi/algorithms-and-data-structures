@@ -17,8 +17,8 @@ class Solution(object):
         if not root:
             return None
         
-        left = self.helper(root, p, q)
-        right = self.helper(root, p, q)
+        left = self.lowestCommonAncestor(root, p, q)
+        right = self.lowestCommonAncestor(root, p, q)
         if left and right:
             return root
         node = None
@@ -31,6 +31,16 @@ class Solution(object):
         if right:
             return right
         return node
+
+    def lowestCommonAncestor2(self, root, p, q):
+        if not root:
+            return None
+        
+        if root.val > p.val and root.val > q.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        elif root.val < p.val and root.val < q.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        return root
 
 
 
