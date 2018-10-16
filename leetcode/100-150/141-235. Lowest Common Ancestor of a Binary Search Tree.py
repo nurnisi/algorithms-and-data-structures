@@ -69,6 +69,13 @@ class Solution(object):
                p.val > root.val < q.val and root.right
         return self.lowestCommonAncestor6(next, p, q) if next else root
 
+    def lowestCommonAncestor7(self, root, p, q):
+        return root if (root.val - p.val) * (root.val - q.val) < 1  \
+               else self.lowestCommonAncestor7((root.left, root.right)[p.val > root.val], p, q)
+
+
+    
+
     
                 
 
