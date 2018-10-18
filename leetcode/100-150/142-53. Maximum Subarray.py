@@ -27,6 +27,17 @@ def maxSubArray(nums):
     return maxi
 
 
+def maxSubArray3(self, nums):
+    dp = []
+    dp.append(nums[0])
+    maxi = nums[0]
+    for i in range(1, len(nums)):
+        dp.append(nums[i] + (dp[i-1] if dp[i-1] > 0 else 0))
+        maxi = max(maxi, dp[i])
+    return maxi
+
+
+
 
 print(maxSubArray([8]))
 print(maxSubArray([-2,-1]))
