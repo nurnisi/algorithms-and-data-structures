@@ -15,3 +15,12 @@ class Solution(object):
                 cur.next = run
                 cur = cur.next
         return head
+
+    def deleteDuplicates2(self, head):
+        cur = head
+        while cur and cur.next:
+            if cur.val == cur.next.val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return head
