@@ -37,6 +37,14 @@ def maxSubArray3(self, nums):
     return maxi
 
 
+def maxSubArray4(self, nums):
+    maxi = maxTotal = nums[0]
+    for i in range(1, len(nums)):
+        maxi = max(maxi + nums[i], nums[i])
+        maxTotal = max(maxTotal, maxi)
+    return maxTotal
+
+
 
 
 print(maxSubArray([8]))
