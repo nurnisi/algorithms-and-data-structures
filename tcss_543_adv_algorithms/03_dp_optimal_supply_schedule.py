@@ -20,4 +20,4 @@ def optimal_supply_schedule(supplies, r, c):
     print(dp)
     print(sc)
 
-optimal_supply_schedule([11,9,9,12,12,12,12,9,9,11], 1, 9)
+optimal_supply_schedule([11,9,9], 1, 9)
