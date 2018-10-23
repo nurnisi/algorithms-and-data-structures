@@ -6,7 +6,7 @@ def hammingWeight(n):
         n >>= 1
     return count
 
-def hammingWeight2(self, n):
+def hammingWeight2(n):
 	count = 0
 	while n:
 		count += 1
@@ -14,5 +14,5 @@ def hammingWeight2(self, n):
 	return count
 
 
-print(hammingDistance(8))
+print(hammingWeight2(8))
             
