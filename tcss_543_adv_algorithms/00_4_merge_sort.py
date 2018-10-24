@@ -4,10 +4,10 @@ def mergeSort(nums):
 
 def helper(nums, l, r):
     if l < r:
-        m = int((l + r) / 2)
-        helper(nums, l, m)
-        helper(nums, m + 1, r)
-        merge(nums, l, m, r)
+        m = int((l + r) / 2) # find the middle
+        helper(nums, l, m) # mergeSort on the left
+        helper(nums, m + 1, r) # mergeSort on the right
+        merge(nums, l, m, r) # merge to sides
 
 def merge(nums, l, m, r):
     # copy elements to  temp arrays
@@ -37,7 +37,7 @@ def merge(nums, l, m, r):
         k += 1
         j += 1
 
-print(mergeSort([2,3,4,6,12,3,5,34]))
+print(mergeSort([76,3,100,6,12,2,5,34]))
 
 
 
