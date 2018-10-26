@@ -13,7 +13,7 @@ def trailingZeros(n):
 	return zeros
 
 # accepted
-def trainlingZeros(n):
+def trailingZeros1(n):
 	five = 5
 	zeros = 0
 	while five <= n:
@@ -21,5 +21,6 @@ def trainlingZeros(n):
 		five *= 5
 	return zeros
 
-
-print(trailingZeros(10))
+# leetcode solution
+def trailingZeros2(n):
+	return 0 if n == 0 else n / 5 + trailingZeros(n / 5)
