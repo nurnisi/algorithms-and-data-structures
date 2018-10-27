@@ -18,3 +18,18 @@ class Solution(object):
             s.add(head)
             head = head.next
         return False
+
+    def hasCycle2(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if not head: return False
+        
+        cur, run = head, head.next
+        while run and run.next:
+            if cur == run:
+                return True
+            cur = cur.next
+            run = run.next.next
+        return False
