@@ -27,4 +27,30 @@ class Solution(object):
             
         return not stack
 
+    def isPalindrome1(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """ 
+        slow = fast = head
+        prev = None
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+            
+        if fast:
+            slow = slow.next
+        
+        while slow and prev:
+            if slow.val != prev.val:
+                return False
+            slow = slow.next
+            prev = prev.next
+            
+        return not slow and not prev
+
         
