@@ -53,4 +53,34 @@ class Solution(object):
             
         return not slow and not prev
 
+    def isPalindrome3(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """ 
+        slow = fast = head
+        prev = None
+        
+        while fast and fast.next:
+            fast = fast.next.next
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+        
+        reverse = slow
+        if fast:
+            slow = slow.next
+        
+        flag = True
+        while slow and prev:
+            if slow.val != prev.val:
+                flag = False
+            temp = prev
+            slow = slow.next
+            prev = prev.next
+            temp.next = reverse
+            reverse = temp
+            
+        return flag and not slow and not prev
         
