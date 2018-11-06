@@ -2,7 +2,7 @@
 
 My journey to get a job at top technology company. 
 
-## Contents
+## Sources
 
 - [Algorithms, Part I (Princeton)](https://www.coursera.org/learn/algorithms-part1/)
 - [Byte by Byte (Sam Gavis-Hughson)](https://www.byte-by-byte.com/)
