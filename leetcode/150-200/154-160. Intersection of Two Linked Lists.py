@@ -51,7 +51,7 @@ class Solution(object):
         
         pointerA, pointerB = headA, headB
         
-        while pointerA != pointerB:
+        while (pointerA or pointerB) and pointerA != pointerB:
             pointerA = headB if not pointerA else pointerA.next
             pointerB = headA if not pointerB else pointerB.next
             
