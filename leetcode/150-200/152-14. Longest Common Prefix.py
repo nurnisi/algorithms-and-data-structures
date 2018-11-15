@@ -28,10 +28,8 @@ class Solution(object):
         return self.divideAndConquer(strs, 0, len(strs) - 1)
         
     def divideAndConquer(self, strs, left, right):
-        if right - left == 0:
+        if right == left:
             return strs[left]
-        elif right - left == 1:
-            return self.check(strs[left], strs[right])
         else:
             mid = (right + left) // 2
             leftRet = self.divideAndConquer(strs, left, mid)
@@ -43,4 +41,12 @@ class Solution(object):
         while i < l1 and i < l2 and str1[i] == str2[i]:
             i += 1
         return str1[:i]
+
+class Trie(object):
+    def __init__(self, )
+
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
