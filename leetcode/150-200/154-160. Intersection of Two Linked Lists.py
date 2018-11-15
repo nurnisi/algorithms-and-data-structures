@@ -1,3 +1,4 @@
+# 160. Intersection of Two Linked Lists
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
@@ -38,3 +39,20 @@ class Solution(object):
             headB = headB.next
             
         return None
+
+
+    def getIntersectionNode2(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        if not headA or not headB:
+            return None
+        
+        pointerA, pointerB = headA, headB
+        
+        while pointerA != pointerB:
+            pointerA = headB if not pointerA else pointerA.next
+            pointerB = headA if not pointerB else pointerB.next
+            
+        return pointerA
