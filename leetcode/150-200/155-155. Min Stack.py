@@ -64,3 +64,36 @@ print(minStack.getMin())
 minStack.pop()
 print(minStack.getMin())
 
+# tuple solution
+class MinStack3(object):
+    def __init__(self):
+        self.stack = []
+
+    def push(self, x):
+        curMin = self.getMin()
+        if curMin == None or x < curMin:
+            curMin = x
+        self.stack.append((x, curMin))
+    
+    def pop(self):
+        self.stack.pop()
+    
+    def top(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack[-1]
+
+    def getMin(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack[-1][1]
+
+minStack = MinStack3()
+minStack.push(0)
+minStack.push(1)
+minStack.push(0)
+print(minStack.getMin())
+minStack.pop()
+print(minStack.getMin())
