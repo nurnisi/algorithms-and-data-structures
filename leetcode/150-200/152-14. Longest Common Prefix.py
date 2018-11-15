@@ -42,11 +42,3 @@ class Solution(object):
             i += 1
         return str1[:i]
 
-class Trie(object):
-    def __init__(self, )
-
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
