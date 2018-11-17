@@ -82,7 +82,7 @@ class MinStack3(object):
         if len(self.stack) == 0:
             return None
         else:
-            return self.stack[-1]
+            return self.stack[-1][0]
 
     def getMin(self):
         if len(self.stack) == 0:
