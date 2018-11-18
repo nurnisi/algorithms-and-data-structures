@@ -1,6 +1,6 @@
 # 28. Implement strStr()
 class Solution(object):
-    # brute-force time limit exceeded
+    # brute-force 1
     def strStr(self, haystack, needle):
         """
         :type haystack: str
@@ -9,9 +9,9 @@ class Solution(object):
         """
         lh , ln = len(haystack), len(needle)
         if ln == 0: return 0
-        for i in range(lh):
+        for i in range(lh - ln + 1):
             j = 0
-            while i + j < lh and j < ln:
+            while j < ln:
                 if haystack[i + j] != needle[j]: break
                 j += 1
             if j == ln:
@@ -19,7 +19,7 @@ class Solution(object):
         
         return -1
 
-    # brute-force: accepted
+    # brute-force 2
     def strStr1(self, haystack, needle):
         """
         :type haystack: str
