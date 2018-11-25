@@ -1,11 +1,11 @@
 # bottom-up dp: traverses iteratively starting from the smallest subset (bottom) going up
 # ex: fib(1), fib(2), fib(3), fib(4), ... , fib(n)
 def knapsack_bottom_up_dp(weights, values, W):
-    # generating n by n array for storing optimal values
+    # generating array for storing optimal values
     n = len(weights)
     opt_vals = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
     
-    # generating possible optimal values
+    # computing possible optimal values
     for i in range(1, n + 1):
         for w in range(1, W + 1):
             wi = weights[i - 1]
@@ -31,42 +31,52 @@ def knapsack_bottom_up_dp(weights, values, W):
     for i in opt_vals: print(i)
     return (opt_vals[-1][-1], opt_subset)
 
+print("BOTTOM UP:")
 print(knapsack_bottom_up_dp([2,2,3], [2,3,4], 6))
 print(knapsack_bottom_up_dp([2,2,3], [7,2,1], 6))
 
 # top-down: recursively computes values starting from the biggest (top) going down
 # ex: fib(n), fib(n-1), fib(n-2), ... , fib(1)
 def knapsack_top_down_dp(weights, values, W):
-    # generating n by n array for storing optimal values
+    # generating array for storing optimal values
     n = len(weights)
-    opt_vals = [[-1 for _ in range(W)] for _ in range(n)]
+    opt_vals = [[0 for _ in range(W + 1)]]
+    [opt_vals.append([0 if j == 0 else -1 for j in range(W + 1)]) for _ in range(n)]
 
     # run recursion
-    max_val = helper(weights, values, opt_vals, 0, W, 0, n)
+    max_val = helper(weights, values, opt_vals, n, W)
 
     # backtracking
-    opt_subset = [0 for i in range(n)] 
+    opt_subset = [0 for i in range(n)]
+    i, w = n, W
+    while i > 0 and w > 0:
+        wi = weights[i - 1]
+        if opt_vals[i][w] == values[i - 1] + opt_vals[i - 1][w - wi]:
+            opt_subset[i - 1] = 1
+            w -= wi
+        i -= 1  
 
     for i in opt_vals: print(i)
     return (max_val, opt_subset)
 
-def helper(weights, values, opt_vals, w, W, i, n):
+def helper(weights, values, opt_vals, i, w):
     # base case
-    if i == n or w == W:
-        return 0
-
-    if opt_vals[i][w] != -1:
+    if opt_vals[i][w] >= 0:
         return opt_vals[i][w]
 
-    if w + weights[i] > W:
-        max_val = helper(weights, values, opt_vals, w, W, i + 1, n)
+    # skip the item if the wieght of item is bigger than the remaining weight in the knapsack
+    if weights[i - 1] > w :
+        max_val = helper(weights, values, opt_vals, i - 1, w)
+    # otherwise, recursively compute maximum between picking the item or not picking the item
     else:
-        max_val = max(values[i] + helper(weights, values, opt_vals, w + weights[i], W, i + 1, n),
-                      helper(weights, values, opt_vals, w, W, i + 1, n))
+        max_val = max(values[i - 1] + helper(weights, values, opt_vals, i - 1, w - weights[i - 1]),
+                      helper(weights, values, opt_vals, i - 1, w))
     
+    # memorize the computed maximum value
     opt_vals[i][w] = max_val
     return max_val
 
+print("TOP DOWN:")
 print(knapsack_top_down_dp([2,2,3], [2,3,4], 6))
 print(knapsack_top_down_dp([2,2,3], [7,2,1], 6))
 
@@ -93,8 +103,11 @@ def knapsack_brute_force(weights, values, W):
     
     return (max_val, opt_subset)
 
-import random
+print("BRUTE FORCE:")
+print(knapsack_brute_force([2,2,3], [2,3,4], 6))
+print(knapsack_brute_force([2,2,3], [7,2,1], 6))
+
+# import random
 # print(random.sample(range(200), 100))
 # print(random.sample(range(300), 100))
-#print(knapsack_brute_force([2,2,3],[2,3,4], 6))
-#print(knapsack_bottom_up_dp(random.sample(range(200), 100),random.sample(range(300), 100), 1000))
+# print(knapsack_bottom_up_dp(random.sample(range(200), 100),random.sample(range(300), 100), 1000))
