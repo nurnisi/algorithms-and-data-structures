@@ -31,10 +31,6 @@ def knapsack_bottom_up_dp(weights, values, W):
     for i in opt_vals: print(i)
     return (opt_vals[-1][-1], opt_subset)
 
-print("BOTTOM UP:")
-print(knapsack_bottom_up_dp([2,2,3], [2,3,4], 6))
-print(knapsack_bottom_up_dp([2,2,3], [7,2,1], 6))
-
 # top-down: recursively computes values starting from the biggest (top) going down
 # ex: fib(n), fib(n-1), fib(n-2), ... , fib(1)
 def knapsack_top_down_dp(weights, values, W):
@@ -76,10 +72,6 @@ def helper(weights, values, opt_vals, i, w):
     opt_vals[i][w] = max_val
     return max_val
 
-print("TOP DOWN:")
-print(knapsack_top_down_dp([2,2,3], [2,3,4], 6))
-print(knapsack_top_down_dp([2,2,3], [7,2,1], 6))
-
 # brute force: generate all possible 2^n variants and determine the maximum optimal value
 import itertools
 def knapsack_brute_force(weights, values, W):
@@ -87,11 +79,10 @@ def knapsack_brute_force(weights, values, W):
     n, max_val, opt_subset = len(weights), 0, []
 
     # generating all possible combinations of selecting n items
-    combinations = list(map(list, itertools.product([0, 1], repeat=n)))[1:]
+    combinations = map(list, itertools.product([0, 1], repeat=n))
 
     # iterating over all combinations
     for cmb in combinations:
-
         # calcualting total weight and total value for current combination
         tot_weights = sum([a*b for a,b in zip(weights, cmb)])
         tot_values = sum([a*b for a,b in zip(values, cmb)])
@@ -103,11 +94,23 @@ def knapsack_brute_force(weights, values, W):
     
     return (max_val, opt_subset)
 
-print("BRUTE FORCE:")
-print(knapsack_brute_force([2,2,3], [2,3,4], 6))
-print(knapsack_brute_force([2,2,3], [7,2,1], 6))
+def main():
+    print("BOTTOM UP:")
+    print(knapsack_bottom_up_dp([2,2,3], [2,3,4], 6))
+    print(knapsack_bottom_up_dp([2,2,3], [7,2,1], 6))
 
-# import random
+    print("TOP DOWN:")
+    print(knapsack_top_down_dp([2,2,3], [2,3,4], 6))
+    print(knapsack_top_down_dp([2,2,3], [7,2,1], 6))
+
+    print("BRUTE FORCE:")
+    print(knapsack_brute_force([2,2,3], [2,3,4], 6))
+    print(knapsack_brute_force([2,2,3], [7,2,1], 6))
+
+# main()
+
+import random
 # print(random.sample(range(200), 100))
 # print(random.sample(range(300), 100))
-# print(knapsack_bottom_up_dp(random.sample(range(200), 100),random.sample(range(300), 100), 1000))
+n = 24
+print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
