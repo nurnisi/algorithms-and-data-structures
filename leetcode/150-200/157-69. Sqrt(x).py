@@ -16,7 +16,7 @@ class Solution:
         return root if root * root == x else root - 1
     
     # binary search O(logn)
-    def mySqrt(self, x):
+    def mySqrt2(self, x):
         """
         :type x: int
         :rtype: int
@@ -31,4 +31,16 @@ class Solution:
                 right = mid
             else:
                 left = mid
+
+    # Newton's method
+    def mySqrt3(self, x):
+        r = x
+        while r*r > x:
+            r = (r + x // r) // 2
+        return r
+
+
+sol = Solution()
+print(sol.mySqrt3(5))
+
         
