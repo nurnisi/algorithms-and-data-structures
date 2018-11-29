@@ -112,5 +112,9 @@ def main():
 import random
 # print(random.sample(range(200), 100))
 # print(random.sample(range(300), 100))
-n = 24
-print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
+# n = 25
+# print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
+
+import pandas as pd
+s = pd.Series(["xx-24", "25-34", "50-xx"]).value_counts().idxmax()
+print(s)
