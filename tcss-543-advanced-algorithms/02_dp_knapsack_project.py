@@ -71,7 +71,7 @@ def backtrack(n, W, weights, values, opt_vals):
     return opt_subset
 
 # brute force: generate all possible 2^n variants and determine the maximum optimal value
-# without bit manipulation
+# brute force: without bit manipulation
 import itertools
 def knapsack_brute_force(weights, values, W):
     # initializing length, maximum total value and optimal subset of selected items
@@ -93,7 +93,7 @@ def knapsack_brute_force(weights, values, W):
     
     return (max_val, opt_subset)
 
-# with bit manipulation
+# brute force: with bit manipulation
 def knapsack_brute_force_bm(weights, values, W):
     # initializing length, maximum total value and optimal subset of selected items
     n, max_val = len(weights), 0
@@ -128,6 +128,8 @@ def corr_test():
         ("BRUTE FORCE:", knapsack_brute_force),
         ("BRUTE FORCE (bit manip.):", knapsack_brute_force_bm)
     ]
+
+    # source of the test cases: http://people.sc.fsu.edu/~jburkardt/datasets/knapsack_01/knapsack_01.html
     test_cases = [
         [([2,2,3], [2,3,4], 6), [0, 1, 1]],
         [([2,2,3], [7,2,1], 6), [1, 1, 0]],
@@ -141,9 +143,9 @@ def corr_test():
     for fn in functions:
         for tc in test_cases:
             max_val, opt_subset = fn[1](*tc[0])
-            correct = opt_subset == tc[1]
+            is_correct = opt_subset == tc[1]
             print(fn[0], max_val)
-            print("Correct:", correct)
+            print("Correct:", is_correct)
             print("Output:", opt_subset)
             print("Answer:", tc[1])
 
@@ -152,75 +154,83 @@ import time
 import numpy as np
 import pandas as pd
 
-# N = np.arange(1, 26, 1)         #[1, 2, ..., 25]
-# K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
-# wi_vi_power = np.arange(3, 10, 2)  #[3, 5, 7, 9]
-N = np.arange(1, 100, 1)         #[1, 2, ..., 25]
-K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
-wi_vi_power = np.arange(3, 6, 2)  #[3, 5, 7, 9]
-
 def main():
-#     # test 1
-#     N = np.arange(1, 26, 1)         #[1, 2, ..., 25]
-#     K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
-#     wi_vi_power = np.arange(3, 10, 2)  #[3, 5, 7, 9]
-#     functions3 = [knapsack_brute_force, knapsack_bottom_up_dp, knapsack_top_down_dp]
-#     test(functions3)
+    # Brute force vs. DP bottom-up vs. DP top-down
+    test(*get_inputs_BF_vs_DPbu_vs_DPtd())
 
-#     # test 2
-#     N = [2**i for i in range(0,32)]         #[1, 2, ..., 25]
-#     K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
-#     wi_vi_power = np.arange(3, 10, 2)  #[3, 5, 7, 9]
-#     functions2 = [knapsack_bottom_up_dp, knapsack_top_down_dp]
-#     test(functions2)
-    corr_test()
+    # DP bottom-up vs. DP top-down
+    test(*get_inputs_DPbu_vs_DPtd())
+    
+# generate inputs for testing DP bottom-up vs. DP top-down
+def get_inputs_BF_vs_DPbu_vs_DPtd():
+    # N = np.arange(1, 26, 1)         #[1, 2, ..., 25]
+    # K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
+    # wi_vi_pow = np.arange(3, 10, 2)  #[3, 5, 7, 9]
+    N = np.arange(1, 3, 1)         #[1, 2, ..., 25]
+    K = np.arange(0.2, 0.3, 0.2)    #[0.1, 0.2, ..., 1]
+    wi_vi_pow = np.arange(3, 4, 2)  #[3, 5, 7, 9]
+    algorithms = [
+        ("Brute force", knapsack_brute_force), 
+        ("DP bottom-up",knapsack_bottom_up_dp),
+        ("DP top-down", knapsack_top_down_dp)
+    ]
+    filename = "DP bottom-up vs. DP top-down"
+    return (N, K, wi_vi_pow, algorithms, filename)
 
+# generate inputs for testing DP bottom-up vs. DP top-down
+def get_inputs_DPbu_vs_DPtd():
+    # N = [2**i for i in range(0,32)]
+    # K = np.arange(0.2, 1.1, 0.2)
+    # wi_vi_pow = np.arange(3, 10, 2)
+    N = [2**i for i in range(0,2)]
+    K = np.arange(0.2, 0.3, 0.2)
+    wi_vi_pow = np.arange(3, 4, 2)
+    algorithms = [
+        ("DP bottom-up", knapsack_bottom_up_dp),
+        ("DP top-down", knapsack_top_down_dp)
+    ]
+    filename = "DP bottom-up vs. DP top-down"
+    return (N, K, wi_vi_pow, algorithms, filename)
+    
 # full testing
-def test(functions):
-    runtimes = [[] for _ in functions] # BF_time, DP_BU_time, DP_TD_time 
+def test(N, K, wi_vi_pow, algorithms, filename):
+    # arrays to store columns of the output table
+    runtimes = [[] for _ in algorithms]
     n_arr = []
     W_arr = []
     wi_vi_range_arr = []
 
+    # run over all combinations of the inputs
+    # different number of input items 
     for ni in N:
-        for wi_vi in wi_vi_power:
-            test_case_w = np.random.randint(10**wi_vi, size=ni)
-            test_case_v = np.random.randint(10**wi_vi, size=ni)
-            sum_test_case = sum(test_case_w)
-            for ki in K:           
+        # different range of weights and values (ni = n) => 1,2,3,...,n
+        for wi_vi in wi_vi_pow:
+            # generate weights and values and compute sum of weights 
+            # (range = (1, 10^wi_vi)) => (1, 10^3),...,(1, 10^m)
+            weights = np.random.randint(10**wi_vi, size=ni)
+            values = np.random.randint(10**wi_vi, size=ni)
+            sum_weights = sum(weights)
+            # different capacity of the knapsack 
+            # (W = sum(weights) * ki) => W*1,W*0.8,...,W*0.2
+            for ki in K:
+                # add inputs values into the table columns           
                 n_arr.append(ni)
-                W_arr.append(int(sum_test_case * ki))
-
-                print(sum_test_case)
-
+                W_arr.append(int(sum_weights * ki))
                 wi_vi_range_arr.append(10**wi_vi)
-
-                for i in range(len(functions)):
-                    print(test_case_w)
+                # run algorithms and time performance
+                print("Inputs: n={}, W={}".format(ni, W_arr[-1]))
+                for i in range(len(algorithms)):
+                    print("Running: {} with wi_vi_range: 1-{}".format(algorithms[i][0], wi_vi_range_arr[-1]))
                     start = time.clock()
-                    functions[i](test_case_w, test_case_v, int(sum_test_case * ki))
+                    algorithms[i][1](weights, values, int(sum_weights * ki))
                     end = time.clock()
                     runtimes[i].append(end - start)
 
-    if len(runtimes) == 3:
-        df = pd.DataFrame({"BF": runtimes[0], "BU": runtimes[1], "TD": runtimes[2],
-                           "n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
-        df.to_csv("df3.csv")
-    elif len(runtimes) == 2:
-        df = pd.DataFrame({"BU": runtimes[0], "TD": runtimes[1],
-                           "n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
-        df.to_csv("df2.csv") 
+    # save table as csv
+    df_algorithms = pd.concat([pd.Series(rn) for rn in runtimes], keys=[alg[0] for alg in algorithms], axis=1)
+    df_inputs = pd.DataFrame({"n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
+    df_concat = pd.concat([df_algorithms, df_inputs], axis = 1)
+    df_concat.to_csv(filename+".csv")
 
-main()
-# print(random.sample(range(200), 1))
-# print(random.sample(range(300), 100))
-
-# start = time.clock()
-# print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
-# end = time.clock()
-# print(end - start)
-
-# start = time.clock()
-# print(knapsack_brute_force_bm(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
-# end = time.clock()
-# print(end - start)
+if __name__ == "__main__":
+    main()
