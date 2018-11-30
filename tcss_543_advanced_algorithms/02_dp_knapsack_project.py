@@ -24,12 +24,12 @@ def knapsack_bottom_up_dp(weights, values, W):
     i, w = n, W
     while i > 0 and w > 0:
         wi = weights[i - 1]
-        if opt_vals[i][w] == values[i - 1] + opt_vals[i - 1][w - wi]:
+        if w - wi >= 0 and opt_vals[i][w] == values[i - 1] + opt_vals[i - 1][w - wi]:
             opt_subset[i - 1] = 1
             w -= wi
         i -= 1    
 
-    for i in opt_vals: print(i)
+    # for i in opt_vals: print(i)
     return (opt_vals[-1][-1], opt_subset)
 
 # top-down: recursively computes values starting from the biggest (top) going down
@@ -48,12 +48,12 @@ def knapsack_top_down_dp(weights, values, W):
     i, w = n, W
     while i > 0 and w > 0:
         wi = weights[i - 1]
-        if opt_vals[i][w] == values[i - 1] + opt_vals[i - 1][w - wi]:
+        if w - wi >= 0 and opt_vals[i][w] == values[i - 1] + opt_vals[i - 1][w - wi]:
             opt_subset[i - 1] = 1
             w -= wi
         i -= 1  
 
-    for i in opt_vals: print(i)
+    # for i in opt_vals: print(i)
     return (max_val, opt_subset)
 
 def helper(weights, values, opt_vals, i, w):
@@ -123,6 +123,7 @@ def knapsack_brute_force_bm(weights, values, W):
     
     return (max_val, opt_subset)
 
+# correctness testing
 def easy_test():
     print("BOTTOM UP:")
     print(knapsack_bottom_up_dp([2,2,3], [2,3,4], 6))
@@ -140,29 +141,68 @@ def easy_test():
     print(knapsack_brute_force_bm([2,2,3], [2,3,4], 6))
     print(knapsack_brute_force_bm([2,2,3], [7,2,1], 6))
 
-def test():
-    for i in range(20):
-        i += 1
-
 import random
 import time
 import numpy as np
 import pandas as pd
+
+# N = np.arange(1, 26, 1)         #[1, 2, ..., 25]
+# K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
+# wi_vi_power = np.arange(3, 10, 2)  #[3, 5, 7, 9]
+N = np.arange(1, 100, 1)         #[1, 2, ..., 25]
+K = np.arange(0.2, 1.1, 0.2)    #[0.1, 0.2, ..., 1]
+wi_vi_power = np.arange(3, 6, 2)  #[3, 5, 7, 9]
+# functions = [knapsack_brute_force, knapsack_bottom_up_dp, knapsack_top_down_dp]
+functions = [knapsack_bottom_up_dp, knapsack_top_down_dp]
 def main():
-    # tests = np.array()
-    # print(tests)
-    easy_test()
+    test()
+
+# full testing
+def test():
+    runtimes = [[], [], []] # BF_time, DP_BU_time, DP_TD_time 
+    n_arr = []
+    W_arr = []
+    wi_vi_range_arr = []
+
+    for ni in N:
+        for wi_vi in wi_vi_power:
+            test_case_w = np.random.randint(10**wi_vi, size=ni)
+            test_case_v = np.random.randint(10**wi_vi, size=ni)
+            sum_test_case = sum(test_case_w)
+            for ki in K:           
+                n_arr.append(ni)
+                W_arr.append(int(sum_test_case * ki))
+
+                print(test_case_w)
+
+                wi_vi_range_arr.append(10**wi_vi)
+
+                for i in range(len(functions)):
+                    print(test_case_w)
+                    start = time.clock()
+                    functions[i](test_case_w, test_case_v, int(sum_test_case * ki))
+                    end = time.clock()
+                    runtimes[i].append(end - start)
+
+    # df = pd.DataFrame({"BF": runtimes[0], "BU": runtimes[1], "TD": runtimes[2],
+    #                    "n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
+    df = pd.DataFrame({"BU": runtimes[0], "TD": runtimes[1],
+                       "n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
+
+    df.to_csv("df.csv")
 
 main()
 
-import random
 # print(random.sample(range(200), 1))
 # print(random.sample(range(300), 100))
-# n = 25
-# print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
+n = 23
 
-import time
 # start = time.clock()
-# print("hello")
+# print(knapsack_brute_force(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
+# end = time.clock()
+# print(end - start)
+
+# start = time.clock()
+# print(knapsack_brute_force_bm(random.sample(range(n * 10), n),random.sample(range(n * 10), n), 1000))
 # end = time.clock()
 # print(end - start)
