@@ -121,7 +121,7 @@ def knapsack_brute_force_bm(weights, values, W):
     return (max_val, opt_subset)
 
 # correctness testing
-def easy_test():
+def corr_test():
     functions = [
         ("BOTTOM UP:", knapsack_bottom_up_dp), 
         ("TOP DOWN:", knapsack_top_down_dp),
@@ -129,12 +129,23 @@ def easy_test():
         ("BRUTE FORCE (bit manip.):", knapsack_brute_force_bm)
     ]
     test_cases = [
-        ([2,2,3], [2,3,4], 6),
-        ([2,2,3], [7,2,1], 6)
+        [([2,2,3], [2,3,4], 6), [0, 1, 1]],
+        [([2,2,3], [7,2,1], 6), [1, 1, 0]],
+        [([23,31,29,44,53,38,63,85,89,82], [92,57,49,68,60,43,67,84,87,72], 165), [1,1,1,1,0,1,0,0,0,0]],
+        [([12,7,11,8,9], [24,13,23,15,16], 26), [0,1,1,1,0]],
+        [([56,59,80,64,75,17], [50,50,64,46,50,5], 190), [1,1,0,0,1,0]],
+        [([31,10,20,19,4,3,6], [70,20,39,37,7,5,10], 50), [1,0,0,1,0,0,0]],
+        [([25,35,45,5,25,3,2,2], [350,400,450,20,70,8,5,5], 104), [1,0,1,1,1,0,1,1]],
+        [([41,50,49,59,55,57,60], [442,525,511,593,546,564,617], 170), [0,1,0,1,0,0,1]]
     ]
     for fn in functions:
-      for tc in test_cases:
-        print(fn[0], fn[1](*tc))
+        for tc in test_cases:
+            max_val, opt_subset = fn[1](*tc[0])
+            correct = opt_subset == tc[1]
+            print(fn[0], max_val)
+            print("Correct:", correct)
+            print("Output:", opt_subset)
+            print("Answer:", tc[1])
 
 import random
 import time
@@ -162,7 +173,7 @@ def main():
 #     wi_vi_power = np.arange(3, 10, 2)  #[3, 5, 7, 9]
 #     functions2 = [knapsack_bottom_up_dp, knapsack_top_down_dp]
 #     test(functions2)
-    easy_test()
+    corr_test()
 
 # full testing
 def test(functions):
