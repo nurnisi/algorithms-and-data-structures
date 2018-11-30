@@ -120,6 +120,22 @@ def knapsack_brute_force_bm(weights, values, W):
     
     return (max_val, opt_subset)
 
+# correctness testing
+def easy_test():
+    functions = [
+        ("BOTTOM UP:", knapsack_bottom_up_dp), 
+        ("TOP DOWN:", knapsack_top_down_dp),
+        ("BRUTE FORCE:", knapsack_brute_force),
+        ("BRUTE FORCE (bit manip.):", knapsack_brute_force_bm)
+    ]
+    test_cases = [
+        ([2,2,3], [2,3,4], 6),
+        ([2,2,3], [7,2,1], 6)
+    ]
+    for fn in functions:
+      for tc in test_cases:
+        print(fn[0], fn[1](*tc))
+
 import random
 import time
 import numpy as np
