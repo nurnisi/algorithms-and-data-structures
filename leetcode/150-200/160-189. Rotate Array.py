@@ -1,5 +1,6 @@
 # 189. Rotate Array
 class Solution:
+    # with auxiliary array
     def rotate(self, nums, k):
         """
         :type nums: List[int]
@@ -15,7 +16,30 @@ class Solution:
         
         nums[:k] = temp
 
-nums = [1,2,3,4,5,6,7]
+    # without auxiliary array
+    def rotate2(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k %= n
+        if n == 1 or k == 0 or k == n: return
+        self.reverse(nums, 0, n-1)
+        self.reverse(nums, 0, k-1)
+        self.reverse(nums, k, n-1)
+
+    def reverse(self, nums, i, j):
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
+
 sol = Solution()
-sol.rotate(nums, 3)
+nums = [1,2,3,4,5,6,7]
+sol.rotate2(nums, 3)
+print(nums)
+nums = [1,2,3,4,5,6]
+sol.rotate2(nums, 1)
 print(nums)
