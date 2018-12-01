@@ -225,8 +225,15 @@ def test(N, K, wi_vi_pow, algorithms, filename):
                     algorithms[i][1](weights, values, int(sum_weights * ki))
                     end = time.clock()
                     runtimes[i].append(end - start)
+        # save table as csv            
+        save(runtimes, algorithms, n_arr, W_arr, wi_vi_range_arr, filename)
+    # save table as csv    
+    save(runtimes, algorithms, n_arr, W_arr, wi_vi_range_arr, filename)                
 
-    # save table as csv
+# save table as csv
+def save(runtimes, algorithms, n_arr, W_arr, wi_vi_range_arr, filename):
+    total_runtime = sum([sum(rn) for rn in runtimes])
+    print("Saving to csv\nTotal runtime: {}".format(total_runtime))
     df_algorithms = pd.concat([pd.Series(rn) for rn in runtimes], keys=[alg[0] for alg in algorithms], axis=1)
     df_inputs = pd.DataFrame({"n": n_arr, "W": W_arr, "wi, vi range": wi_vi_range_arr})
     df_concat = pd.concat([df_algorithms, df_inputs], axis = 1)
