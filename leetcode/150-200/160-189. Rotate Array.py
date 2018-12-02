@@ -36,6 +36,24 @@ class Solution:
             i += 1
             j -= 1
 
+    # cyclic replacements
+    def rotate3(self, nums, k):
+        count, start, n = 0, 0, len(nums)
+        k = k % n
+        while count < n:
+            cur = start
+            prev = nums[cur]
+            while True:
+                nxt = (cur + k) % n
+                temp = nums[nxt]
+                nums[nxt] = prev
+                prev = temp
+                cur = nxt
+                count += 1
+                if cur == start:
+                    break
+            start += 1
+
 sol = Solution()
 nums = [1,2,3,4,5,6,7]
 sol.rotate2(nums, 3)
