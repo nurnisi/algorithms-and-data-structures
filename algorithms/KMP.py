@@ -1,5 +1,5 @@
 # takes a string and a pattern as inputs
-class KMP(object):
+class KMP:
     def matchPattern(self, s, p): 
         N, M = len(s), len(p)
 
