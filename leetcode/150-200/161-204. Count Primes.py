@@ -1,6 +1,6 @@
 # 204. Count Primes
 class Solution:
-    # optimize
+    # time limit exceeded
     def countPrimes(self, n):
         """
         :type n: int
@@ -59,5 +59,17 @@ class Solution:
             i += 1
         return sum(primes)
 
+    # approach: mark all non-prime integers - syntax sugar
+    def countPrimes4(self, n):
+        if n <= 2: return 0
+        primes = [1] * n
+        primes[0], primes[1] = 0, 0
+        i = 2
+        while i * i <= n:
+            if primes[i]:
+                primes[i*i:n:i] = [0] * len(primes[i*i:n:i])
+            i += 1
+        return sum(primes)
+
 cp = Solution()
-print(cp.countPrimes3(474844))
+print(cp.countPrimes4(474844))
