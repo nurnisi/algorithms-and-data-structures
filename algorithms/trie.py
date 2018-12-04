@@ -12,7 +12,6 @@ class TrieNode(object):
         self.word_finished = False
         # How many times this character appeared in the addition process
         self.counter = 1
-    
 
 def add(root, word: str):
     """
@@ -39,7 +38,6 @@ def add(root, word: str):
             node = new_node
     # Everything finished. Mark it as the end of a word.
     node.word_finished = True
-
 
 def find_prefix(root, prefix: str) -> Tuple[bool, int]:
     """
