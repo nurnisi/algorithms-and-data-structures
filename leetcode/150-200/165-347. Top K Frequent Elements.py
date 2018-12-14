@@ -22,11 +22,12 @@ class Solution:
     
     def topKFrequent2(self, nums, k):
         count = collections.Counter(nums)
-        return sorted(count.items(), key=lambda item: item[1], reverse=True)[:k]
+        count = sorted(count.items(), key=lambda item: item[1], reverse=True)[:k]
+        return [i[0] for i in count]
 
     def topKFrequent3(self, nums, k):
         count = collections.Counter(nums)
         return heapq.nlargest(k, count.keys(), key=count.get)
 
 sol = Solution()
-print(sol.topKFrequent3([1,1,1,2,2,3], 2))
+print(sol.topKFrequent2([1,1,1,2,2,3], 2))
