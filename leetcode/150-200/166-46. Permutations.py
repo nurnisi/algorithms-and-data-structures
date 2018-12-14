@@ -37,7 +37,7 @@ class Solution:
                 self.helper2(nums, begin+1, ans, n)
                 nums[begin], nums[i] = nums[i], nums[begin]
     
-    # iterative
+    # iterative [] -> [1] -> [2,1], [1,2] -> [3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]
     def permute3(self, nums):
         perms = [[]]
         for n in nums:
