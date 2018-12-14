@@ -1,5 +1,6 @@
 # 238. Product of Array Except Self
 class Solution:
+    # brute force
     def productExceptSelf(self, nums):
         """
         :type nums: List[int]
