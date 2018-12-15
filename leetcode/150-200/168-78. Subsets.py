@@ -41,7 +41,16 @@ class Solution:
 
         return ans
     
-    
+    # bit manipulation: leetcode version
+    def subsets5(self, nums):
+        ans, n = [], len(nums)
+        for i in range(1<<n):
+            subset = []
+            for j in range(n):
+                if i & (1 << j):
+                    subset.append(nums[j])
+            ans.append(subset)
+        return ans
 
     # iterative
     def subsets3(self, nums):
