@@ -16,6 +16,16 @@ class Solution:
         helper(0)
         return ans
 
+    # shorter recursive
+    def subsets4(self, nums):
+        ans, n = [], len(nums)
+        def dfs(cur, subset):
+            ans.append(subset)
+            for i in range(cur, n):
+                dfs(i+1, subset+[nums[i]])
+        dfs(0, [])
+        return ans
+
     # bit manipulation
     def subsets2(self, nums):
         n, ans = len(nums), []
@@ -29,8 +39,14 @@ class Solution:
                     subset.append(nums[n - lenb + j])
             ans.append(subset)
 
-        return ans        
+        return ans
+    
+    
+
+    # iterative
+    def subsets3(self, nums):
+        print()
 
 sol = Solution()
-print(sol.subsets2([1,2,3]))
+print(sol.subsets5([1,2,3]))
                 
