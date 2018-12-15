@@ -54,8 +54,11 @@ class Solution:
 
     # iterative
     def subsets3(self, nums):
-        print()
+        ans = [[]]
+        for i in nums:
+            ans += [a+[i] for a in ans]
+        return ans
 
 sol = Solution()
-print(sol.subsets5([1,2,3]))
+print(sol.subsets3([1,2,3]))
                 
