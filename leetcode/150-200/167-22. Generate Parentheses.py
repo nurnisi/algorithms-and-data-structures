@@ -22,5 +22,19 @@ class Solution:
             self.helper(ans, brackets, left, right-1, cur+1, n)
             brackets.pop()
 
+    # shorter solution
+    def generateParenthesis2(self, n):
+        ans = []
+        def helper(s, left, right):
+            if len(s) == 2*n:
+                ans.append(s)
+                return
+            if left < n:
+                helper(s+'(', left+1, right)
+            if right < left:
+                helper(s+')', left, right+1)
+        helper("", 0, 0)
+        return ans
+
 sol = Solution()
-print(sol.generateParenthesis(2))
+print(sol.generateParenthesis2(4))
