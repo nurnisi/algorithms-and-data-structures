@@ -1,11 +1,13 @@
 # 15. 3Sum
 from collections import defaultdict
 class Solution:
-    # TLE at test # 311 out of 313
+    # TLE at test # 312 out of 313
     def threeSum(self, nums):
         n = len(nums)
         dic = defaultdict(set)
-        d = {}
+        nums.sort()
+        mini = nums[0]
+        # d = {}
         for i in range(n):
             dic[nums[i]].add(i)
             # d.setdefault(nums[i], []).append(i)
@@ -14,6 +16,8 @@ class Solution:
         for i in range(n):
             for j in range(i+1, n):
                 k = -nums[i]-nums[j]
+                if k < mini:
+                    break
                 if k in dic:
                     s = dic.get(k).copy()
                     s.add(i)
@@ -53,5 +57,5 @@ class Solution:
         return ans
         
 sol = Solution()
-print(sol.threeSum2([-1, 0, 1, 2, -1, -4]))
-print(sol.threeSum2([0,0,0]))
+print(sol.threeSum([-1, 0, 1, 2, -1, -4]))
+print(sol.threeSum([0,0,0]))

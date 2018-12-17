@@ -7,6 +7,7 @@
 #         self.right = None
 from collections import deque
 class Solution:
+    # iterative
     def levelOrder(self, root):
         """
         :type root: TreeNode
@@ -25,3 +26,16 @@ class Solution:
                 if node.right: queue.append(node.right)
             ans.append(level)
         return ans
+
+    # recursive
+    def levelOrder2(self, root):
+        ans = []
+        def helper(node, level):
+            if level >= len(ans): ans.append([node.val])
+            else: ans[level].append(node.val)
+            if node.left: helper(node.left, level + 1)
+            if node.right: helper(node.right, level + 1)
+        
+        if root: helper(root, 0)
+        return ans
+    
