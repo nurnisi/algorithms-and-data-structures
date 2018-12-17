@@ -1,4 +1,5 @@
 # 62. Unique Paths
+from math import factorial
 class Solution:
     def uniquePaths(self, m, n):
         """
@@ -44,5 +45,9 @@ class Solution:
                 arr[j] += arr[j-1]
         
         return arr[-1]
+
+    # O(1) math solution
+    def uniquePaths5(self, m, n):
+        return factorial(m+n-2) / (factorial(m-1) * factorial(n-1))
 
         
