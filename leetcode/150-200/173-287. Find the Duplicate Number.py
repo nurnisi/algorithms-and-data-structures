@@ -1,4 +1,5 @@
 # 287. Find the Duplicate Number
+import collections
 class Solution:
     # bit manipulation
     def findDuplicate(self, nums):
@@ -15,5 +16,12 @@ class Solution:
             if nums[i] == nums[i+1]:
                 return nums[i]
 
+    # counter
+    def findDuplicate3(self, nums):
+        count = collections.Counter(nums)
+        for k, v in count.items():
+            if v > 1:
+                return k
+
 sol = Solution()
-print(sol.findDuplicate([2,2,2,2,2]))
+print(sol.findDuplicate3([2,2,2,2,2]))
