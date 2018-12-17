@@ -16,12 +16,30 @@ class Solution:
             if nums[i] == nums[i+1]:
                 return nums[i]
 
-    # counter
+    # counter: does not satisfy the conditions
     def findDuplicate3(self, nums):
         count = collections.Counter(nums)
         for k, v in count.items():
             if v > 1:
                 return k
 
+    # cycle detection
+    def findDuplicate4(self, nums):
+        tor, rab = 0, 0
+    
+        while True:
+            tor = nums[tor]
+            rab = nums[nums[rab]]
+            if tor == rab:
+                break
+        
+        tor = 0
+        while tor != rab:
+            tor = nums[tor]
+            rab = nums[rab]
+        
+        return tor
+    
+
 sol = Solution()
-print(sol.findDuplicate3([2,2,2,2,2]))
+print(sol.findDuplicate4([2,2,2,2,2]))
