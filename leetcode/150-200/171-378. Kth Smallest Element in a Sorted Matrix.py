@@ -2,7 +2,20 @@
 import heapq
 from queue import PriorityQueue
 class Solution:
+    # priority queue
+    def kthSmallest4(self, matrix, k):
+        pq = PriorityQueue()
+        n = len(matrix)
 
+        for c in range(n):
+            pq.put((matrix[0][c], 0, c))
+      
+        for i in range(k-1):
+            val, r, c = pq.get()
+            if r == n-1: continue
+            pq.put((matrix[r+1][c], r+1, c))
+        
+        return pq.get()[0]
 
     # min heap
     def kthSmallest3(self, matrix, k):
