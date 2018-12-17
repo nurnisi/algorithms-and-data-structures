@@ -36,4 +36,13 @@ class Solution:
         
         return top[-1]
 
+    # optimized space complexity 2
+    def uniquePaths4(self, m, n):
+        arr = [1 for _ in range(n)]
+        for _ in range(1, m):
+            for j in range(1, n):
+                arr[j] += arr[j-1]
+        
+        return arr[-1]
+
         
