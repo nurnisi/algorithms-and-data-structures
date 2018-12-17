@@ -8,7 +8,12 @@ class Solution:
                 return i
             a = a | 1 << i
 
-
+    # sorting: does not satisfy the conditions
+    def findDuplicate2(self, nums):
+        nums.sort()
+        for i in range(len(nums)-1):
+            if nums[i] == nums[i+1]:
+                return nums[i]
 
 sol = Solution()
 print(sol.findDuplicate([2,2,2,2,2]))
