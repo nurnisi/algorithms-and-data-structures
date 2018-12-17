@@ -23,6 +23,14 @@ class Solution:
             if v > 1:
                 return k
 
+    # set: does not satisfy the conditions
+    def findDuplicate5(self, nums):
+        seen = set()
+        for i in nums:
+            if i in seen:
+                return i
+            seen.add(i)
+
     # cycle detection
     def findDuplicate4(self, nums):
         tor, rab = 0, 0
