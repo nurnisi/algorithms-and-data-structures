@@ -25,4 +25,17 @@ def knightsDialer(N):
 
     return len(queue)
 
-print(knightsDialer(5))
+# recursive
+def knightsDialer2(N):
+    def helper(num, k):
+        nbrs = getNeighbors(num)
+        if k == N-1: return len(nbrs)
+        ans = 0
+        for n in nbrs:
+            ans += helper(n, k+1)
+        return ans
+    
+    return helper(1, 1)
+        
+print(knightsDialer(9))
+print(knightsDialer2(9))
