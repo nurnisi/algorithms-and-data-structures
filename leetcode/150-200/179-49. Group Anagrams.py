@@ -1,7 +1,7 @@
 # 49. Group Anagrams
-# TLE: 100/101 test passed
 import collections
 class Solution:
+    # TLE: 100/101 test passed
     def groupAnagrams(self, strs):
         """
         :type strs: List[str]
@@ -25,6 +25,19 @@ class Solution:
             ans.append(anagrams)
         
         return ans
+
+    # Accepted O(n^2logn)
+    def groupAnagrams2(self, strs):
+        d, ans = {}, []
+        for s in strs:
+            srt = ''.join(sorted(s))
+            if srt in d:
+                ans[d[srt]].append(s)
+            else:
+                d[srt] = len(ans)
+                ans.append([s])
+        
+        return ans
  
 sol = Solution()
-print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+print(sol.groupAnagrams2(["eat", "tea", "tan", "ate", "nat", "bat"]))
