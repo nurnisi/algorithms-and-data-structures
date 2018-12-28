@@ -39,12 +39,23 @@ class Solution:
         
         return ans
  
-    # leetcode solution
+    # leetcode solution 1
     def groupAnagrams3(self, strs):
         ans = collections.defaultdict(list)
         for s in strs:
             ans[tuple(sorted(s))].append(s)
         return list(ans.values())
 
+    # leetcode solution 2
+    def groupAnagrams4(self, strs):
+        ans = collections.defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            ans[tuple(count)].append(s)
+        return list(ans.values())
+
+
 sol = Solution()
-print(sol.groupAnagrams3(["eat", "tea", "tan", "ate", "nat", "bat"]))
+print(sol.groupAnagrams4(["eat", "tea", "tan", "ate", "nat", "bat"]))
