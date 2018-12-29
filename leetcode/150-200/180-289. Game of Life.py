@@ -22,13 +22,37 @@ class Solution:
         elif not cell and nbrs == 3: return 1
         return 0
 
+    # in-place
+    def gameOfLife2(self, board):
+        dirs = ((-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1))
+        m, n = len(board), len(board[0])
+        for i in range(m):
+            for j in range(n):
+                nbrs = 0
+                for d in dirs:
+                    if 0 <= i+d[0] < m and 0 <= j+d[1] < n and board[i+d[0]][j+d[1]] > 0:
+                        nbrs += 1
+                if not board[i][j]: nbrs *= -1
+                elif board[i][j] and not nbrs: nbrs = 1
+                board[i][j] = nbrs
+                
+        for i in range(m):
+            for j in range(n):
+                board[i][j] = self.nextState2(board[i][j])
+
+    def nextState2(self, cell):
+        if 2 <= cell <= 3: return 1
+        elif cell == -3: return 1
+        return 0 
                 
 sol = Solution()
-sol.gameOfLife([
+sol.gameOfLife2([
   [0,1,0],
   [0,0,1],
   [1,1,1],
   [0,0,0]
 ])
+
+sol.gameOfLife2([[1,0,0,0,0,1],[0,0,0,1,1,0],[1,0,1,0,1,0],[1,0,0,0,1,0],[1,1,1,1,0,1],[0,1,1,0,1,0],[1,0,1,0,1,1],[1,0,0,1,1,1],[1,1,0,0,0,0]])
         
         
