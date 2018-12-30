@@ -1,3 +1,4 @@
+# 966. Vowel Spellchecker
 import collections
 class Solution:
     def spellchecker(self, wordlist, queries):

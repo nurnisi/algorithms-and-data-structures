@@ -1,3 +1,4 @@
+# 967. Numbers With Same Consecutive Differences
 import collections
 class Solution:
     def numsSameConsecDiff(self, N, K):
