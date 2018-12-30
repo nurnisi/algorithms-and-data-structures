@@ -1,6 +1,7 @@
 # 36. Valid Sudoku
 import collections
 class Solution:
+    # my long solution
     def isValidSudoku(self, board):
         """
         :type board: List[List[str]]
@@ -38,8 +39,24 @@ class Solution:
                     return False
         return True
 
+    # leetcode short solution
+    def isValidSudoku2(self, board):
+        s = set()
+        for i in range(9):
+            for j in range(9):
+                num = board[i][j]
+                if num != ".":
+                    strs = ["{}row{}".format(num,i),
+                            "{}col{}".format(num,j),
+                            "{}box{}{}".format(num,i//3,j//3)]
+                    if any(st in s for st in strs):
+                        return False
+                    for st in strs:
+                        s.add(st) 
+        return True
+
 sol = Solution()
-print(sol.isValidSudoku([
+print(sol.isValidSudoku2([
   ["5","3",".",".","7",".",".",".","."],
   ["6",".",".","1","9","5",".",".","."],
   [".","9","8",".",".",".",".","6","."],
@@ -51,7 +68,7 @@ print(sol.isValidSudoku([
   [".",".",".",".","8",".",".","7","9"]
 ]))
 
-print(sol.isValidSudoku([
+print(sol.isValidSudoku2([
   ["8","3",".",".","7",".",".",".","."],
   ["6",".",".","1","9","5",".",".","."],
   [".","9","8",".",".",".",".","6","."],
