@@ -33,6 +33,13 @@ class Solution:
 
         return l-1
 
+    # leetcode linear solution
+    def findPeakElement3(self, nums):
+        for i in range(len(nums)-1):
+            if nums[i] > nums[i+1]:
+                return i
+        return len(nums)-1
+
 sol = Solution()
 print(sol.findPeakElement2([1,2,1]))
 print(sol.findPeakElement2([1,2,3,1]))
