@@ -40,9 +40,20 @@ class Solution:
                 return i
         return len(nums)-1
 
+    # leetcode: recursive binary search
+    def findPeakElement4(self, nums):
+        def helper(l, r):
+            if l == r: return l
+            mid = (l + r) // 2
+            if nums[mid] > nums[mid+1]:
+                return helper(l, mid)
+            return helper(mid+1, r)
+
+        return helper(0, len(nums)-1)
+
 sol = Solution()
-print(sol.findPeakElement2([1,2,1]))
-print(sol.findPeakElement2([1,2,3,1]))
-print(sol.findPeakElement2([1,2,1,3,5,6,4]))
-print(sol.findPeakElement2([1]))
-print(sol.findPeakElement2([1,2]))
+print(sol.findPeakElement4([1,2,1]))
+print(sol.findPeakElement4([1,2,3,1]))
+print(sol.findPeakElement4([1,2,1,3,5,6,4]))
+print(sol.findPeakElement4([1]))
+print(sol.findPeakElement4([1,2]))
