@@ -51,9 +51,18 @@ class Solution:
 
         return helper(0, len(nums)-1)
 
+    # leetcode: iterative binary search
+    def findPeakElement5(self, nums):
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = (l + r) // 2
+            if nums[mid] > nums[mid+1]: r = mid
+            else: l = mid + 1
+        return l
+
 sol = Solution()
-print(sol.findPeakElement4([1,2,1]))
-print(sol.findPeakElement4([1,2,3,1]))
-print(sol.findPeakElement4([1,2,1,3,5,6,4]))
-print(sol.findPeakElement4([1]))
-print(sol.findPeakElement4([1,2]))
+print(sol.findPeakElement5([1,2,1]))
+print(sol.findPeakElement5([1,2,3,1]))
+print(sol.findPeakElement5([1,2,1,3,5,6,4]))
+print(sol.findPeakElement5([1]))
+print(sol.findPeakElement5([1,2]))
