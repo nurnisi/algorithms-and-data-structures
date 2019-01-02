@@ -11,11 +11,14 @@ class Solution:
 
         return True
 
+    def isIsomorphic2(self, s, t):
+        return len(set(zip(s,t))) == len(set(s)) and len(set(zip(t,s))) == len(set(t))
+
 sol = Solution()
-print(sol.isIsomorphic("egg", "add"))
-print(sol.isIsomorphic("foo", "bar"))
-print(sol.isIsomorphic("paper", "title"))
-print(sol.isIsomorphic("aa", "ab"))
+print(sol.isIsomorphic2("egg", "add"))
+print(sol.isIsomorphic2("foo", "bar"))
+print(sol.isIsomorphic2("paper", "title"))
+print(sol.isIsomorphic2("aa", "ab"))
 
 
         
