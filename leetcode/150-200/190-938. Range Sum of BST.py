@@ -23,3 +23,11 @@ class Solution:
         
         dfs(root)
         return self.ans
+
+    def rangeSumBST2(self, root, L, R):
+        if not root: return 0
+        ans, left, right = 0, 0, 0
+        if L <= root.val <= R: ans += root.val
+        if L <= root.val: left = self.rangeSumBST(root.left, L, R)
+        if R >= root.val: right = self.rangeSumBST(root.right, L, R)
+        return ans + left + right
