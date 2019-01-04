@@ -35,3 +35,14 @@ class Solution:
     def rangeSumBST3(self, root, L, R):
         if not root: return 0
         return (0, root.val)[L <= root.val <= R] + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
+
+    # iterative
+    def rangeSumBST4(self, root, L, R):
+        stack, ans = [root], 0
+        while stack:
+            node = stack.pop()
+            if node:
+                if L <= node.val <= R: ans += node.val
+                if L <= node.val: stack.append(node.left)
+                if R >= node.val: stack.append(node.right)
+        return ans
