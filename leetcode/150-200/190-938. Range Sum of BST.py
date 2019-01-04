@@ -31,3 +31,7 @@ class Solution:
         if L <= root.val: left = self.rangeSumBST(root.left, L, R)
         if R >= root.val: right = self.rangeSumBST(root.right, L, R)
         return ans + left + right
+
+    def rangeSumBST3(self, root, L, R):
+        if not root: return 0
+        return (0, root.val)[L <= root.val <= R] + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)
