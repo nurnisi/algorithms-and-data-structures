@@ -7,7 +7,8 @@ class TreeNode(object):
         self.right = None
 
 from collections import deque
-class Codec:
+# TLE: 47/48
+class Codec2:
     def serialize(self, root):
         levels = self.dfs(root)
         arr = []
@@ -34,23 +35,62 @@ class Codec:
         i = 1
         while i < len(arr):
             node = queue.popleft()
-            left = TreeNode(arr[i])
-            right = TreeNode(arr[i+1])
-            node.left = left
-            node.right = right
+            left = right = None
+            if arr[i] != 'null':
+                left = TreeNode(arr[i])
+                node.left = left
+            if arr[i+1] != 'null':
+                right = TreeNode(arr[i+1])
+                node.right = right
             queue.append(left)
             queue.append(right)
             i += 2
         return root
-            
+
+class Codec:
+    def serialize(self, root):
+        arr = []
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            if node:
+                arr.append(str(node.val))
+                queue.append(node.left)
+                queue.append(node.right)
+            else: arr.append('null')
+        return ','.join(arr)
+    
+    def deserialize(self, data):
+        if not data or data == 'null': return None
+        arr = data.split(',')
+        root = TreeNode(arr[0])
+        queue = deque([root])
+        i, n = 0, len(arr)
+        while queue and i < n:
+            node = queue.popleft()
+            if i+1 < n and arr[i+1] != 'null':
+                left = TreeNode(arr[i+1])
+                node.left = left
+                queue.append(left)
+            if i+2 < n and arr[i+2] != 'null':
+                right = TreeNode(arr[i+2])
+                node.right = right
+                queue.append(right)
+            i += 2
+        return root
+
 # Your Codec object will be instantiated and called as such:
-root = TreeNode(1)
+root = TreeNode(5)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
-root.left.left = TreeNode(4)
-root.left.right = TreeNode(5)
-root.right.left = TreeNode(6)
-root.right.right = TreeNode(7)
+# root.left.left = TreeNode(4)
+# root.left.right = TreeNode(5)
+root.right.left = TreeNode(2)
+root.right.right = TreeNode(4)
+root.right.left.left = TreeNode(3)
+root.right.left.right = TreeNode(1)
 
 codec = Codec()
-print(codec.serialize(codec.deserialize(codec.serialize(root))))
+# print(codec.serialize(None))
+print(codec.deserialize(codec.serialize(root)))
+# print(codec.serialize(codec.deserialize(codec.serialize(root))))
