@@ -31,3 +31,22 @@ class Codec2:
                 queue.append(right)
             i += 2
         return root
+
+# DFS
+class Codec:
+    def serialize(self, root):
+        if not root: return 'None'
+        return str(root.val) + ',' + self.serialize(root.left) + ','  + self.serialize(root.right)
+
+    def deserialize(self, data):
+        arr = data.split(',')
+        return self.dfs(arr)
+
+    def dfs(self, arr):
+        if arr[0] == 'None':
+            arr.pop(0)
+            return None
+        root = TreeNode(arr.pop(0))
+        root.left = self.dfs(arr)
+        root.right = self.dfs(arr)
+        return root
