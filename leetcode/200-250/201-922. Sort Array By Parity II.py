@@ -37,5 +37,11 @@ class Solution:
         
         return ans
 
+    def sortArrayByParityII4(self, A):
+        ans = [0] * len(A)
+        ans[::2] = (i for i in A if not i % 2)
+        ans[1::2] = (i for i in A if i % 2)
+        return ans
+
 sol = Solution()
 print(sol.sortArrayByParityII([4,2,5,7]))
