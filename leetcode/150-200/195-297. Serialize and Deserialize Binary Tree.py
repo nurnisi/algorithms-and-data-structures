@@ -8,7 +8,7 @@ class TreeNode(object):
 
 from collections import deque
 # TLE: 47/48
-class Codec2:
+class Codec3:
     def serialize(self, root):
         levels = self.dfs(root)
         arr = []
@@ -47,7 +47,8 @@ class Codec2:
             i += 2
         return root
 
-class Codec:
+# BFS
+class Codec2:
     def serialize(self, root):
         arr = []
         queue = deque([root])
@@ -79,18 +80,34 @@ class Codec:
             i += 2
         return root
 
-# Your Codec object will be instantiated and called as such:
-root = TreeNode(5)
+# DFS
+class Codec:
+    def serialize(self, root):
+        if not root: return 'None'
+        return str(root.val) + ',' + self.serialize(root.left) + ','  + self.serialize(root.right)
+
+    def deserialize(self, data):
+        arr = data.split(',')
+        return self.dfs(arr)
+
+    def dfs(self, arr):
+        if arr[0] == 'None':
+            arr.pop(0)
+            return None
+        root = TreeNode(arr.pop(0))
+        root.left = self.dfs(arr)
+        root.right = self.dfs(arr)
+        return root
+
+root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
-# root.left.left = TreeNode(4)
-# root.left.right = TreeNode(5)
-root.right.left = TreeNode(2)
-root.right.right = TreeNode(4)
-root.right.left.left = TreeNode(3)
-root.right.left.right = TreeNode(1)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
 
 codec = Codec()
-# print(codec.serialize(None))
-print(codec.deserialize(codec.serialize(root)))
-# print(codec.serialize(codec.deserialize(codec.serialize(root))))
+print(codec.serialize(root))
+# print(codec.deserialize(codec.serialize(root)))
+print(codec.serialize(codec.deserialize(codec.serialize(root))))
