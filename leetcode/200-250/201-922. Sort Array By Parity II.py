@@ -21,5 +21,21 @@ class Solution:
             if A[odd] % 2 == 1: odd += 2
         return A
 
+    def sortArrayByParityII3(self, A):
+        ans = [0] * len(A)
+        j = 0
+        for i in A:
+            if i % 2 == 0:
+                ans[j] = i
+                j += 2
+
+        j = 1
+        for i in A:
+            if i % 2 == 1:
+                ans[j] = i
+                j += 2
+        
+        return ans
+
 sol = Solution()
 print(sol.sortArrayByParityII([4,2,5,7]))
