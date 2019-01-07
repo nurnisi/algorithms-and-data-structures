@@ -43,5 +43,14 @@ class Solution:
         ans[1::2] = (i for i in A if i % 2)
         return ans
 
+    def sortArrayByParityII5(self, A):
+        j = 1
+        for i in range(0, len(A), 2):
+            if A[i] % 2:
+                while A[j] % 2:
+                    j += 2
+                A[i], A[j] = A[j], A[i]
+        return A
+
 sol = Solution()
-print(sol.sortArrayByParityII([4,2,5,7]))
+print(sol.sortArrayByParityII5([4,2,5,7]))
