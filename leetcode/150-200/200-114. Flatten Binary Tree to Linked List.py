@@ -7,7 +7,7 @@
 #         self.right = None
 
 class Solution:
-    def flatten(self, root):
+    def flatten2(self, root):
         self.dfs(root)
 
     def dfs(self, node):
@@ -38,6 +38,15 @@ class Solution:
             node.left = None
         if right: return right
         return left
+        
+    prev = None
+    def flatten(self, root):
+        if not root: return
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.right = self.prev
+        root.left = None
+        self.prev = root
         
         
 

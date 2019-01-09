@@ -10,13 +10,13 @@ class Solution:
     def pathSum(self, root, sum):
         ans, stack = [], []
         def dfs(node, cursum):
-            if node:
-                stack.append(node.val)
-                if not node.left and not node.right and cursum + node.val == sum:
-                    ans.append(stack.copy())
-                dfs(node.left, cursum + node.val)
-                dfs(node.right, cursum + node.val)
-                stack.pop()
+            if not node: return
+            stack.append(node.val)
+            if not node.left and not node.right and cursum + node.val == sum:
+                ans.append(stack.copy())
+            dfs(node.left, cursum + node.val)
+            dfs(node.right, cursum + node.val)
+            stack.pop()
         dfs(root, 0)
         return ans
 
