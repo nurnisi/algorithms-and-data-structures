@@ -26,6 +26,21 @@ class Solution:
             left[1].right = right[0]
         return (node, right[1])
 
+    def dfs2(self, node):
+        if not node: return None
+        left = self.dfs2(node.left)
+        right = self.dfs2(node.right)
+        
+        if not left and not right: return node
+        if left: 
+            left.right = node.right
+            node.right = node.left
+            node.left = None
+        if right: return right
+        return left
+        
+        
+
 
 
         
