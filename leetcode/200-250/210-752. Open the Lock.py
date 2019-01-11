@@ -1,7 +1,7 @@
 # 752. Open the Lock
 from collections import deque
 class Solution:
-    def openLock(self, deadends, target):
+    def openLock2(self, deadends, target):
         d = set(deadends)
         queue = deque([target])
         moves = 0
@@ -14,7 +14,30 @@ class Solution:
                 for i in range(len(cur)):
                     nexts = [
                         cur[:i] + str((int(cur[i]) + 1) % 10) +  cur[i+1:],
-                        cur[:i] + str((int(cur[i]) - 1) if cur[i] != '0' else 9) +  cur[i+1:]
+                        cur[:i] + str((int(cur[i]) - 1) % 10) +  cur[i+1:]
+                    ]
+                    for nxt in nexts:
+                        if nxt not in d: 
+                            queue.append(nxt)
+                            d.add(nxt)
+            moves += 1
+        return -1
+
+    def openLock(self, deadends, target):
+        d = set(deadends)
+        if "0000" in d: return -1
+        queue = deque(["0000"])
+        moves = 0
+        while queue:
+            size = len(queue)
+            for _ in range(size):
+                cur = queue.popleft()
+                if cur == target:
+                    return moves
+                for i in range(len(cur)):
+                    nexts = [
+                        cur[:i] + str((int(cur[i]) + 1) % 10) +  cur[i+1:],
+                        cur[:i] + str((int(cur[i]) - 1) % 10) +  cur[i+1:]
                     ]
                     for nxt in nexts:
                         if nxt not in d: 
