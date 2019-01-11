@@ -1,14 +1,10 @@
 # 925. Long Pressed Name
+import itertools
 class Solution:
-    def isLongPressedName(self, name, typed):
-        """
-        :type name: str
-        :type typed: str
-        :rtype: bool
-        """
+    def isLongPressedName2(self, name, typed):
         i = j = 0
         n, t = len(name), len(typed)
-        while i < n nad j < t:
+        while i < n and j < t:
             curn = name[i]
             cn = 0
             while i < n and curn == name[i]:
@@ -23,6 +19,12 @@ class Solution:
         
         if i != n or j != t: return False
         return True
+
+    def isLongPressedName(self, name, typed):
+        gn = [(k, len(list(g))) for k, g in itertools.groupby(name)]
+        gt = [(k, len(list(g))) for k, g in itertools.groupby(typed)]
+        if len(gn) != len(gt): return False
+        return all(kn == kt and vn <= vt for (kn, vn), (kt, vt) in zip(gn, gt))
 
 sol = Solution()
 print(sol.isLongPressedName(name = "alex", typed = "aaleex"))
