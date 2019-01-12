@@ -23,7 +23,7 @@ class Solution:
             moves += 1
         return -1
 
-    def openLock(self, deadends, target):
+    def openLock3(self, deadends, target):
         d = set(deadends)
         if "0000" in d: return -1
         queue = deque(["0000"])
@@ -44,6 +44,24 @@ class Solution:
                             queue.append(nxt)
                             d.add(nxt)
             moves += 1
+        return -1
+
+    # leetcode solution
+    def openLock(self, deadends, target):
+        seen, queue, count = set(deadends), ["0000"], 0
+        move = {str(i): [str((i + 1) % 10), str((i - 1) % 10)] for i in range(10)}
+        if "0000" in seen: return -1
+        while queue:
+            nexts = []
+            count += 1
+            for s in queue:
+                for i, c in enumerate(s):
+                    for cur in [s[:i] + move[c][0] + s[i+1:], s[:i] + move[c][1] + s[i+1:]]:
+                        if cur not in seen:
+                            if cur == target: return count
+                            nexts.append(cur)
+                            seen.add(cur)
+                queue = nexts
         return -1
                 
 sol = Solution()
