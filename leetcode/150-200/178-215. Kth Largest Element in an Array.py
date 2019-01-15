@@ -21,5 +21,9 @@ class Solution:
             heapq.heappop(arr)
         return -heapq.heappop(arr)
 
+    # heap: Leetcode solution
+    def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[-1]
+
 sol = Solution()
 print(sol.findKthLargest2([3,2,1,5,6,4,3], 2))
