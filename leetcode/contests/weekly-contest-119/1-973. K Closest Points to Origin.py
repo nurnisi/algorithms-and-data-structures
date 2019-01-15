@@ -18,7 +18,7 @@ class Solution:
         return points[:K]
 
     # quickSelect
-    def kClosest(self, points, K):
+    def kClosest4(self, points, K):
         rand = random.randint(0, len(points)-1)
         x = points[rand][0]**2 + points[rand][1]**2
         left, right = [], []
@@ -29,7 +29,22 @@ class Solution:
         elif len(left) < K: return left + self.kClosest(right, K - len(left))
         else: return self.kClosest(left, K)
     
+    # quickSelect 2
+    def kClosest(self, points, K):
+        arr = [(p[0]**2 + p[1]**2, p) for p in points]
+        arr = self.helper(arr, K)
+        return [p[1] for p in arr]
 
+    def helper(self, points, K):
+        rand = random.randint(0, len(points)-1)
+        x = points[rand][0]
+        left, right = [], []
+        for p in points:
+            if p[0] > x: right.append(p)
+            else: left.append(p)
+        if len(left) == K: return left
+        elif len(left) < K: return left + self.helper(right, K - len(left))
+        else: return self.helper(left, K)
 
         
 sol = Solution()
@@ -37,5 +52,5 @@ print(sol.kClosest(points = [[1,3],[-2,2]], K = 1))
 print(sol.kClosest(points = [[3,3],[5,-1],[-2,4]], K = 2))
 print(sol.kClosest([[-2,10],[-4,-8],[10,7],[-4,-7]], 3))
 
-print(sol.kClosest3(points = [[1,3],[-2,2]], K = 1))
-print(sol.kClosest3(points = [[3,3],[5,-1],[-2,4]], K = 2))
+# print(sol.kClosest3(points = [[1,3],[-2,2]], K = 1))
+# print(sol.kClosest3(points = [[3,3],[5,-1],[-2,4]], K = 2))
