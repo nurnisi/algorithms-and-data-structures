@@ -26,8 +26,8 @@ class Solution:
     def findKthLargest4(self, nums, k):
         return heapq.nlargest(k, nums)[-1]
 
-    # quick select
-    def findKthLargest(self, nums, k):
+    # quick select: Leetcode solution
+    def findKthLargest4(self, nums, k):
         def partition(i, j, pivotIndex):
             pivot = nums[pivotIndex]
             nums[pivotIndex], nums[j] = nums[j], nums[pivotIndex]

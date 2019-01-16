@@ -1,5 +1,6 @@
 # 703. Kth Largest Element in a Stream
-class KthLargest:
+# Binary search: Accepted
+class KthLargest2:
 
     def __init__(self, k, nums):
         self.k = k
@@ -15,6 +16,19 @@ class KthLargest:
         self.nums = self.nums[:l] + [val] + self.nums[l:]
         print(self.nums)
         return self.nums[self.k - 1]
+
+# heap: TLE
+import heapq
+class KthLargest:
+
+    def __init__(self, k, nums):
+        self.k = k
+        self.nums = [-i for i in nums]
+        heapq.heapify(self.nums)
+
+    def add(self, val):
+        heapq.heappush(self.nums, -val)
+        return -heapq.nsmallest(self.k, self.nums)[self.k-1]
 
 sol = KthLargest(1, [-2])
 print(sol.add(-3))
