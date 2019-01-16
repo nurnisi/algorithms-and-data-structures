@@ -18,6 +18,13 @@ class Solution:
             root.right = self.insertIntoBST(root.right, val)
         return root
 
+    # recursive 2
+    def insertIntoBST3(self, root, val):
+        if not root: return TreeNode(val)
+        if root.val > val: root.left = self.insertIntoBST(root.left, val)
+        else: root.right = self.insertIntoBST(root.right, val)
+        return root
+
     # iterative
     def insertIntoBST(self, root, val):
         node = prev = root
