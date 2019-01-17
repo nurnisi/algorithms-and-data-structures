@@ -1,6 +1,5 @@
 # 792. Number of Matching Subsequences
-from collections import defaultdict
-from collections import deque
+import collections
 class Solution:
     # TLE
     def numMatchingSubseq2(self, S, words):
@@ -13,7 +12,7 @@ class Solution:
             if i == len(w): count += 1
         return count
 
-    def numMatchingSubseq(self, S, words):
+    def numMatchingSubseq3(self, S, words):
         d = defaultdict(list)
         for i, c in enumerate(S):
             d[c].append(i)
@@ -38,6 +37,34 @@ class Solution:
             if flag: 
                 count += 1
         return count
+
+    # leetcode solution
+    def numMatchingSubseq4(self, S, words):
+        waiting = collections.defaultdict(list)
+        for w in words:
+            waiting[w[0]].append(iter(w[1:]))
+        for c in S:
+            for it in waiting.pop(c, ()):
+                waiting[next(it, None)].append(it)
+        return len(waiting[None])
+    
+    # leetcode solution 2
+    def numMatchingSubseq5(self, S, words):
+        waiting = collections.defaultdict(list)
+        for it in map(iter, words):
+            waiting[next(it)].append(it)
+        for c in S:
+            for it in waiting.pop(c, ()):
+                waiting[next(it, None)].append(it)
+        return len(waiting[None])
+    
+    # leetcode solution 3
+    def numMatchingSubseq(self, S, words):
+        waiting = collections.defaultdict(list, {' ': map(iter, words)})
+        for c in ' ' + S:
+            for it in waiting.pop(c, ()):
+                waiting[next(it, None)].append(it)
+        return len(waiting[None])
                 
 sol = Solution()
 print(sol.numMatchingSubseq(S = "abcde", words = ["a", "bb", "acd", "ace"]))
