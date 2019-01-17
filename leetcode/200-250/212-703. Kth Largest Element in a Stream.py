@@ -19,7 +19,7 @@ class KthLargest2:
 
 # heap: TLE
 import heapq
-class KthLargest:
+class KthLargest3:
 
     def __init__(self, k, nums):
         self.k = k
@@ -29,6 +29,23 @@ class KthLargest:
     def add(self, val):
         heapq.heappush(self.nums, -val)
         return -heapq.nsmallest(self.k, self.nums)[self.k-1]
+
+# leetcode solution
+class KthLargest:
+
+    def __init__(self, k, nums):
+        self.k = k
+        self.nums = nums
+        heapq.heapify(self.nums)
+        while len(self.nums) > self.k:
+            heapq.heappop(self.nums)
+
+    def add(self, val):
+        if len(self.nums) < self.k:
+            heapq.heappush(self.nums, val)
+        elif val > self.nums[0]:
+            heapq.heapreplace(self.nums, val)
+        return self.nums[0]
 
 sol = KthLargest(1, [-2])
 print(sol.add(-3))
