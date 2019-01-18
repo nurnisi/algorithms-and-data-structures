@@ -1,6 +1,6 @@
 # 946. Validate Stack Sequences
 class Solution:
-    def validateStackSequences(self, pushed, popped):
+    def validateStackSequences2(self, pushed, popped):
         i = j = 0
         stack, out = [], []
         while i < len(pushed) and j < len(popped):
@@ -21,7 +21,18 @@ class Solution:
         
         return True
 
+    def validateStackSequences(self, pushed, popped):
+        j = 0
+        stack = []
+        for x in pushed:
+            stack.append(x)
+            while stack and j < len(popped) and stack[-1] == popped[j]:
+                stack.pop()
+                j += 1
+        return j == len(popped)
+
 sol = Solution()
 print(sol.validateStackSequences([1,2,3,4,5], [4,5,3,1,2]))
 print(sol.validateStackSequences([1], [1]))
+print(sol.validateStackSequences([], []))
         
