@@ -14,7 +14,7 @@ class Solution:
             stack = new.copy()
         return ans
 
-    # use dictionary
+    # dictionary
     def dailyTemperatures3(self, T):
         d = collections.defaultdict(list)
         ans = [0]*len(T)
@@ -27,6 +27,24 @@ class Solution:
                 else: temp[key] = val
             d = temp.copy()
             d[T[i]].append(i)
+        return ans
+
+    # stack
+    def dailyTemperatures(self, T):
+        stack, ans = [], [0]*len(T)
+        for i in range(len(T)):
+            new, flag = [], True
+            while stack:
+                t, arrj = stack.pop()
+                if t < T[i]:
+                    for j in arrj:
+                        ans[j] = i - j
+                elif t == T[i]:
+                    flag = False
+                    new.append((t, arrj + [i]))
+                else: new.append((t, arrj))
+            if flag: new.append((T[i], [i]))
+            stack = new.copy()
         return ans
 
 sol = Solution()
