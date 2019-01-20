@@ -6,11 +6,12 @@
 #         self.left = None
 #         self.right = None
 
-# postorder
-class BSTIterator:
+# postorder and stack
+class BSTIterator2:
 
     def __init__(self, root):
         self.root = root
+        self.stack = []
         self.inorder(root)
 
     def inorder(self, root):
@@ -23,7 +24,28 @@ class BSTIterator:
         return self.stack.pop()
 
     def hasNext(self):
-        return len(self.stack)
+        return len(self.stack) > 0
+
+# inorder and queue 
+from collections import deque
+class BSTIterator:
+
+    def __init__(self, root):
+        self.root = root
+        self.queue = deque()
+        self.inorder(root)
+
+    def inorder(self, root):
+        if not root: return
+        self.inorder(root.left)
+        self.queue.append(root.val)
+        self.inorder(root.right)
+
+    def next(self):
+        return self.queue.popleft()
+
+    def hasNext(self):
+        return len(self.queue)
         
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
