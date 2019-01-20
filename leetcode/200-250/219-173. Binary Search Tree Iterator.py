@@ -28,7 +28,7 @@ class BSTIterator2:
 
 # inorder and queue 
 from collections import deque
-class BSTIterator:
+class BSTIterator3:
 
     def __init__(self, root):
         self.root = root
@@ -45,7 +45,27 @@ class BSTIterator:
         return self.queue.popleft()
 
     def hasNext(self):
-        return len(self.queue)
+        return len(self.queue) > 0
+
+# O(h) space complexity
+class BSTIterator:
+
+    def __init__(self, root):
+        self.stack = []
+        self.populate(root)
+
+    def populate(self, node):
+        while node:
+            self.stack.append(node)
+            node = node.left
+
+    def next(self):
+        node = self.stack.pop()
+        self.populate(node.right)
+        return node.val
+        
+    def hasNext(self):
+        return len(self.stack) > 0
         
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)
