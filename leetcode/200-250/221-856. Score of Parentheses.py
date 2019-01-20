@@ -29,7 +29,7 @@ class Solution:
         return ans + 2 ** (count - 1)  
     
     # leetcode stack
-    def scoreOfParentheses(self, S):
+    def scoreOfParentheses4(self, S):
         stack = [0]
         for p in S:
             if p == '(': stack.append(0)
@@ -37,6 +37,17 @@ class Solution:
                 v = stack.pop()
                 stack[-1] += max(2 * v, 1)
         return stack.pop()
+
+    # leetcode balance
+    def scoreOfParentheses(self, S):
+        bal = ans = 0
+        for i, p in enumerate(S):
+            if p == '(': bal += 1
+            else:
+                bal -= 1
+                if S[i-1] == '(':
+                    ans += 2 ** bal
+        return ans
 
 sol = Solution()
 print(sol.scoreOfParentheses("()()"))
