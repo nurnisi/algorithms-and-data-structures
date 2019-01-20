@@ -30,7 +30,7 @@ class Solution:
         return ans
 
     # stack
-    def dailyTemperatures(self, T):
+    def dailyTemperatures4(self, T):
         stack, ans = [], [0]*len(T)
         for i in range(len(T)):
             new, flag = [], True
@@ -46,6 +46,19 @@ class Solution:
             if flag: new.append((T[i], [i]))
             stack = new.copy()
         return ans
+
+    # array
+    def dailyTemperatures(self, T):
+        nxt = [float('inf')] * 101
+        ans = [0] * len(T)
+        for i in range(len(T)-1, -1, -1):
+            warm = min(nxt[T[i]+1:])
+            if warm < float('inf'):
+                ans[i] = warm - i
+            nxt[T[i]] = i
+        return ans
+            
+
 
 sol = Solution()
 print(sol.dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
