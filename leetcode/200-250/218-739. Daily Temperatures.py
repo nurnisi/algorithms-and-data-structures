@@ -48,7 +48,7 @@ class Solution:
         return ans
 
     # array
-    def dailyTemperatures(self, T):
+    def dailyTemperatures5(self, T):
         nxt = [float('inf')] * 101
         ans = [0] * len(T)
         for i in range(len(T)-1, -1, -1):
@@ -58,7 +58,17 @@ class Solution:
             nxt[T[i]] = i
         return ans
             
-
+    # leetcode stack
+    def dailyTemperatures(self, T):
+        ans = [0] * len(T)
+        stack = []
+        for i in range(len(T)-1, -1, -1):
+            while stack and T[i] >= T[stack[-1]]:
+                stack.pop()
+            if stack:
+                ans[i] = stack[-1] - i
+            stack.append(i)
+        return ans
 
 sol = Solution()
 print(sol.dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
