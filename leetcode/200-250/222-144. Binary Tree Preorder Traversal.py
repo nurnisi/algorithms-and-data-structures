@@ -20,7 +20,7 @@ class Solution2:
         self.preorder(root.right)
 
 # iterative
-class Solution:
+class Solution3:
     def preorderTraversal(self, root):
         ans, stack = [], [root]
         while stack:
@@ -30,3 +30,28 @@ class Solution:
             stack.append(node.left)
             ans.append(node.val)
         return ans
+
+# morris travel
+class Solution:
+    def preorderTraversal(self, root):
+        node, output = root, []
+
+        while node:
+            if not node.left:
+                output.append(node.val)
+                node = node.right
+            else:
+                predecessor = node.left
+
+                while predecessor.right and predecessor.right is not node:
+                    predecessor = predecessor.right
+                
+                if not predecessor.right:
+                    output.append(node.val)
+                    predecessor.right = node
+                    node = node.left
+                else:
+                    predecessor.right = None
+                    node = node.right
+
+        return output
