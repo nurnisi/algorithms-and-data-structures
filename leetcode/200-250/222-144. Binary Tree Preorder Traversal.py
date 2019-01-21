@@ -6,7 +6,8 @@
 #         self.left = None
 #         self.right = None
 
-class Solution:
+# recursive
+class Solution2:
     def preorderTraversal(self, root):
         self.ans = []
         self.preorder(root)
@@ -17,3 +18,15 @@ class Solution:
         self.ans.append(root.val)
         self.preorder(root.left)
         self.preorder(root.right)
+
+# iterative
+class Solution:
+    def preorderTraversal(self, root):
+        ans, stack = [], [root]
+        while stack:
+            node = stack.pop()
+            if not node: continue
+            stack.append(node.right)
+            stack.append(node.left)
+            ans.append(node.val)
+        return ans
