@@ -11,7 +11,6 @@ class Solution:
                     ans[i] = nums[j]
                     break
                 j = (j + 1) % n
-        
         return ans
 
     # stack
