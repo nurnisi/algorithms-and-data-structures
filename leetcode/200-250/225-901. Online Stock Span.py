@@ -14,7 +14,7 @@ class StockSpanner2:
         return len(self.arr) - i - 1
 
 # stack
-class StockSpanner:
+class StockSpanner3:
 
     def __init__(self):
         self.cur = 0
@@ -27,6 +27,19 @@ class StockSpanner:
         ans = self.cur - self.stack[-1][1] if self.stack else self.cur
         self.stack.append((price, self.cur))
         return ans
+
+# stack: leetcode
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = []
+
+    def next(self, price):
+        weight = 1
+        while self.stack and self.stack[-1][0] <= price:
+            weight += self.stack.pop()[1]
+        self.stack.append((price, weight))
+        return weight
 
 # Your StockSpanner object will be instantiated and called as such:
 obj = StockSpanner()
