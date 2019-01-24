@@ -35,7 +35,7 @@ class Solution:
         return ans
 
     # heapq
-    def leastInterval(self, tasks, n):
+    def leastInterval4(self, tasks, n):
         h = list([-i for i in Counter(tasks).values()])
         ans = 0
         while h:
@@ -49,6 +49,13 @@ class Solution:
                 i += 1
             for j in tmp: heapq.heappush(h, j)
         return ans
+
+    # math
+    def leastInterval(self, tasks, n):
+        t_count = list(Counter(tasks).values())
+        m = max(t_count)
+        m_count = t_count.count(m)
+        return max(len(tasks), (m-1)*(n+1)+m_count)
 
 sol = Solution()
 print(sol.leastInterval(tasks = ["A","A","B","B","B", "C"], n = 4))
