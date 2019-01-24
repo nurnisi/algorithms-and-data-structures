@@ -1,7 +1,8 @@
 # 621. Task Scheduler
 from collections import Counter, deque
+import heapq
 class Solution:
-    def leastInterval(self, tasks, n):
+    def leastInterval2(self, tasks, n):
         d = deque(sorted(Counter(tasks).items(), key=lambda i: i[1], reverse=True))
         ans = 0
         while d:
@@ -15,7 +16,26 @@ class Solution:
             d = deque(sorted(tmp, key=lambda i: i[1], reverse=True))
         return ans
 
+    def leastInterval(self, tasks, n):
+        queue = sorted(Counter(tasks).values(), reverse=True)
+        ans = 0
+        while queue:
+            i, zeros = 0, 0
+            while i <= n:
+                if zeros == len(queue): break
+                if i < len(queue): 
+                    queue[i] -= 1
+                    if not queue[i]: zeros += 1
+                ans += 1
+                i += 1
+            queue.sort(reverse=True)
+            while queue and not queue[-1]: queue.pop()
+        return ans
+
+        
+
 sol = Solution()
+print(sol.leastInterval2(tasks = ["A","A","B","B","B", "C"], n = 4))
 print(sol.leastInterval(tasks = ["A","A","B","B","B", "C"], n = 4))
 print(sol.leastInterval(tasks = ["A","A","A","B","B","B"], n = 2))
 print(sol.leastInterval(["A","A","A","B","B","B"], 0))
