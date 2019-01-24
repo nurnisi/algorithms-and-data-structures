@@ -2,6 +2,7 @@
 from collections import Counter, deque
 import heapq
 class Solution:
+    # queue
     def leastInterval2(self, tasks, n):
         d = deque(sorted(Counter(tasks).items(), key=lambda i: i[1], reverse=True))
         ans = 0
@@ -16,26 +17,40 @@ class Solution:
             d = deque(sorted(tmp, key=lambda i: i[1], reverse=True))
         return ans
 
-    def leastInterval(self, tasks, n):
-        queue = sorted(Counter(tasks).values(), reverse=True)
+    # stack
+    def leastInterval3(self, tasks, n):
+        stack = sorted(Counter(tasks).values(), reverse=True)
         ans = 0
-        while queue:
+        while stack:
             i, zeros = 0, 0
             while i <= n:
-                if zeros == len(queue): break
-                if i < len(queue): 
-                    queue[i] -= 1
-                    if not queue[i]: zeros += 1
+                if zeros == len(stack): break
+                if i < len(stack): 
+                    stack[i] -= 1
+                    if not stack[i]: zeros += 1
                 ans += 1
                 i += 1
-            queue.sort(reverse=True)
-            while queue and not queue[-1]: queue.pop()
+            stack.sort(reverse=True)
+            while stack and not stack[-1]: stack.pop()
         return ans
 
-        
+    # heapq
+    def leastInterval(self, tasks, n):
+        h = list([-i for i in Counter(tasks).values()])
+        ans = 0
+        while h:
+            i, tmp, size = 0, [], len(h)
+            while i <= n:
+                if not h and not tmp: break
+                if i < size:
+                    cur = heapq.heappop(h) + 1
+                    if cur < 0: tmp.append(cur)
+                ans += 1
+                i += 1
+            for j in tmp: heapq.heappush(h, j)
+        return ans
 
 sol = Solution()
-print(sol.leastInterval2(tasks = ["A","A","B","B","B", "C"], n = 4))
 print(sol.leastInterval(tasks = ["A","A","B","B","B", "C"], n = 4))
 print(sol.leastInterval(tasks = ["A","A","A","B","B","B"], n = 2))
 print(sol.leastInterval(["A","A","A","B","B","B"], 0))
