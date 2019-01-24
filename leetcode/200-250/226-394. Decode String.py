@@ -13,8 +13,6 @@ class Solution:
                 stack[-1] += c
             else: stack.append(c)
         return ''.join(stack)
-            
-
 
 sol = Solution()
 print(sol.decodeString("3[a]2[bc]"))
