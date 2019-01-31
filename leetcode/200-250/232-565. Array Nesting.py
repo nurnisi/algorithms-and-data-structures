@@ -17,7 +17,7 @@ class Solution:
                 if len(s) > 1: sets.append(s)
         return max(l)
 
-    def arrayNesting(self, nums):
+    def arrayNesting3(self, nums):
         seen, ans = set(), 0
         for i in range(len(nums)):
             if nums[i] not in seen:
@@ -27,6 +27,18 @@ class Solution:
                     s.add(nums[j])
                     j = nums[j]
                 ans = max(ans, len(s))
+        return ans
+
+    def arrayNesting(self, nums):
+        seen, ans = [False] * len(nums), 0
+        for i in range(len(nums)):
+            if not seen[i]:
+                j, cnt = nums[i], 1
+                while nums[j] != nums[i]:
+                    seen[j] = True
+                    cnt += 1
+                    j = nums[j]
+                ans = max(ans, cnt)
         return ans
 
 sol = Solution()
