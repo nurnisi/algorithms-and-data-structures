@@ -1,6 +1,6 @@
 # 565. Array Nesting
 class Solution:
-    def arrayNesting(self, nums):
+    def arrayNesting2(self, nums):
         sets, l = [], [0] * len(nums)
         for i in range(len(nums)):
             for s in sets:
@@ -16,6 +16,18 @@ class Solution:
                 l[i] = len(s)
                 if len(s) > 1: sets.append(s)
         return max(l)
+
+    def arrayNesting(self, nums):
+        seen, ans = set(), 0
+        for i in range(len(nums)):
+            if nums[i] not in seen:
+                s, j, cnt = set(), i, 0
+                while nums[j] not in s:
+                    seen.add(nums[j])
+                    s.add(nums[j])
+                    j = nums[j]
+                ans = max(ans, len(s))
+        return ans
 
 sol = Solution()
 print(sol.arrayNesting([5,4,0,3,1,6,2]))
