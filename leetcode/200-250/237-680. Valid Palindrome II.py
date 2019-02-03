@@ -2,30 +2,6 @@
 import collections
 class Solution:
     def validPalindrome2(self, s):
-        n = len(s)
-        stack = list(s[:n//2])
-        print(stack)
-        for i in range(n//2+n%2, n):
-            if stack[-1] == s[i]: stack.pop()
-            else: return False
-        return True
-
-    def validPalindrome3(self, s):
-        i, j, flag = 0, len(s)-1, False
-        while i < j:
-            if s[i] == s[j]:
-                i += 1
-                j -= 1
-            elif flag:
-                return False
-            else:
-                if s[i] == s[j-1] and s[i+1] == s[j-2]: j -= 1
-                elif s[i+1] == s[j] and s[i+2] == s[j-1]: i += 1
-                else: return False
-                flag = True
-        return True
-
-    def validPalindrome(self, s):
         i, j = 0, 0
         while i < j and s[i] == s[j]:
             i += 1
@@ -42,6 +18,18 @@ class Solution:
             j2 -= 1
         
         return i1 >= j1 or i2 >= j2
+
+    def validPalindrome3(self, s):
+        def is_pali(i, j):
+            return all(s[k] == s[j-k+i] for k in range(i, j))
+        
+        for k in range(len(s)//2):
+            if s[k] != s[~k]:
+                j = len(s)-1-k
+                return is_pali(k+1, j) or is_pali(k, j-1)
+        return True
+
+
 
 sol = Solution()
 print(sol.validPalindrome("ebcbbececabbacecbbcbe"))
