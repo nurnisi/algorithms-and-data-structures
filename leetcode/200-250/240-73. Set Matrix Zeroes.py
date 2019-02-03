@@ -1,6 +1,6 @@
 # 73. Set Matrix Zeroes
 class Solution:
-    def setZeroes(self, matrix):
+    def setZeroes2(self, matrix):
         if not matrix or not matrix[0]: return
 
         # check if 1st row and col has 0s
@@ -31,6 +31,24 @@ class Solution:
         if fc: 
             for i in range(len(matrix)): matrix[i][0] = 0
 
+        for row in matrix:
+            print(row)
+
+    def setZeroes(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        rows, cols = set(), set()
+
+        for r in range(n):
+            for c in range(m):
+                if matrix[r][c] == 0:
+                    rows.add(r)
+                    cols.add(c)
+                
+        for r in range(n):
+            for c in range(m):
+                if r in rows or c in cols:
+                    matrix[r][c] = 0
+        
         for row in matrix:
             print(row)
 
