@@ -34,7 +34,7 @@ class Solution:
         for row in matrix:
             print(row)
 
-    def setZeroes(self, matrix):
+    def setZeroes3(self, matrix):
         n, m = len(matrix), len(matrix[0])
         rows, cols = set(), set()
 
@@ -51,6 +51,20 @@ class Solution:
         
         for row in matrix:
             print(row)
+
+    def setZeroes(self, matrix):
+        n, m = len(matrix), len(matrix[0])
+        for r in range(n):
+            for c in range(m):
+                if matrix[r][c] == 0:
+                    for i in range(n): matrix[i][c] = float('inf') if matrix[i][c] != 0 else 0
+                    for j in range(m): matrix[r][j] = float('inf') if matrix[r][j] != 0 else 0
+        
+        for r in range(n):
+            for c in range(m):
+                if matrix[r][c] == float('inf'): matrix[r][c] = 0
+
+        for r in matrix: print(r)
 
 sol = Solution()
 print(sol.setZeroes([
