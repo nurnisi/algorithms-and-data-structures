@@ -1,6 +1,6 @@
 # 131. Palindrome Partitioning
 class Solution:
-    # brute force: accepted
+    # backtracking
     def partition(self, s):
         ans, part = [], []
         def is_palindrome(s):
@@ -18,6 +18,10 @@ class Solution:
                     part.pop()
         helper(s)
         return ans
+
+    # 1-liner
+    def partition(self, s):
+        return [[s[:i]] + rest for i in range(1, len(s)+1) if s[:i] == s[i-1::-1] for rest in self.partition(s[i:])] or [[]]
 
 sol = Solution()
 print(sol.partition("aabac"))
