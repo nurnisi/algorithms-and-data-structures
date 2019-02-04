@@ -6,7 +6,6 @@ def solution2(S, E):
     
     return max(arr)
 
-
 import heapq
 def solution(S, E):
     quests = [(S[i], E[i]) for i in range(len(S))]

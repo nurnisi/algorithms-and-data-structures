@@ -1,5 +1,6 @@
 # 973. K Closest Points to Origin
 import random
+import heapq
 class Solution:
     # Accepted
     def kClosest2(self, points, K):
@@ -63,7 +64,7 @@ class Solution:
         elif i > K: self.helper2(dist, oi, i, K)
             
     # quickSelect 4: leetcode solution
-    def kClosest(self, points, K):
+    def kClosest7(self, points, K):
         dist = lambda i: points[i][0]**2 + points[i][1]**2
 
         def work(i, j, K):
@@ -80,6 +81,10 @@ class Solution:
         
         work(0, len(points) - 1, K)
         return points[:K]
+
+    # one liner
+    def kClosest(self, points, K):
+        return heapq.nsmallest(K, points, lambda p: p[0] * p[0] + p[1] * p[1])
         
 sol = Solution()
 print(sol.kClosest(points = [[1,3],[-2,2]], K = 1))
