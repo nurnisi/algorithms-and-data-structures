@@ -29,7 +29,7 @@ class Solution:
                 ans = max(ans, len(s))
         return ans
 
-    def arrayNesting(self, nums):
+    def arrayNesting4(self, nums):
         seen, ans = [False] * len(nums), 0
         for i in range(len(nums)):
             if not seen[i]:
@@ -39,6 +39,19 @@ class Solution:
                     cnt += 1
                     j = nums[j]
                 ans = max(ans, cnt)
+        return ans
+
+    def arrayNesting(self, nums):
+        ans = 0
+        for i in range(len(nums)):
+            if nums[i] >= 0:
+                j, cnt = nums[i], 1
+                while nums[j] != nums[i]:
+                    cnt += 1
+                    tmp = j
+                    j = nums[j]
+                    nums[tmp] = -1
+            ans = max(ans, cnt)
         return ans
 
 sol = Solution()
