@@ -1,7 +1,7 @@
 # 395. Longest Substring with At Least K Repeating Characters
 import collections
 class Solution:
-    def longestSubstring(self, s, k):
+    def longestSubstring2(self, s, k):
         count, n = [], len(s)
         i = j = 0
         while i < n:
@@ -28,11 +28,18 @@ class Solution:
         return ans
 
     # leetcode
-    def longestSubstring(self, s, k):
+    def longestSubstring3(self, s, k):
         if len(s) < k: return 0
         ch = min(set(s), key=s.count)
         if s.count(ch) >= k: return len(s)
         return max(self.longestSubstring(sp, k) for sp in s.split(ch))
+
+    # leetcode 2
+    def longestSubstring(self, s, k):
+        for ch in set(s):
+            if s.count(ch) < k:
+                return max(self.longestSubstring(sp, k) for sp in s.split(ch))
+        return len(s)
 
 sol = Solution()
 print(sol.longestSubstring("aaabb", 2))
