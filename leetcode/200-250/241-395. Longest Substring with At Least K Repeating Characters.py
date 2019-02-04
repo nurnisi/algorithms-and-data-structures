@@ -27,8 +27,15 @@ class Solution:
                 if tot2 < ans: break
         return ans
 
+    # leetcode
+    def longestSubstring(self, s, k):
+        if len(s) < k: return 0
+        ch = min(set(s), key=s.count)
+        if s.count(ch) >= k: return len(s)
+        return max(self.longestSubstring(sp, k) for sp in s.split(ch))
+
 sol = Solution()
-print(sol.longestSubstring("aaabbc", 2))
-print(sol.longestSubstring("bbaaacbd", 3))
+print(sol.longestSubstring("aaabb", 2))
+print(sol.longestSubstring("bbaaacbaabaaad", 2))
 
         
