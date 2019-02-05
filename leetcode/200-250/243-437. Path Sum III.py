@@ -29,7 +29,7 @@ class Solution:
         helper(root)
         return self.cnt
 
-    def pathSum(self, root, sum):
+    def pathSum3(self, root, sum):
         self.sums = []
 
         def helper(root):
@@ -46,6 +46,22 @@ class Solution:
             return cnt
     
         return helper(root)
+
+    def pathSum4(self, root, sum):
+        def helper(root, sums):
+            if not root: return 0
+            cur_sums = list(map(lambda x: x + root.val, sums))
+            cur_sums.append(root.val)
+            cnt = cur_sums.count(sum)
+
+            cnt += helper(root.left, cur_sums)
+            cnt += helper(root.right, cur_sums)
+
+            return cnt
+    
+        return helper(root, [])
+
+    # count all sums
 
 root = TreeNode(10)
 root.left = TreeNode(5)
