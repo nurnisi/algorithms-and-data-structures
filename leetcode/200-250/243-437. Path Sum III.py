@@ -6,6 +6,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
+import collections
 class Solution:
     def pathSum2(self, root, sum):
         sums = []
@@ -61,7 +62,27 @@ class Solution:
     
         return helper(root, [])
 
-    # count all sums
+    # leetcode
+    def pathSum(self, root, target):
+        self.result = 0
+        self.cache = collections.defaultdict(int)
+        self.cache[0] = 1
+
+        self.dfs(root, target, 0)
+        return self.result
+
+    def dfs(self, root, target, currPathSum):
+        if not root: return
+        
+        currPathSum += root.val
+        oldPathSum = currPathSum - target
+        self.result += self.cache[oldPathSum]
+        self.cache[currPathSum] += 1
+
+        self.dfs(root.left, target, currPathSum)
+        self.dfs(root.right, target, currPathSum)
+        self.cache[currPathSum] -= 1
+
 
 root = TreeNode(10)
 root.left = TreeNode(5)
