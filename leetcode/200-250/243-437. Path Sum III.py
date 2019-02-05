@@ -7,7 +7,7 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def pathSum(self, root, sum):
+    def pathSum2(self, root, sum):
         sums = []
         self.cnt = 0
         
@@ -28,6 +28,24 @@ class Solution:
         
         helper(root)
         return self.cnt
+
+    def pathSum(self, root, sum):
+        self.sums = []
+
+        def helper(root):
+            if not root: return 0
+            self.sums = list(map(lambda x: x + root.val, self.sums))
+            self.sums.append(root.val)
+            cnt = self.sums.count(sum)
+
+            cnt += helper(root.left)
+            cnt += helper(root.right)
+            self.sums.pop()
+            self.sums = list(map(lambda x: x - root.val, self.sums))
+
+            return cnt
+    
+        return helper(root)
 
 root = TreeNode(10)
 root.left = TreeNode(5)
