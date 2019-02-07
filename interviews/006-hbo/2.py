@@ -1,4 +1,14 @@
-In many scripting languages, single-quotes and double-quotes can be used interchangeably. var foo = “bar”; and var foo = ‘bar’; are equivalent statements. Much like standardizing on tabs or spaces for whitespace in a codebase, let’s say that we want to standardize on one set of quotes or the other. For this problem, we want to write a script that reads in files in such a scripting language, such as javascript, and will convert them all to use the specified convention. To simplify the problem, we can assume that all of the inputs are valid javascript files.
+# In many scripting languages, single-quotes and double-quotes can be used 
+# interchangeably. var foo = “bar”; and var foo = ‘bar’; are equivalent statements. 
+# Much like standardizing on tabs or spaces for whitespace in a codebase, 
+# let’s say that we want to standardize on one set of quotes or the other. 
+# For this problem, we want to write a script that reads in files in such 
+# a scripting language, such as javascript, and will convert them all to use 
+# the specified convention. To simplify the problem, we can assume that 
+# all of the inputs are valid javascript files.
+
+
+
 
 # special cases
 # \" and \' should not be converted
