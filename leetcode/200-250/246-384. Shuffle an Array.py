@@ -21,7 +21,7 @@ class Solution2:
                 self.shuf[i] = num
         return self.shuf
 
-class Solution:
+class Solution3:
 
     def __init__(self, nums: 'List[int]'):
         self.nums = nums
@@ -38,6 +38,23 @@ class Solution:
             ri = random.randrange(len(aux))
             self.nums[i] = aux.pop(ri)
         
+        return self.nums
+
+class Solution:
+
+    def __init__(self, nums: 'List[int]'):
+        self.nums = nums
+        self.original = list(nums)
+
+    def reset(self) -> 'List[int]':
+        self.nums = self.original
+        self.original = list(self.original)
+        return self.nums
+
+    def shuffle(self) -> 'List[int]':
+        for i in range(len(self.nums)):
+            si = random.randrange(i, len(self.nums))
+            self.nums[i], self.nums[si] = self.nums[si], self.nums[i]
         return self.nums
 
 # Your Solution object will be instantiated and called as such:
