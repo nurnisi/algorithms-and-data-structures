@@ -1,6 +1,6 @@
 # 👨🏻‍💻 Algorithms and Data Structures
 
-My journey to get a job at top technology company. 
+My journey to get a job at a top technology company. 
 
 ## Sources
 
