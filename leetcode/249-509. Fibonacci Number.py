@@ -18,7 +18,7 @@ class Solution:
         return self.fib(N - 1) + self.fib(N - 2)    
 
     F = [0] * 31
-    def fib(self, N: int) -> int:
+    def fib5(self, N: int) -> int:
         if N < 2: return N
         prev = cur = 0
         if self.F[N - 2]: prev = self.F[N - 2]
@@ -32,7 +32,14 @@ class Solution:
             self.F[N - 1] = cur
 
         return prev + cur
+     
+    memo = {}  
+    def fib(self, N: int) -> int:
+        if N<2: return N
         
+        if N-1 not in self.memo: self.memo[N-1] = self.fib(N-1)
+        if N-2 not in self.memo: self.memo[N-2] = self.fib(N-2)
 
+        return self.memo[N-1] + self.memo[N-2]
 
 print(Solution().fib(7))
