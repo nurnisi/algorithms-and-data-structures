@@ -10,7 +10,7 @@ class Solution:
         queue.append([r0, c0])
 
         ans = []
-        dirs = ((0, 1), (1, 0), (0, -1), (-1, 0)
+        dirs = ((0, 1), (1, 0), (0, -1), (-1, 0))
         
         while queue:
             r1, c1 = queue.popleft()
