@@ -1,5 +1,6 @@
 # 1047. Remove All Adjacent Duplicates In String
 class Solution:
+    # string
     def removeDuplicates2(self, S: str) -> str:
         flag = True
         
@@ -18,7 +19,8 @@ class Solution:
                     
         return S
 
-    def removeDuplicates(self, S: str) -> str:
+    # list
+    def removeDuplicates3(self, S: str) -> str:
         flag = True
         arr = list(S)
         
@@ -36,5 +38,17 @@ class Solution:
             arr = temp
                     
         return ''.join(arr)
+
+    # stack
+    def removeDuplicates(self, S: str) -> str:
+        stack = []
+        for c in S:
+            stack.append(c)
+            if len(stack) >= 2 and stack[-1] == stack[-2]:
+                stack.pop()
+                stack.pop()
+        
+        return ''.join(stack)
+
 
 print(Solution().removeDuplicates("abbaca"))
