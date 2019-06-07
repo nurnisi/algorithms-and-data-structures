@@ -40,7 +40,7 @@ class Solution:
         return ''.join(arr)
 
     # stack
-    def removeDuplicates(self, S: str) -> str:
+    def removeDuplicates4(self, S: str) -> str:
         stack = []
         for c in S:
             stack.append(c)
@@ -50,5 +50,15 @@ class Solution:
         
         return ''.join(stack)
 
+    # leetcode solution: stack
+    def removeDuplicates(self, S: str) -> str:
+        stack = []
+        for c in S:
+            if stack and stack[-1] == c:
+                stack.pop()
+            else:
+                stack.append(c)
+
+        return ''.join(stack)
 
 print(Solution().removeDuplicates("abbaca"))
