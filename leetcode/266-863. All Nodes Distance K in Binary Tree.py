@@ -6,6 +6,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
+import collections
 class Solution:
     def distanceK2(self, root, target, K):
         self.path = []
@@ -48,10 +49,10 @@ class Solution:
             
         return ans
 
-    def distanceK(self, root, target, K):
+    def distanceK3(self, root, target, K):
         self.path = []
         self.found = False
-        
+
         def findPath(node):
             if self.found or not node: return
             if node == target:
@@ -82,6 +83,28 @@ class Solution:
             K -= 1
             
         return ans
+
+    def distanceK(self, root, target, K):
+        def dfs(node, par = None):
+            if node:
+                node.par = par
+                dfs(node.left, node)
+                dfs(node.right, node)
+                
+        dfs(root)
+        seen = {target}
+        
+        queue = collections.deque([(target, 0)])
+        while queue:
+            if queue[0][1] == K:
+                return [node.val for node, _ in queue]
+            node, d = queue.popleft()
+            for nei in [node.left, node.right, node.par]:
+                if nei and nei not in seen:
+                    seen.add(nei)
+                    queue.append((nei, d + 1))
+                    
+        return []
 
 root = TreeNode(0)
 
