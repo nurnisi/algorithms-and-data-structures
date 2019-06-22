@@ -1,6 +1,6 @@
 # 989. Add to Array-Form of Integer
 class Solution:
-    def addToArrayForm(self, A, K: int):
+    def addToArrayForm2(self, A, K: int):
         i = len(A) - 1
         c = 0
         while i >= 0 and K > 0:
@@ -26,6 +26,16 @@ class Solution:
                 A.insert(0, c)
                 c //= 10
                 
+        return A
+
+    def addToArrayForm(self, A, K: int):
+        A[-1] += K
+        for i in range(len(A)-1, -1, -1):
+            carry, A[i] = divmod(A[i], 10)
+            if i: A[i-1] += carry
+        if carry:
+            A = list(map(int, str(carry))) + A
+
         return A
 
 print(Solution().addToArrayForm([7], 993))
