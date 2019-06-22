@@ -7,15 +7,8 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def distanceK(self, root, target, K):
-        """
-        :type root: TreeNode
-        :type target: TreeNode
-        :type K: int
-        :rtype: List[int]
-        """
+    def distanceK2(self, root, target, K):
         self.path = []
-        self.pathCopy = []
         self.found = False
         def findPath(node):
             if self.found or not node: return
@@ -55,6 +48,41 @@ class Solution:
             
         return ans
 
+    def distanceK(self, root, target, K):
+        self.path = []
+        self.found = False
+        
+        def findPath(node):
+            if self.found or not node: return
+            if node == target:
+                self.found = True
+                return
+            self.path.append(node)
+            findPath(node.left)
+            findPath(node.right)
+            if not self.found: self.path.pop()
+            
+        findPath(root)
+
+        self.path.append(target)
+        ans, visited = [], set()
+        
+        def dfs(node, k):
+            if node in visited or not node or k < 0: return
+            if k == 0:
+                ans.append(node.val)
+                return
+            dfs(node.left, k-1)
+            dfs(node.right, k-1)
+        
+        while self.path:
+            cur = self.path.pop()
+            dfs(cur, K)
+            visited.add(cur)
+            K -= 1
+            
+        return ans
+
 root = TreeNode(0)
 
 root.left = TreeNode(1)
@@ -64,18 +92,18 @@ root.left.right = TreeNode(2)
 
 print(Solution().distanceK(root, root.left.right, 1))
 
-# root = TreeNode(3)
+root = TreeNode(3)
 
-# root.left = TreeNode(5)
-# root.right = TreeNode(1)
+root.left = TreeNode(5)
+root.right = TreeNode(1)
 
-# root.left.left = TreeNode(6)
-# root.left.right = TreeNode(2)
+root.left.left = TreeNode(6)
+root.left.right = TreeNode(2)
 
-# root.right.left = TreeNode(0)
-# root.right.right = TreeNode(8)
+root.right.left = TreeNode(0)
+root.right.right = TreeNode(8)
 
-# root.left.right.left = TreeNode(7)
-# root.left.right.right = TreeNode(4)
+root.left.right.left = TreeNode(7)
+root.left.right.right = TreeNode(4)
 
-# print(Solution().distanceK(root, root.left, 2))
+print(Solution().distanceK(root, root.left, 2))
