@@ -1,6 +1,6 @@
 # 890. Find and Replace Pattern
 class Solution:
-    def findAndReplacePattern(self, words, pattern: str):
+    def findAndReplacePattern2(self, words, pattern: str):
         ans = []
         for w in words:
             d = {}
@@ -18,6 +18,18 @@ class Solution:
                     ans.append(w)   
         
         return ans
+
+    def findAndReplacePattern(self, words, pattern: str):
+        def match(word):
+            dw, dp = {}, {}
+            for w, p in zip(word, pattern):
+                if w not in dw: dw[w] = p
+                if p not in dp: dp[p] = w
+                if (dw[w], dp[p]) != (p, w): return False
+            return True
+        
+        return list(filter(match, words))
+
             
 print(Solution().findAndReplacePattern(["abc","deq","mee","aqq","dkd","ccc"], "abb"))
                         
