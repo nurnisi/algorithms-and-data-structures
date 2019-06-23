@@ -60,10 +60,10 @@ class Solution:
     def preorder2(self, rnode, vnode, ans):
         if not rnode and not vnode: return
         
-        self.preorder2(node.left)
-        self.preorder2(node.right)
+        self.preorder2(rnode.left)
+        self.preorder2(rnode.right)
 
-        self.preorder2(vtree)
+        self.preorder2(vnode)
 
     def makeTree(self, voyage, i):
         if i >= len(voyage): return None
