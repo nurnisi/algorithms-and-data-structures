@@ -11,7 +11,9 @@ class Solution:
             count[ord(A[i]) - ord('a')] += 1
         
         if len(dif) > 2: return False
-        elif len(dif) == 2 and A[dif[0]] != B[dif[1]]: return False
+        elif len(dif) == 2:
+            if A[dif[0]] != B[dif[1]] or B[dif[0]] != A[dif[1]]: return False
+            else: return True
         else: return any([c > 1 for c in count])
 
 print(Solution().buddyStrings("abcaa", "abcbb"))
