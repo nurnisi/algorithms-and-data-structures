@@ -57,7 +57,7 @@ class Solution:
     def flipMatchVoyage(self, root, voyage):
         vtree = self.makeTree(voyage, 0)
 
-        def preorder2(self, rnode, vnode, ans):
+    def preorder2(self, rnode, vnode, ans):
         if not rnode and not vnode: return
         
         self.preorder2(node.left)
