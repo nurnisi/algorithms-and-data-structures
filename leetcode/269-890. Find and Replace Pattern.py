@@ -19,7 +19,7 @@ class Solution:
         
         return ans
 
-    def findAndReplacePattern(self, words, pattern: str):
+    def findAndReplacePattern3(self, words, pattern: str):
         def match(word):
             dw, dp = {}, {}
             for w, p in zip(word, pattern):
@@ -30,6 +30,14 @@ class Solution:
         
         return list(filter(match, words))
 
+    def findAndReplacePattern(self, words, pattern: str):
+        def match(word):
+            d = {}
+            for w, p in zip(word, pattern):
+                if d.setdefault(w, p) != p:
+                    return False
+            return len(set(d.values())) == len(d.values())
+        return list(filter(match, words))
             
 print(Solution().findAndReplacePattern(["abc","deq","mee","aqq","dkd","ccc"], "abb"))
                         
