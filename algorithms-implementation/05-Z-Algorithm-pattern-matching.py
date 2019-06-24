@@ -1,3 +1,4 @@
+# Z-algorithm
 class ZAlgorithm:
     def calculateZ(self, s):
         z = [0 for ch in s]

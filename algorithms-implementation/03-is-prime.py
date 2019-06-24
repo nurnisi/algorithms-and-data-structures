@@ -1,3 +1,4 @@
+# Is Prime
 class isPrime:
     def isPrime(self, n):
         i = 2

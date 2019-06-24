@@ -1,3 +1,4 @@
+# Lowest Common Subsequence
 class lcm:
     def lcm(self, n, m):
         return n * m // self.gcd(n, m)

@@ -1,3 +1,4 @@
+# KMP
 # takes a string and a pattern as inputs
 class KMP:
     def matchPattern(self, s, p): 

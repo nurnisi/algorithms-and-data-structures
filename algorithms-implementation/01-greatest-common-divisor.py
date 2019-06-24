@@ -1,3 +1,4 @@
+# Greatest Common Divisor
 class gcd:
     # non-recursive
     def gcd_short(self, n, m):
