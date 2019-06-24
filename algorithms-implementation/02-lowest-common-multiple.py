@@ -9,8 +9,9 @@ class lcm:
         return n
 
     # recursive
-    def gcd_recursive(self, n, m):
-        return n if m == 0 else self.gcd_recursive(m, n % m)
+    def gcd_rec(self, n, m):
+        if m == 0: return n
+        return self.gcd_rec(m, n % m)
 
 lcm = lcm()
 print(lcm.gcd(10, 15))
