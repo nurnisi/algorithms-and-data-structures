@@ -1,11 +1,10 @@
 package miscellaneous;
-import java.lang.*;
 
 /*
     Knuth–Morris–Pratt (KMP) 
     Pattern Matching (Substring search)
 */
-class KMP {
+class Knuth_Morris_Pratt {
     public static boolean KMP(String A, String B) {
         char[] text = A.toCharArray();
         char[] pattern = B.toCharArray();
