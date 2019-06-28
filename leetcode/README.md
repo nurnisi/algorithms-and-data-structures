@@ -1,5 +1,8 @@
 # Tech Interview Prep
 
+## 
+- learn algorithms, do not just start solving leetcode problems
+
 ## Strings
 - Longest Common Subsequence
   - https://www.youtube.com/watch?v=NnD96abizww
