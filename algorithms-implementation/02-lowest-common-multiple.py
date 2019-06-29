@@ -1,4 +1,10 @@
 # Lowest Common Subsequence
+"""
+Example:
+input: 3 and 4
+output: 12
+12 the lowest integer that is a multiple of 3 and 4
+"""
 class lcm:
     def lcm(self, n, m):
         return n * m // self.gcd(n, m)

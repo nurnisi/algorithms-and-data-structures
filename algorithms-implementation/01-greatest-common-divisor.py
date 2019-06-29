@@ -1,4 +1,10 @@
 # Greatest Common Divisor
+"""
+Example:
+input: 24 and 18
+output: 6
+6 is the greatest integer that divides both 24 and 18
+"""
 class gcd:
     # non-recursive
     def gcd_short(self, n, m):

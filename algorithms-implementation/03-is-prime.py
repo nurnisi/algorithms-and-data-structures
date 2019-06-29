@@ -1,4 +1,5 @@
 # Is Prime
+# determine whether the number is prime or not
 class isPrime:
     def isPrime(self, n):
         i = 2
