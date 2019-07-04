@@ -10,7 +10,7 @@ class Solution:
         
         ans = []
         for i, ch in enumerate(S):
-            ans.append(chr((ord(ch) - ord('a') + shifts[i]) % 26 + ord('a')))
+            ans.append(chr((ord(ch) - 97 + shifts[i]) % 26 + 97))
         
         return ''.join(ans)
 
