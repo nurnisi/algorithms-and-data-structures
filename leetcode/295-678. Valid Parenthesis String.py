@@ -1,6 +1,6 @@
 # 678. Valid Parenthesis String
 class Solution:
-    def checkValidString(self, s: str) -> bool:
+    def checkValidString2(self, s: str) -> bool:
         stack = []
         for x in s:
             if x == ')':
@@ -20,5 +20,22 @@ class Solution:
             else: stack2.append('(')
                 
         return not stack2
+
+    def checkValidString(self, s: str) -> bool:
+        lo = hi = 0
+        for x in s:
+            if x == '(':
+                lo += 1
+                hi += 1
+            elif x == ')':
+                if lo > 0: lo -= 1
+                hi -= 1
+            else:
+                if lo > 0: lo -= 1
+                hi += 1
+            
+            if hi < 0: return False
+        
+        return lo == 0
             
         
