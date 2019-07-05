@@ -1,4 +1,4 @@
-# Lowest Common Subsequence
+# Longest Common Subsequence
 """
 Example:
 input: "abcdef" and "acdcf"
