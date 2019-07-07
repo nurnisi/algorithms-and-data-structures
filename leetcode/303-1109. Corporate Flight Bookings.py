@@ -1,18 +1,12 @@
 # 1109. Corporate Flight Bookings
-import collections
 class Solution:
     def corpFlightBookings(self, bookings, n: int):
-        ans = [0] * n
-        cnt = {}
+        res = [0] * (n + 1)
         for i, j, k in bookings:
-            key = str.format("{}-{}", i, j)
-            ii, jj, kk = cnt.get(key, (0, 0, 0))
-            cnt[key] = (i, j, k + kk)
-
-        for i, j, k in cnt.values():
-            for l in range(i-1, j):
-                ans[l] += k
-                
-        return ans
+            res[i-1] += k
+            res[j] -= k
+        for i in range(1, n):
+            res[i] += res[i-1]
+        return res[:-1]
 
 print(Solution().corpFlightBookings([[1,2,10],[2,3,20],[2,5,25]], n = 5))
