@@ -1,6 +1,6 @@
 # 1128. Number of Equivalent Domino Pairs
 class Solution:
-    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
+    def numEquivDominoPairs2(self, dominoes: List[List[int]]) -> int:
         arr = [0] * 100
         for a, b in dominoes:
             if (a > b):
@@ -13,3 +13,6 @@ class Solution:
                 cnt += y
                 
         return cnt
+
+    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
+        return sum(v * (v - 1) // 2 for v in collections.Counter(tuple(sorted(x)) for x in dominoes).values())
