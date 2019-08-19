@@ -1,6 +1,6 @@
 # 914. X of a Kind in a Deck of Cards
 class Solution:
-    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+    def hasGroupsSizeX2(self, deck: List[int]) -> bool:
         cnt = list(collections.Counter(deck).values())
         i, n, minim = 2, len(cnt), min(cnt)
         
@@ -13,6 +13,19 @@ class Solution:
             i += 1
             
         return False
+
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        counts = list(collections.Counter(deck).values())
+        
+        cur_gcd = counts[0]
+        while counts:
+            cur_gcd = self.gcd(cur_gcd, counts.pop())
+        
+        return cur_gcd > 1
+        
+    def gcd(self, a, b):
+        if b == 0: return a
+        return self.gcd(b, a % b)
             
             
         
