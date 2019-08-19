@@ -14,7 +14,7 @@ class Solution:
             
         return False
 
-    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+    def hasGroupsSizeX3(self, deck: List[int]) -> bool:
         counts = list(collections.Counter(deck).values())
         
         cur_gcd = counts[0]
@@ -26,6 +26,17 @@ class Solution:
     def gcd(self, a, b):
         if b == 0: return a
         return self.gcd(b, a % b)
+
+import functools
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        def gcd(a, b):
+            while b > 0: a, b = b, a % b
+            return a
+        counts = collections.Counter(deck).values()
+        return functools.reduce(gcd, counts) > 1
+            
+        
             
             
         
