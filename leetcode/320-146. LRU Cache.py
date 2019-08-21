@@ -1,5 +1,5 @@
 # 146. LRU Cache
-class LRUCache:
+class LRUCache2:
 
     def __init__(self, capacity: int):
         self.capacity = capacity
@@ -27,3 +27,23 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.d = collections.OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key not in self.d:
+            return -1
+        v = self.d.pop(key)
+        self.d[key] = v
+        return v
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.d:
+            self.d.pop(key)
+        elif len(self.d) == self.capacity:
+            self.d.popitem(last=False)
+        self.d[key] = value
