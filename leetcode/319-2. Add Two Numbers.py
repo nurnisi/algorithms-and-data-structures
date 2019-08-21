@@ -38,3 +38,19 @@ class Solution:
             
         if c: cur.next = ListNode(c)
         return ans
+
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        carry = 0
+        root = cur = ListNode(0)
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            carry, val = divmod(carry, 10)
+            cur.next = ListNode(val)
+            cur = cur.next
+        return root.next
+            
