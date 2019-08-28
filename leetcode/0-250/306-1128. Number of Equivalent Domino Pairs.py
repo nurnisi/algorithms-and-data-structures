@@ -1,4 +1,5 @@
 # 1128. Number of Equivalent Domino Pairs
+import collections
 class Solution:
     def numEquivDominoPairs2(self, dominoes: List[List[int]]) -> int:
         arr = [0] * 100
