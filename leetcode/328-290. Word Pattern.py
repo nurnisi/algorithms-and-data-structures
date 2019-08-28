@@ -16,3 +16,8 @@ class Solution:
         
         return True
 
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        x = s.split(' ')
+        lsp = len(set(pattern))
+        lsx = len(set(x))
+        return lsp == lsx and len(pattern) == len(x) and lsp == len(set(zip(pattern, x)))
