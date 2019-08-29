@@ -6,6 +6,7 @@ class ListNode:
         self.next = None
 
 class Solution:
+    # iterative
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         start = cur = ListNode(0)
         while l1 and l2:
@@ -30,18 +31,25 @@ class Solution:
         
         return start.next
 
-# recursive
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+    # iterative short
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = cur = ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = ListNode(l1.val)
+                l1 = l1.next
+            else:
+                cur.next = ListNode(l2.val)
+                l2 = l2.next
+            cur = cur.next
+        cur.next = l1 or l2
+        return dummy.next
 
+# recursive
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        if not l1 and not l2:
-            node = None
-        elif l1 and l2:
+        node = None
+        if l1 and l2:
             if l1.val < l2.val:
                 node = ListNode(l1.val)
                 node.next = self.mergeTwoLists(l1.next, l2)
@@ -51,7 +59,7 @@ class Solution:
         elif l1:
             node = ListNode(l1.val)
             node.next = self.mergeTwoLists(l1.next, l2)
-        else:
+        elif l2:
             node = ListNode(l2.val)
             node.next = self.mergeTwoLists(l1, l2.next)
         return node
