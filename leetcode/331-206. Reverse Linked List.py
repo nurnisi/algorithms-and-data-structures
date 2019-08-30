@@ -27,4 +27,10 @@ class Solution:
         return prev
 
     # reverse the current: recursive
-    
+    def reverseList(self, head: ListNode, prev=None) -> ListNode:
+        if not head: return prev
+        node = head
+        head = head.next
+        node.next = prev
+        prev = node
+        return self.reverseList(head, prev)
