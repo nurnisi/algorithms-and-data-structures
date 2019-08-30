@@ -61,3 +61,21 @@ class Solution:
             cur = cur.next
         cur.next = l1 or l2
         return dummy.next
+        
+    import heapq
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        heap = []
+        for i, l in enumerate(lists):
+            if l:
+                heapq.heappush(heap, (l.val, i, l))
+        
+        head = cur = ListNode(0)
+        while heap:
+            val, i, node = heapq.heappop(heap)
+            cur.next = ListNode(node.val)
+            cur = cur.next
+            node = node.next
+            if node:
+                heapq.heappush(heap, (node.val, i, node))
+                
+        return head.next
