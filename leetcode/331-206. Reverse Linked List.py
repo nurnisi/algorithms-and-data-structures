@@ -6,6 +6,7 @@ class ListNode:
         self.next = None
 
 class Solution:
+    # new linkedlist
     def reverseList(self, head: ListNode) -> ListNode:
         prev = None
         while head:
@@ -14,3 +15,16 @@ class Solution:
             prev = node
             head = head.next
         return prev
+
+    # reverse the current: iterative
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        while head:
+            node = head
+            head = head.next
+            node.next = prev
+            prev = node
+        return prev
+
+    # reverse the current: recursive
+    
