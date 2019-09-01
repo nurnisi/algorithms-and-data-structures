@@ -20,3 +20,10 @@ class Solution:
                 heapq.heappop(rooms)
             heapq.heappush(rooms, e)
         return len(rooms) <= 1        
+
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        prev = 0
+        for s,e in sorted(intervals):
+            if prev > s: return False
+            prev = e
+        return True
