@@ -33,11 +33,18 @@ class Solution:
             ans.append(dp[l][r] <= k)
         return ans
 
-    def canMakePaliQueries(self, s: str, queries):
+    def canMakePaliQueries4(self, s: str, queries):
         cnt = [[0] * 26]
         for i, c in enumerate(s):
             cnt.append(cnt[i][:])
             cnt[i+1][ord(c) - ord('a')] += 1
         return [sum((cnt[hi+1][i] - cnt[lo][i]) % 2 for i in range(26)) // 2 <= k for lo, hi, k in queries]
+
+    def canMakePaliQueries(self, s: str, queries):
+        odds = [[False] * 26]
+        for i, c in enumerate(s):
+            odds.append(odds[i][:])
+            odds[i+1][ord(c) - ord('a')] ^= True
+        return [sum(odds[hi+1][i] ^ odds[lo][i] for i in range(26)) // 2 <= k for lo, hi, k in queries]
 
 print(Solution().canMakePaliQueries("abcdeaaa", [[3,3,0],[1,2,0],[0,3,1],[0,3,2],[0,4,1]]))
