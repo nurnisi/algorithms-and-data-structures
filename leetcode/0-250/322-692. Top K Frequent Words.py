@@ -1,4 +1,5 @@
 # 692. Top K Frequent Words
+import collections
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         cnt = collections.Counter(words)
@@ -30,6 +31,7 @@ class Element:
     def __eq__(self, other):
         return self.count == other.count and self.word == other.word
 
+import heapq
 class Solution:
     
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
