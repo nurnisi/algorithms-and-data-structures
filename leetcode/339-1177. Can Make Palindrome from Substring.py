@@ -1,7 +1,8 @@
 # 1177. Can Make Palindrome from Substring
+import collections
 class Solution:
     # Brute force: TLE
-    def canMakePaliQueries(self, s: str, queries: List[List[int]]) -> List[bool]:
+    def canMakePaliQueries2(self, s: str, queries):
         ans = []
         for q in queries:
             l, r, k = q[0], q[1], q[2]
@@ -10,7 +11,7 @@ class Solution:
         return ans
 
     # DP: TLE
-    def canMakePaliQueries(self, s: str, queries):
+    def canMakePaliQueries3(self, s: str, queries):
         n = len(s)
         dp = [[0] * n for _ in range(n)]
         for i in range(n):
@@ -31,5 +32,12 @@ class Solution:
             l, r, k = q[0], q[1], q[2]
             ans.append(dp[l][r] <= k)
         return ans
+
+    def canMakePaliQueries(self, s: str, queries):
+        cnt = [[0] * 26]
+        for i, c in enumerate(s):
+            cnt.append(cnt[i][:])
+            cnt[i+1][ord(c) - ord('a')] += 1
+        return [sum((cnt[hi+1][i] - cnt[lo][i]) % 2 for i in range(26)) // 2 <= k for lo, hi, k in queries]
 
 print(Solution().canMakePaliQueries("abcdeaaa", [[3,3,0],[1,2,0],[0,3,1],[0,3,2],[0,4,1]]))
