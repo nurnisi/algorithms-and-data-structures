@@ -1,4 +1,5 @@
 # 252. Meeting Rooms
+import heapq
 class Solution:
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
         s = sorted([s for s, e in intervals])
@@ -11,4 +12,11 @@ class Solution:
             rooms += 1
             sp += 1
         return rooms <= 1
-        
+
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        rooms = []
+        for s,e in sorted(intervals):
+            if rooms and rooms[0] <= s:
+                heapq.heappop(rooms)
+            heapq.heappush(rooms, e)
+        return len(rooms) <= 1        
