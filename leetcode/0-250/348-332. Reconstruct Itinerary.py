@@ -26,4 +26,18 @@ class Solution:
         dfs()
         return iti
 
+    def findItinerary(self, tickets):
+        targets = collections.defaultdict(list)
+        for a, b in sorted(tickets, reverse=True):
+            targets[a].append(b)
+        
+        route = []
+        def visit(airport):
+            while targets[airport]:
+                visit(targets[airport].pop())
+            route.append(airport)
+        
+        visit('JFK')
+        return route[::-1]
+
 print(Solution().findItinerary([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]))
