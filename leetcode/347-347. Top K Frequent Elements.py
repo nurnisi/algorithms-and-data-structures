@@ -1,5 +1,5 @@
 # 347. Top K Frequent Elements
-import collections
+import collections, itertools
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         return [key for key, val in sorted(collections.Counter(nums).items(), key=lambda kv: kv[1], reverse=True)][:k]
@@ -38,3 +38,9 @@ class Solution:
             ans.extend(b)
             if len(ans) == k: break
         return ans
+
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        buckets = [[] for _ in nums]
+        for num, freq in collections.Counter(nums).items():
+            buckets[-freq].append(num)
+        return list(itertools.chain(*buckets))[:k]
