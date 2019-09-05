@@ -26,3 +26,15 @@ class Solution:
             i -= 1
         
         return ans
+
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counts = collections.Counter(nums)
+        buckets = [[] for _ in nums]
+        for num, freq in counts.items():
+            buckets[-freq].append(num)
+        
+        ans = []
+        for b in buckets:
+            ans.extend(b)
+            if len(ans) == k: break
+        return ans
