@@ -40,4 +40,17 @@ class Solution:
         visit('JFK')
         return route[::-1]
 
+    def findItinerary(self, tickets):
+        targets = collections.defaultdict(list)
+        for a, b in sorted(tickets)[::-1]:
+            targets[a].append(b)
+        
+        route, stack = [], ['JFK']
+        while stack:
+            while targets[stack[-1]]:
+                stack.append(targets[stack[-1]].pop())
+            route.append(stack.pop())
+        
+        return route[::-1]
+
 print(Solution().findItinerary([["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]))
