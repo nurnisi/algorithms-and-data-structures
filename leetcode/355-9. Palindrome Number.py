@@ -1,6 +1,6 @@
 # 9. Palindrome Number
 class Solution:
-    def isPalindrome(self, x: int) -> bool:
+    def isPalindrome2(self, x: int) -> bool:
         xs = str(x)
         i, j = 0, len(xs)-1
         
@@ -11,6 +11,25 @@ class Solution:
             j -= 1
         
         return True
-            
+
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0: return False
         
+        y = 1
+        while x // (y*10) != 0:
+            y *= 10
             
+        z = 10
+        while y >= z:
+            a, b = x // y % 10, x % z
+            if x // y % 10 != x % z:
+                return False
+            x //= z
+            y //= 100
+            
+        return True
+            
+print(Solution().isPalindrome(121))
+print(Solution().isPalindrome(-121))
+print(Solution().isPalindrome(1001))
+print(Solution().isPalindrome(10))
