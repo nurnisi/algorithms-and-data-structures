@@ -1,3 +1,4 @@
+# Island Count
 import collections
 def get_number_of_islands(binaryMatrix):
   n, m  = len(binaryMatrix), len(binaryMatrix[0])
