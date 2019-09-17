@@ -18,7 +18,8 @@ char[] charArr = str.toCharArray();
 for (char ch : str.toCharArray());
 str.charAt(i);
 str.length();
-String.valueOf(n);
+String.valueOf(n); 
+String.valueOf(charArr); new String(charArr);
 str.substring(0, 10);
 str.toLowerCase(); str.toUpperCase();
 str.split(" ");     // single space
