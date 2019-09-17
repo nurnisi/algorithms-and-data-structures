@@ -22,7 +22,7 @@ class Solution:
         return True
 
     # Prefix / suffix solution
-    def palindromePairs(self, words):
+    def palindromePairs3(self, words):
         d = {w:i for i, w in enumerate(words)}
         ans = []
         
@@ -36,58 +36,56 @@ class Solution:
                     if back in d and d[back] != i:
                         ans.append([d[back], i])
                         
-                if j != n and self.isPalindrome(suff):
+                if j != n and self.isPalindrome3(suff):
                     back = pref[::-1]
                     if back in d and d[back] != i:
                         ans.append([i, d[back]])
                         
         return ans
 
-    def isPalindrome(self, w):
+    def isPalindrome3(self, w):
         return w == w[::-1]
+    
+    # Trie solution
+    def palindromePairs(self, words):
+        trie = self.makeTrie(words)
+        ans = []
+        for j, w in enumerate(words):
+            n = len(w)
+            for k in range(n+1):
+                pref = w[:k]
+                suff = w[k:]
+                if pref == pref[::-1]:
+                    back = suff[::-1]
+                    i = self.search(trie, back)        
+                    if i != -1 and i != j:
+                        ans.append([i, j])                
+                
+                if k != n and suff == suff[::-1]:
+                    back = pref[::-1]
+                    i = self.search(trie, back)
+                    if i != -1 and i != j:
+                        ans.append([j, i])
+        return ans
+        
+    def search(self, trie, word):
+        cur = trie
+        i = 0
+        while i < len(word):
+            if word[i] not in cur: return -1
+            cur = cur[word[i]]   
+            i += 1
+        if 'end' in cur:
+            return cur['end']
+        return -1
+        
+    def makeTrie(self, words):
+        root = {}
+        for i, w in enumerate(words):
+            cur = root
+            for ch in w:
+                cur = cur.setdefault(ch, {})
+            cur['end'] = i
+        return root
 
 print(Solution().palindromePairs(["abcd","dcba","lls","s","sssll"]))
-
-#     def palindromePairs(self, words: List[str]) -> List[List[int]]:
-#         trie = self.makeTrie(words)
-#         print(trie)
-#         ans = []
-#         for j, w in enumerate(words):
-#             i = self.hasPalindrome(trie, w)
-#             if i != -1 and i != j:
-#                 ans.append([i, j])
-#             if 'end' in trie and trie['end'] != j and self.isPalindrome(w):
-#                 ans.extend([[trie['end'], j], [j, trie['end']]])
-            
-#         return ans
-        
-#     def isPalindrome(self, word):
-#         i, j = 0, len(word)-1
-#         while i < j:
-#             if word[i] != word[j]:
-#                 return False
-#             i, j = i+1, j-1
-#         return True
-        
-#     def hasPalindrome(self, trie, word):
-#         cur = trie
-#         i = 1
-#         while i <= len(word):
-#             if word[-i] not in cur: break
-#             cur = cur[word[-i]]   
-#             i += 1
-            
-#         if i <= len(word) and 'end' in cur and len(set(word[:-i+1])) == 1:
-#             return cur['end'] 
-#         if i > len(word) and 'end' in cur:
-#             return cur['end']
-#         return -1
-        
-#     def makeTrie(self, words):
-#         root = {}
-#         for i, w in enumerate(words):
-#             cur = root
-#             for ch in w:
-#                 cur = cur.setdefault(ch, {})
-#             cur['end'] = i
-#         return root
