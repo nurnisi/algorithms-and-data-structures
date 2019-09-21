@@ -2,6 +2,7 @@
 A = "abcd aabc bd"
 B = "aaa aa"
 
+# my solution
 import collections
 def count(Arr):
     Arr = Arr.split()
@@ -16,7 +17,7 @@ def count(Arr):
                 break
     return A_sml
 
-def func(A, B):
+def func2(A, B):
     AA = count(A)
     BB = count(B)
 
@@ -28,6 +29,19 @@ def func(A, B):
         ans.append(cnt)    
 
     return ans 
+
+# leetcode solution
+def func(A, B):
+    A, B = A.split(), B.split()
+    ans = []
+    for b in B:
+        cnt = 0
+        for a in A:
+            if b.count(min(b)) > a.count(min(a)):
+                cnt += 1
+        ans.append(cnt)
+    return ans
+
 
 print(func(A, B))
 
