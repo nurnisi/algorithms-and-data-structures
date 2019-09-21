@@ -4,7 +4,7 @@ B = "aaa aa"
 
 # my solution
 import collections
-def count(Arr):
+def count2(Arr):
     Arr = Arr.split()
     A_freq = [[0]*26 for _ in Arr]
     A_sml = []
@@ -31,7 +31,7 @@ def func2(A, B):
     return ans 
 
 # leetcode solution
-def func(A, B):
+def func3(A, B):
     A, B = A.split(), B.split()
     ans = []
     for b in B:
@@ -42,6 +42,32 @@ def func(A, B):
         ans.append(cnt)
     return ans
 
+# leetcode solution 2
+def count(a):
+    a, af, am = a.split(), [[0]*26 for _ in a], []
+    for i, s in enumerate(a):
+        for ch in s:
+            af[i][ord(ch) - ord('a')] += 1
+        for cnt in af[i]:
+            if cnt > 0:
+                am.append(cnt)
+                break
+    return am
+
+def func(A, B):
+    A, B = count(A), count(B)
+    sm = [0]*11
+    for cnt in A:
+        sm[cnt] += 1
+    csm = [0]
+    for s in sm[1:]:
+        csm.append(csm[-1] + s)
+    
+    ans = []
+    for b in B:
+        ans.append(csm[b-1])
+
+    return ans
 
 print(func(A, B))
 
