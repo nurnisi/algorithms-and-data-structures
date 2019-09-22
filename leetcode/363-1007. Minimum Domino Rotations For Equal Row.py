@@ -25,7 +25,7 @@ class Solution:
         
         return ans if ans != float('inf') else -1
 
-    def minDominoRotations(self, A: List[int], B: List[int]) -> int:
+    def minDominoRotations3(self, A: List[int], B: List[int]) -> int:
         swaps_a = [[i, 0] for i in range(1,7)]
         swaps_b = [[i, 0] for i in range(1,7)]
         
@@ -51,6 +51,22 @@ class Solution:
             
                     
         return min(sw for v, sw in swaps_a+swaps_b)
+
+    def minDominoRotations(self, A: List[int], B: List[int]) -> int:
+        def swaps(arr1, arr2, val):
+            swaps = 0
+            for i in range(len(arr1)):
+                if arr1[i] == val:
+                    continue
+                elif arr2[i] == val:
+                    swaps += 1
+                else:
+                    return -1
+            return swaps
+        
+        sw = list(filter(lambda x: x != -1, [swaps(A, B, A[0]), swaps(A, B, B[0]), swaps(B, A, B[0]), swaps(B, A, A[0])]))
+        return -1 if not sw else min(sw)
+        
 
 print(Solution().minDominoRotations([6,1,6,4,6,6], [5,6,2,6,3,6]))
                 
