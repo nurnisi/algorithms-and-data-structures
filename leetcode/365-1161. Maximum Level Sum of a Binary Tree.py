@@ -7,7 +7,7 @@
 #         self.right = None
 import collections
 class Solution:
-    def maxLevelSum(self, root: TreeNode) -> int:
+    def maxLevelSum2(self, root: TreeNode) -> int:
         queue = collections.deque([root])
         max_lvl = max_val = 0
         cur_lvl = 1
@@ -26,3 +26,17 @@ class Solution:
             cur_lvl += 1
         
         return max_lvl
+
+    def maxLevelSum(self, root: TreeNode) -> int:
+        levels = [0]
+        def dfs(node, lvl):
+            if node:
+                if lvl >= len(levels):
+                    levels.append(0)
+                levels[lvl] += node.val
+                dfs(node.left, lvl+1)
+                dfs(node.right, lvl+1)
+        
+        dfs(root, 1)
+        return levels.index(max(levels))
+        
