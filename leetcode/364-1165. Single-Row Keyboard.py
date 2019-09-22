@@ -5,7 +5,7 @@ class Solution:
         d_kb = {k:i for i, k in enumerate(keyboard)}
         
         for ch in word:
-            ans += max(prev, d_kb[ch]) - min(prev, d_kb[ch])
+            ans += abs(d_kb[ch] - prev)
             prev = d_kb[ch]
             
         return ans
