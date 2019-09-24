@@ -9,3 +9,7 @@ class Solution:
         for i in range(nk, n, K):
             ans.append(S[i:i+K])
         return '-'.join(ans)
+
+    def licenseKeyFormatting(self, S: str, K: int) -> str:
+        S = ''.join(S.split('-')).upper()[::-1]
+        return '-'.join(S[i:i+K] for i in range(0, len(S), K))[::-1]
