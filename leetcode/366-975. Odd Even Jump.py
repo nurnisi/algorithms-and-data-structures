@@ -55,7 +55,7 @@ class Solution:
         return cnt
 
     # binary search: TLE
-    def oddEvenJumps(self, A):
+    def oddEvenJumps4(self, A):
         n = len(A)
         jumps = [[False, False] for _ in A]
         jumps[n-1] = [True, True]
@@ -87,8 +87,33 @@ class Solution:
             
         return cnt
 
-A = [10,13,12,14,15]
-A = [2,3,1,1,4]
+    # monotonous stack
+    def oddEvenJumps(self, A):
+        n = len(A)
+        next_higher, next_lower = [0] * n, [0] * n
+
+        stack = []
+        for a, i in sorted([a, i] for i, a in enumerate(A)):
+            while stack and stack[-1] < i:
+                next_higher[stack.pop()] = i
+            stack.append(i)
+        
+        stack = []
+        for a, i in sorted([-a, i] for i, a in enumerate(A)):
+            while stack and stack[-1] < i:
+                next_lower[stack.pop()] = i
+            stack.append(i)
+
+        higher, lower = [0] * n, [0] * n
+        higher[-1] = lower[-1] = 1
+        for i in range(n - 1)[::-1]:
+            higher[i] = lower[next_higher[i]]
+            lower[i] = higher[next_lower[i]]
+        
+        return sum(higher)
+
+# A = [10,13,12,14,15]
+# A = [2,3,1,1,4]
 A = [5,1,3,4,2]
-A = [1,2,3,2,1,4,4,5]
+# A = [1,2,3,2,1,4,4,5]
 print(Solution().oddEvenJumps(A))

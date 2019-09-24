@@ -56,6 +56,7 @@ class Solution:
             while s1 and s1[-1][0] > A[i]: count += s1.pop()[1]
             left[i] = count
             s1.append([A[i], count])
+
         for i in range(n)[::-1]:
             count = 1
             while s2 and s2[-1][0] >= A[i]: count += s2.pop()[1]
