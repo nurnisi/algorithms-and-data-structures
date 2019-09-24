@@ -54,6 +54,39 @@ class Solution:
         
         return cnt
 
+    # binary search: TLE
+    def oddEvenJumps(self, A):
+        n = len(A)
+        jumps = [[False, False] for _ in A]
+        jumps[n-1] = [True, True]
+        a_sorted = [[A[n-1], n-1]]
+        
+        cnt = 1
+        for i in range(n-2, -1, -1):
+            l, r = 0, len(a_sorted)
+            while l < r:
+                m = (l+r)//2
+                if a_sorted[m][0] < A[i]:
+                    l = m+1
+                else:
+                    r = m
+            
+            left, right = a_sorted[:l], a_sorted[l:]
+            if right and right[0][0] == A[i]:
+                jumps[i][0] = jumps[right[0][1]][1]
+                jumps[i][1] = jumps[right[0][1]][0]
+                a_sorted[l][1] = i
+            else:
+                if left:
+                    jumps[i][1] = jumps[left[-1][1]][0]
+                if right:
+                    jumps[i][0] = jumps[right[0][1]][1]
+                a_sorted.insert(l, [A[i], i])
+            
+            cnt += 1 if jumps[i][0] else 0
+            
+        return cnt
+
 A = [10,13,12,14,15]
 A = [2,3,1,1,4]
 A = [5,1,3,4,2]
