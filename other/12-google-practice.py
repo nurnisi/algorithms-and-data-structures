@@ -26,7 +26,6 @@ def decreasing_subsequences(A):
                 r = m
         return l
 
-
     for x in A:
         i = binary(x)
         if i == len(lasts):
