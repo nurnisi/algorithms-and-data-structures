@@ -1,4 +1,4 @@
-def min_days_bloom(roses, k, n):
+def min_days_bloom2(roses, k, n):
     r_sorted = sorted([(x, i) for i, x in enumerate(roses)], reverse=True)
     d = {}
     while r_sorted:
@@ -25,6 +25,32 @@ def min_days_bloom(roses, k, n):
         if cnt // 2 == n:
             return x
     return -1
+
+def min_days_bloom(roses, k, n):
+    def suff_bouquets(d):
+        m, i, bouq = len(roses), 0, 0
+        while i < m:
+            if roses[i] > d:
+                i += 1
+                continue
+            j = i
+            while j+1 < m and roses[j+1] <= d:
+                j += 1
+            bouq += (j-i+1)//k
+            if bouq >= n:
+                return True
+            i = j + 1
+        return False
+
+    l, r = 0, max(roses)
+    while l < r:
+        m = (l + r) // 2
+        if suff_bouquets(m):
+            r = m
+        else:
+            l = m + 1
+
+    return l
 
 roses = [1, 2, 4, 9, 3, 4, 1]
 k = 2
