@@ -26,4 +26,10 @@ def houses_stores(houses, stores):
 houses = [0, 5, 10, 17, 30]
 stores = [1, 5, 11, 16, 20]
 
+houses = [2, 4, 2]
+stores = [5, 1, 2, 3]
+
+houses = [4, 8, 1, 1]
+stores = [5, 3, 1, 2, 6]
+
 print(houses_stores(houses, stores))

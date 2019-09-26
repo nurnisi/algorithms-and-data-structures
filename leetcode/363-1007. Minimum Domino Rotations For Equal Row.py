@@ -48,7 +48,6 @@ class Solution:
                     swaps_b[j][1] += 1
                 else:
                     swaps_b.pop(j)
-            
                     
         return min(sw for v, sw in swaps_a+swaps_b)
 
