@@ -31,7 +31,28 @@ class Solution:
         
         dfs(1, beginWord, set([beginWord]))
         return self.ans if self.ans != float('inf') else 0
+
+    def ladderLength(self, beginWord: str, endWord: str, wordList) -> int:
+        d = collections.defaultdict(list)
+        for w in wordList:
+            for i in range(len(w)):
+                blanked = w[:i] + '_' + w[i+1:]
+                d[blanked].append(w)
                 
+        q, seen = collections.deque([(beginWord, 1)]), set()
+        while q:
+            word, steps = q.popleft()
+            if word not in seen:
+                seen.add(word)
+                if word == endWord:
+                    return steps
+                for i in range(len(word)):
+                    blanked = word[:i] + '_' + word[i+1:]
+                    q.extend((nw, steps+1) for nw in d[blanked])
+        
+        return 0
+                
+    
 print(Solution().ladderLength("a", "c", ["a","b","c"]))
 print(Solution().ladderLength("hit", "cog", ["hot","dot","dog","lot","log","cog"]))
 print(Solution().ladderLength("hot", "dog", ["hot","dog","dot"]))
