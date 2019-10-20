@@ -33,4 +33,18 @@ class Solution:
         
         return longest
                 
+
+    def findMaxLength(self, nums) -> int:
+        d = {0: -1}
+        sm = ans = 0
+        
+        for i, x in enumerate(nums):
+            sm += 1 if x else -1
+            if sm in d:
+                ans = max(ans, i - d[sm])
+            else:
+                d[sm] = i
+        
+        return ans
+        
 print(Solution().findMaxLength([1,0,1,1,0,0,0,0,1]))
