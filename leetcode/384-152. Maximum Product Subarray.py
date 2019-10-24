@@ -1,7 +1,7 @@
 # 152. Maximum Product Subarray
 class Solution:
     # TLE
-    def maxProduct(self, nums: List[int]) -> int:
+    def maxProduct2(self, nums: List[int]) -> int:
         arrs = []
         if 0 in nums:
             i = prev = 0
@@ -27,3 +27,15 @@ class Solution:
             return ans
         
         return max([helper(a) for a in arrs])
+
+    def maxProduct(self, nums: List[int]) -> int:
+        ans = nums[0]
+        imax = imin = ans
+        
+        for x in nums[1:]:
+            arr = [x, imax*x, imin*x]
+            imax = max(arr)
+            imin = min(arr)
+            ans = max(ans, imax) 
+        
+        return ans
